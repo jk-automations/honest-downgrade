@@ -1,0 +1,9 @@
+.comfy-base/
+.testdeps/
+presets/*/assets/
+presets/*/out/
+runs/
+__pycache__/
+.pytest_cache/
+.env*
+node_modules/

@@ -1,0 +1,486 @@
+{
+ "1": {
+  "class_type": "HonestBrief",
+  "inputs": {
+   "business_name": "Tacos El Zorrito Azul",
+   "family": "food (Food and drink)",
+   "true_setup": "a truck in a gas station parking lot",
+   "honest_line": "Started with $800 and my mom's recipes.",
+   "real_proof": "The line at 11pm is real.",
+   "hero_thing": "three al pastor tacos with lime and cilantro on a plain paper tray, steam rising, night light from a service window",
+   "tone": "heartfelt",
+   "joke": "joke 1",
+   "already_used_warps": "",
+   "video_model": "veo-3.1-lite",
+   "writer": "template (offline, free)"
+  },
+  "_meta": {
+   "title": "Your facts"
+  }
+ },
+ "2": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "honest_blank.png"
+  },
+  "_meta": {
+   "title": "Real ending photo"
+  }
+ },
+ "3": {
+  "class_type": "HonestLadder",
+  "inputs": {
+   "brief": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Ladder"
+  }
+ },
+ "4": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "3",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "Your ladder"
+  }
+ },
+ "5": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "rung": 1
+  },
+  "_meta": {
+   "title": "Rung 1"
+  }
+ },
+ "6": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "honest_rung_1.png"
+  },
+  "_meta": {
+   "title": "Still 1"
+  }
+ },
+ "7": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "rung": 2
+  },
+  "_meta": {
+   "title": "Rung 2"
+  }
+ },
+ "8": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "honest_rung_2.png"
+  },
+  "_meta": {
+   "title": "Still 2"
+  }
+ },
+ "9": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "rung": 3
+  },
+  "_meta": {
+   "title": "Rung 3"
+  }
+ },
+ "10": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "honest_rung_3.png"
+  },
+  "_meta": {
+   "title": "Still 3"
+  }
+ },
+ "11": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "rung": 4
+  },
+  "_meta": {
+   "title": "Rung 4"
+  }
+ },
+ "12": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "honest_rung_4.png"
+  },
+  "_meta": {
+   "title": "Still 4"
+  }
+ },
+ "13": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "rung": 5
+  },
+  "_meta": {
+   "title": "Rung 5"
+  }
+ },
+ "14": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "honest_rung_5.png"
+  },
+  "_meta": {
+   "title": "Still 5"
+  }
+ },
+ "15": {
+  "class_type": "HonestBoard",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "rung_1": [
+    "6",
+    0
+   ],
+   "rung_2": [
+    "8",
+    0
+   ],
+   "rung_3": [
+    "10",
+    0
+   ],
+   "rung_4": [
+    "12",
+    0
+   ],
+   "rung_5": [
+    "14",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Board + sign check"
+  }
+ },
+ "16": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "15",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Board"
+  }
+ },
+ "17": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "source": [
+    "15",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "Sign check"
+  }
+ },
+ "18": {
+  "class_type": "HonestWarp",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 1
+  },
+  "_meta": {
+   "title": "Warp 1"
+  }
+ },
+ "19": {
+  "class_type": "HonestDraftWarp",
+  "inputs": {
+   "first_frame": [
+    "6",
+    0
+   ],
+   "last_frame": [
+    "8",
+    0
+   ],
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 1,
+   "seconds": 6
+  },
+  "_meta": {
+   "title": "Draft warp 1"
+  }
+ },
+ "20": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "19",
+    0
+   ],
+   "filename_prefix": "honest/warps/warp_1",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Save warp 1"
+  }
+ },
+ "21": {
+  "class_type": "HonestWarp",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 2
+  },
+  "_meta": {
+   "title": "Warp 2"
+  }
+ },
+ "22": {
+  "class_type": "HonestDraftWarp",
+  "inputs": {
+   "first_frame": [
+    "8",
+    0
+   ],
+   "last_frame": [
+    "10",
+    0
+   ],
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 2,
+   "seconds": 6
+  },
+  "_meta": {
+   "title": "Draft warp 2"
+  }
+ },
+ "23": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "22",
+    0
+   ],
+   "filename_prefix": "honest/warps/warp_2",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Save warp 2"
+  }
+ },
+ "24": {
+  "class_type": "HonestWarp",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 3
+  },
+  "_meta": {
+   "title": "Warp 3"
+  }
+ },
+ "25": {
+  "class_type": "HonestDraftWarp",
+  "inputs": {
+   "first_frame": [
+    "10",
+    0
+   ],
+   "last_frame": [
+    "12",
+    0
+   ],
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 3,
+   "seconds": 6
+  },
+  "_meta": {
+   "title": "Draft warp 3"
+  }
+ },
+ "26": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "25",
+    0
+   ],
+   "filename_prefix": "honest/warps/warp_3",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Save warp 3"
+  }
+ },
+ "27": {
+  "class_type": "HonestWarp",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 4
+  },
+  "_meta": {
+   "title": "Warp 4"
+  }
+ },
+ "28": {
+  "class_type": "HonestDraftWarp",
+  "inputs": {
+   "first_frame": [
+    "12",
+    0
+   ],
+   "last_frame": [
+    "14",
+    0
+   ],
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 4,
+   "seconds": 6
+  },
+  "_meta": {
+   "title": "Draft warp 4"
+  }
+ },
+ "29": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "28",
+    0
+   ],
+   "filename_prefix": "honest/warps/warp_4",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Save warp 4"
+  }
+ },
+ "30": {
+  "class_type": "HonestAssemble",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "captions": true,
+   "ai_label": true,
+   "credit": true,
+   "music_path": "",
+   "ending_photo": [
+    "2",
+    0
+   ],
+   "warp_1": [
+    "19",
+    0
+   ],
+   "warp_2": [
+    "22",
+    0
+   ],
+   "warp_3": [
+    "25",
+    0
+   ],
+   "warp_4": [
+    "28",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Assemble"
+  }
+ },
+ "31": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "30",
+    0
+   ],
+   "filename_prefix": "honest/reel_30s",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Your Reel (30 s)"
+  }
+ },
+ "32": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "30",
+    1
+   ],
+   "filename_prefix": "honest/cutdown_15s",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Cutdown (15 s)"
+  }
+ }
+}

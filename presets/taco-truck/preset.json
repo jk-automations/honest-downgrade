@@ -1,0 +1,11 @@
+{
+ "name": "taco-truck",
+ "note": "Fictional business for demos. Every fact below is invented for the sample; a real business types its own true facts.",
+ "business_name": "Tacos El Zorrito Azul",
+ "family": "food",
+ "true_setup": "a truck in a gas station parking lot",
+ "honest_line": "Started with $800 and my mom's recipes.",
+ "real_proof": "The line at 11pm is real.",
+ "hero_thing": "three al pastor tacos with lime and cilantro on a plain paper tray, steam rising, night light from a service window",
+ "tone": "heartfelt"
+}
