@@ -164,15 +164,26 @@ class HonestDraftWarp:
 
 
 def ocr_text(pil):
-    """Read sign text with the tesseract CLI if it is installed (optional). None = OCR not available."""
+    """Read sign text with the tesseract CLI if it is installed (optional). None = OCR not available.
+    Whole frame first (page and sparse modes), then overlapping horizontal bands, enlarged: a sign in a busy scene
+    (a tower full of windows) is often only found once the clutter around it is cropped away."""
+    from PIL import ImageOps
     exe = shutil.which("tesseract") or ("/opt/homebrew/bin/tesseract" if Path("/opt/homebrew/bin/tesseract").exists() else None)
     if not exe:
         return None
+    run = lambda p, psm: subprocess.run([exe, str(p), "stdout", "--psm", psm], capture_output=True, text=True, timeout=60).stdout
+    out = []
     with tempfile.TemporaryDirectory() as d:
         p = Path(d) / "k.png"
-        pil.save(p)
-        r = subprocess.run([exe, str(p), "stdout", "--psm", "11"], capture_output=True, text=True, timeout=60)
-        return r.stdout
+        pil.convert("RGB").save(p)
+        out += [run(p, "3"), run(p, "12")]
+        g = pil.convert("L")
+        h = max(32, g.height // 8)
+        for y in range(0, g.height - h // 2, h // 2):
+            band = ImageOps.autocontrast(g.crop((0, y, g.width, min(g.height, y + h))))
+            band.resize((band.width * 2, band.height * 2)).save(p)
+            out.append(run(p, "6"))
+    return "\n".join(out)
 
 
 def sign_check(ladder, images):

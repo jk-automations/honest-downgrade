@@ -137,7 +137,8 @@ NUMBER_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, 
                 "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "hundred": 100}
 
 KEYFRAME_HEAD = ("Vertical 9:16 photo-real commercial still, the first or last frame of a short ad. Warm, clean, cinematic light; "
-                 "one consistent look across the whole series.")
+                 "one consistent look across the whole series. Keep the top fifth of the frame calm (sky, wall or ceiling) with no "
+                 "signs in it: the caption goes there.")
 KEYFRAME_TAIL = ("No people at all: no faces, no hands, no silhouettes. No real brand logos or trademarks, no phone screens or "
                  "app interfaces, no captions or subtitles. Vehicles, signs and packaging are plain and unbranded.")
 WARP_TAIL = ("One continuous shot from the first frame to the last frame, smooth gimbal motion, no handheld shake, no cuts. "

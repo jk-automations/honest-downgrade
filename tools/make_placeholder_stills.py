@@ -56,9 +56,9 @@ def brag():
     d.line([(360, 860), (360, 1040)], fill=INK, width=4)
     d.line([(180, 960), (540, 960)], fill=RED, width=22)                                # the ribbon
     d.polygon([(360, 945), (320, 915), (320, 1005)], fill=RED); d.polygon([(360, 975), (400, 915), (400, 1005)], fill=RED)
-    sign(d, (110, 300 - 120, 610, 300), "200TH LOCATION", bg=GOLD)
+    sign(d, (110, 400, 610, 520), "200TH LOCATION", bg=GOLD)
     for k in range(18):                                                                 # confetti
-        x, y = (k * 97) % W, 120 + (k * 211) % 700
+        x, y = (k * 97) % W, 560 + (k * 211) % 300
         d.rectangle([x, y, x + 12, y + 20], fill=[RED, GOLD, CREAM, BLUE][k % 4])
     return im
 
@@ -74,7 +74,7 @@ def two():
         d.rectangle([x + 40, 700, x + 260, 860], fill=(255, 220, 150), outline=INK, width=4)
         d.rectangle([x + 110, 860, x + 190, 980], fill=(120, 80, 60), outline=INK, width=4)
         sign(d, (x + 30, 530, x + 270, 590), "TACOS", bg=BLUE, fg=CREAM)
-    sign(d, (160, 300, 560, 400), "2 LOCATIONS", bg=CREAM)
+    sign(d, (160, 400, 560, 490), "2 LOCATIONS", bg=CREAM)
     return im
 
 
