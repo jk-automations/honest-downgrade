@@ -1,0 +1,5 @@
+1. brag: sign '200TH LOCATION' PASS
+2. downgrade_1: sign '2 LOCATIONS' PASS
+3. downgrade_2: no sign to check
+4. truth: no sign to check
+5. payoff: no sign to check
