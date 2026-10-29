@@ -1,0 +1,3791 @@
+{
+ "id": "913c004c-d0fd-4e28-b39c-1863063c701a",
+ "revision": 0,
+ "last_node_id": 33,
+ "last_link_id": 54,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "HonestBrief",
+   "pos": [
+    80,
+    110
+   ],
+   "size": [
+    305.3609375,
+    338
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "Business name",
+     "localized_name": "business_name",
+     "name": "business_name",
+     "type": "STRING",
+     "widget": {
+      "name": "business_name"
+     },
+     "link": null
+    },
+    {
+     "label": "Business family",
+     "localized_name": "family",
+     "name": "family",
+     "type": "COMBO",
+     "widget": {
+      "name": "family"
+     },
+     "link": null
+    },
+    {
+     "label": "The truth: your real setup, exactly",
+     "localized_name": "true_setup",
+     "name": "true_setup",
+     "type": "STRING",
+     "widget": {
+      "name": "true_setup"
+     },
+     "link": null
+    },
+    {
+     "label": "One honest line (empty = playful)",
+     "localized_name": "honest_line",
+     "name": "honest_line",
+     "type": "STRING",
+     "widget": {
+      "name": "honest_line"
+     },
+     "link": null
+    },
+    {
+     "label": "The payoff: real proof people can see",
+     "localized_name": "real_proof",
+     "name": "real_proof",
+     "type": "STRING",
+     "widget": {
+      "name": "real_proof"
+     },
+     "link": null
+    },
+    {
+     "label": "Payoff still: your best product or work (no people)",
+     "localized_name": "hero_thing",
+     "name": "hero_thing",
+     "type": "STRING",
+     "widget": {
+      "name": "hero_thing"
+     },
+     "link": null
+    },
+    {
+     "label": "Tone",
+     "localized_name": "tone",
+     "name": "tone",
+     "type": "COMBO",
+     "widget": {
+      "name": "tone"
+     },
+     "link": null
+    },
+    {
+     "label": "Joke ladder",
+     "localized_name": "joke",
+     "name": "joke",
+     "type": "COMBO",
+     "widget": {
+      "name": "joke"
+     },
+     "link": null
+    },
+    {
+     "label": "Warps you already used (never repeated)",
+     "localized_name": "already_used_warps",
+     "name": "already_used_warps",
+     "type": "STRING",
+     "widget": {
+      "name": "already_used_warps"
+     },
+     "link": null
+    },
+    {
+     "label": "Video model (lite = cheapest)",
+     "localized_name": "video_model",
+     "name": "video_model",
+     "type": "COMBO",
+     "widget": {
+      "name": "video_model"
+     },
+     "link": null
+    },
+    {
+     "label": "Who writes the joke",
+     "localized_name": "writer",
+     "name": "writer",
+     "type": "COMBO",
+     "widget": {
+      "name": "writer"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "brief",
+     "name": "brief",
+     "type": "STRING",
+     "links": [
+      2
+     ]
+    },
+    {
+     "localized_name": "writer_prompt",
+     "name": "writer_prompt",
+     "type": "STRING",
+     "links": [
+      1
+     ]
+    },
+    {
+     "localized_name": "veo_model",
+     "name": "veo_model",
+     "type": "COMBO",
+     "links": [
+      27,
+      33,
+      39,
+      45
+     ]
+    }
+   ],
+   "title": "Your facts",
+   "properties": {
+    "Node name for S&R": "HonestBrief"
+   },
+   "widgets_values": [
+    "Tacos El Zorrito Azul",
+    "food (Food and drink)",
+    "a truck in a gas station parking lot",
+    "Started with $800 and my mom's recipes.",
+    "The line at 11pm is real.",
+    "three al pastor tacos with lime and cilantro on a plain paper tray, steam rising, night light from a service window",
+    "heartfelt",
+    "joke 1",
+    "",
+    "veo-3.1-lite",
+    "template (offline, free)"
+   ],
+   "widgets_values_named": {
+    "business_name": "Tacos El Zorrito Azul",
+    "family": "food (Food and drink)",
+    "true_setup": "a truck in a gas station parking lot",
+    "honest_line": "Started with $800 and my mom's recipes.",
+    "real_proof": "The line at 11pm is real.",
+    "hero_thing": "three al pastor tacos with lime and cilantro on a plain paper tray, steam rising, night light from a service window",
+    "tone": "heartfelt",
+    "joke": "joke 1",
+    "already_used_warps": "",
+    "video_model": "veo-3.1-lite",
+    "writer": "template (offline, free)"
+   }
+  },
+  {
+   "id": 2,
+   "type": "LoadImage",
+   "pos": [
+    80,
+    558
+   ],
+   "size": [
+    282.798828125,
+    102
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "Your REAL ending photo (optional; real people only here)",
+     "localized_name": "image",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "choose file to upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      48
+     ]
+    },
+    {
+     "localized_name": "MASK",
+     "name": "MASK",
+     "type": "MASK",
+     "links": null
+    }
+   ],
+   "title": "Real ending photo",
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "honest_blank.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "honest_blank.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 3,
+   "type": "GeminiNodeV3",
+   "pos": [
+    465.3609375,
+    110
+   ],
+   "size": [
+    400,
+    394
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "prompt",
+     "name": "model.prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "model.prompt"
+     },
+     "link": 1
+    },
+    {
+     "localized_name": "image_1",
+     "name": "model.images.image_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "audio_1",
+     "name": "model.audio.audio_1",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "localized_name": "video_1",
+     "name": "model.video.video_1",
+     "shape": 7,
+     "type": "VIDEO",
+     "link": null
+    },
+    {
+     "localized_name": "thinking_level",
+     "name": "model.thinking_level",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.thinking_level"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "temperature",
+     "name": "model.temperature",
+     "type": "FLOAT",
+     "widget": {
+      "name": "model.temperature"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "top_p",
+     "name": "model.top_p",
+     "type": "FLOAT",
+     "widget": {
+      "name": "model.top_p"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "max_output_tokens",
+     "name": "model.max_output_tokens",
+     "type": "INT",
+     "widget": {
+      "name": "model.max_output_tokens"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "model.seed",
+     "type": "INT",
+     "widget": {
+      "name": "model.seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "system_prompt",
+     "name": "model.system_prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "model.system_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "files",
+     "name": "model.files",
+     "shape": 7,
+     "type": "GEMINI_INPUT_FILES",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": [
+      3
+     ]
+    }
+   ],
+   "title": "Joke writer (Gemini)",
+   "properties": {
+    "Node name for S&R": "GeminiNodeV3"
+   },
+   "widgets_values": [
+    "Gemini 3.5 Flash",
+    "",
+    "LOW",
+    1,
+    0.95,
+    8192,
+    42,
+    "fixed",
+    "",
+    "fixed"
+   ],
+   "widgets_values_named": {
+    "model": "Gemini 3.5 Flash",
+    "model.prompt": "",
+    "model.thinking_level": "LOW",
+    "model.temperature": 1,
+    "model.top_p": 0.95,
+    "model.max_output_tokens": 8192,
+    "model.seed": 42,
+    "control_after_generate#1": "fixed",
+    "model.system_prompt": "",
+    "control_after_generate": "fixed"
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 4,
+   "type": "HonestLadder",
+   "pos": [
+    945.3609375,
+    110
+   ],
+   "size": [
+    265.718359375,
+    46
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "brief",
+     "name": "brief",
+     "type": "STRING",
+     "link": 2
+    },
+    {
+     "localized_name": "writer_reply",
+     "name": "writer_reply",
+     "shape": 7,
+     "type": "STRING",
+     "link": 3
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "links": [
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      23,
+      29,
+      35,
+      41,
+      47
+     ]
+    },
+    {
+     "localized_name": "ladder_text",
+     "name": "ladder_text",
+     "type": "STRING",
+     "links": [
+      4
+     ]
+    }
+   ],
+   "title": "Ladder",
+   "properties": {
+    "Node name for S&R": "HonestLadder"
+   }
+  },
+  {
+   "id": 5,
+   "type": "PreviewAny",
+   "pos": [
+    1291.079296875,
+    1802
+   ],
+   "size": [
+    210,
+    122
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "source",
+     "name": "source",
+     "type": "*",
+     "link": 4
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Your ladder",
+   "properties": {
+    "Node name for S&R": "PreviewAny"
+   },
+   "widgets_values": [],
+   "widgets_values_named": {}
+  },
+  {
+   "id": 6,
+   "type": "HonestRung",
+   "pos": [
+    1291.079296875,
+    110
+   ],
+   "size": [
+    270,
+    78
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 5
+    },
+    {
+     "localized_name": "rung",
+     "name": "rung",
+     "type": "INT",
+     "widget": {
+      "name": "rung"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "keyframe_prompt",
+     "name": "keyframe_prompt",
+     "type": "STRING",
+     "links": [
+      6
+     ]
+    },
+    {
+     "localized_name": "caption",
+     "name": "caption",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Rung 1",
+   "properties": {
+    "Node name for S&R": "HonestRung"
+   },
+   "widgets_values": [
+    1
+   ],
+   "widgets_values_named": {
+    "rung": 1
+   }
+  },
+  {
+   "id": 7,
+   "type": "GeminiNanoBanana2V2",
+   "pos": [
+    1641.5222656249998,
+    110
+   ],
+   "size": [
+    400,
+    398
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 6
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "aspect_ratio",
+     "name": "model.aspect_ratio",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.aspect_ratio"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "model.resolution",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.resolution"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "thinking_level",
+     "name": "model.thinking_level",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.thinking_level"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "image_1",
+     "name": "model.images.image_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "files",
+     "name": "model.files",
+     "shape": 7,
+     "type": "GEMINI_INPUT_FILES",
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "response_modalities",
+     "name": "response_modalities",
+     "type": "COMBO",
+     "widget": {
+      "name": "response_modalities"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "system_prompt",
+     "name": "system_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "system_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "temperature",
+     "name": "temperature",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "temperature"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "top_p",
+     "name": "top_p",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "top_p"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      16,
+      25
+     ]
+    },
+    {
+     "localized_name": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thought_image",
+     "name": "thought_image",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "Keyframe 1",
+   "properties": {
+    "Node name for S&R": "GeminiNanoBanana2V2"
+   },
+   "widgets_values": [
+    "",
+    "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "9:16",
+    "1K",
+    "MINIMAL",
+    101,
+    "fixed",
+    "IMAGE",
+    "You are an expert image-generation engine. You must ALWAYS produce an image.\nInterpret all user input—regardless of format, intent, or abstraction—as literal visual directives for image composition.\nIf a prompt is conversational or lacks specific visual details, you must creatively invent a concrete visual scenario that depicts the concept.\nPrioritize generating the visual representation above any text, formatting, or conversational requests.",
+    1,
+    0.95
+   ],
+   "widgets_values_named": {
+    "prompt": "",
+    "model": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "model.aspect_ratio": "9:16",
+    "model.resolution": "1K",
+    "model.thinking_level": "MINIMAL",
+    "seed": 101,
+    "control_after_generate": "fixed",
+    "response_modalities": "IMAGE",
+    "system_prompt": "You are an expert image-generation engine. You must ALWAYS produce an image.\nInterpret all user input—regardless of format, intent, or abstraction—as literal visual directives for image composition.\nIf a prompt is conversational or lacks specific visual details, you must creatively invent a concrete visual scenario that depicts the concept.\nPrioritize generating the visual representation above any text, formatting, or conversational requests.",
+    "temperature": 1,
+    "top_p": 0.95
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 8,
+   "type": "HonestRung",
+   "pos": [
+    1291.079296875,
+    298
+   ],
+   "size": [
+    270,
+    78
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 7
+    },
+    {
+     "localized_name": "rung",
+     "name": "rung",
+     "type": "INT",
+     "widget": {
+      "name": "rung"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "keyframe_prompt",
+     "name": "keyframe_prompt",
+     "type": "STRING",
+     "links": [
+      8
+     ]
+    },
+    {
+     "localized_name": "caption",
+     "name": "caption",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Rung 2",
+   "properties": {
+    "Node name for S&R": "HonestRung"
+   },
+   "widgets_values": [
+    2
+   ],
+   "widgets_values_named": {
+    "rung": 2
+   }
+  },
+  {
+   "id": 9,
+   "type": "GeminiNanoBanana2V2",
+   "pos": [
+    1641.5222656249998,
+    618
+   ],
+   "size": [
+    400,
+    398
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 8
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "aspect_ratio",
+     "name": "model.aspect_ratio",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.aspect_ratio"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "model.resolution",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.resolution"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "thinking_level",
+     "name": "model.thinking_level",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.thinking_level"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "image_1",
+     "name": "model.images.image_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "files",
+     "name": "model.files",
+     "shape": 7,
+     "type": "GEMINI_INPUT_FILES",
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "response_modalities",
+     "name": "response_modalities",
+     "type": "COMBO",
+     "widget": {
+      "name": "response_modalities"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "system_prompt",
+     "name": "system_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "system_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "temperature",
+     "name": "temperature",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "temperature"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "top_p",
+     "name": "top_p",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "top_p"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      17,
+      26,
+      31
+     ]
+    },
+    {
+     "localized_name": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thought_image",
+     "name": "thought_image",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "Keyframe 2",
+   "properties": {
+    "Node name for S&R": "GeminiNanoBanana2V2"
+   },
+   "widgets_values": [
+    "",
+    "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "9:16",
+    "1K",
+    "MINIMAL",
+    102,
+    "fixed",
+    "IMAGE",
+    "You are an expert image-generation engine. You must ALWAYS produce an image.\nInterpret all user input—regardless of format, intent, or abstraction—as literal visual directives for image composition.\nIf a prompt is conversational or lacks specific visual details, you must creatively invent a concrete visual scenario that depicts the concept.\nPrioritize generating the visual representation above any text, formatting, or conversational requests.",
+    1,
+    0.95
+   ],
+   "widgets_values_named": {
+    "prompt": "",
+    "model": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "model.aspect_ratio": "9:16",
+    "model.resolution": "1K",
+    "model.thinking_level": "MINIMAL",
+    "seed": 102,
+    "control_after_generate": "fixed",
+    "response_modalities": "IMAGE",
+    "system_prompt": "You are an expert image-generation engine. You must ALWAYS produce an image.\nInterpret all user input—regardless of format, intent, or abstraction—as literal visual directives for image composition.\nIf a prompt is conversational or lacks specific visual details, you must creatively invent a concrete visual scenario that depicts the concept.\nPrioritize generating the visual representation above any text, formatting, or conversational requests.",
+    "temperature": 1,
+    "top_p": 0.95
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 10,
+   "type": "HonestRung",
+   "pos": [
+    1291.079296875,
+    486
+   ],
+   "size": [
+    270,
+    78
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 9
+    },
+    {
+     "localized_name": "rung",
+     "name": "rung",
+     "type": "INT",
+     "widget": {
+      "name": "rung"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "keyframe_prompt",
+     "name": "keyframe_prompt",
+     "type": "STRING",
+     "links": [
+      10
+     ]
+    },
+    {
+     "localized_name": "caption",
+     "name": "caption",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Rung 3",
+   "properties": {
+    "Node name for S&R": "HonestRung"
+   },
+   "widgets_values": [
+    3
+   ],
+   "widgets_values_named": {
+    "rung": 3
+   }
+  },
+  {
+   "id": 11,
+   "type": "GeminiNanoBanana2V2",
+   "pos": [
+    1641.5222656249998,
+    1126
+   ],
+   "size": [
+    400,
+    398
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 10
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "aspect_ratio",
+     "name": "model.aspect_ratio",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.aspect_ratio"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "model.resolution",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.resolution"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "thinking_level",
+     "name": "model.thinking_level",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.thinking_level"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "image_1",
+     "name": "model.images.image_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "files",
+     "name": "model.files",
+     "shape": 7,
+     "type": "GEMINI_INPUT_FILES",
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "response_modalities",
+     "name": "response_modalities",
+     "type": "COMBO",
+     "widget": {
+      "name": "response_modalities"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "system_prompt",
+     "name": "system_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "system_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "temperature",
+     "name": "temperature",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "temperature"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "top_p",
+     "name": "top_p",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "top_p"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      18,
+      32,
+      37
+     ]
+    },
+    {
+     "localized_name": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thought_image",
+     "name": "thought_image",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "Keyframe 3",
+   "properties": {
+    "Node name for S&R": "GeminiNanoBanana2V2"
+   },
+   "widgets_values": [
+    "",
+    "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "9:16",
+    "1K",
+    "MINIMAL",
+    103,
+    "fixed",
+    "IMAGE",
+    "You are an expert image-generation engine. You must ALWAYS produce an image.\nInterpret all user input—regardless of format, intent, or abstraction—as literal visual directives for image composition.\nIf a prompt is conversational or lacks specific visual details, you must creatively invent a concrete visual scenario that depicts the concept.\nPrioritize generating the visual representation above any text, formatting, or conversational requests.",
+    1,
+    0.95
+   ],
+   "widgets_values_named": {
+    "prompt": "",
+    "model": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "model.aspect_ratio": "9:16",
+    "model.resolution": "1K",
+    "model.thinking_level": "MINIMAL",
+    "seed": 103,
+    "control_after_generate": "fixed",
+    "response_modalities": "IMAGE",
+    "system_prompt": "You are an expert image-generation engine. You must ALWAYS produce an image.\nInterpret all user input—regardless of format, intent, or abstraction—as literal visual directives for image composition.\nIf a prompt is conversational or lacks specific visual details, you must creatively invent a concrete visual scenario that depicts the concept.\nPrioritize generating the visual representation above any text, formatting, or conversational requests.",
+    "temperature": 1,
+    "top_p": 0.95
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 12,
+   "type": "HonestRung",
+   "pos": [
+    1291.079296875,
+    674
+   ],
+   "size": [
+    270,
+    78
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 11
+    },
+    {
+     "localized_name": "rung",
+     "name": "rung",
+     "type": "INT",
+     "widget": {
+      "name": "rung"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "keyframe_prompt",
+     "name": "keyframe_prompt",
+     "type": "STRING",
+     "links": [
+      12
+     ]
+    },
+    {
+     "localized_name": "caption",
+     "name": "caption",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Rung 4",
+   "properties": {
+    "Node name for S&R": "HonestRung"
+   },
+   "widgets_values": [
+    4
+   ],
+   "widgets_values_named": {
+    "rung": 4
+   }
+  },
+  {
+   "id": 13,
+   "type": "GeminiNanoBanana2V2",
+   "pos": [
+    1641.5222656249998,
+    1634
+   ],
+   "size": [
+    400,
+    398
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 12
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "aspect_ratio",
+     "name": "model.aspect_ratio",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.aspect_ratio"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "model.resolution",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.resolution"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "thinking_level",
+     "name": "model.thinking_level",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.thinking_level"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "image_1",
+     "name": "model.images.image_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "files",
+     "name": "model.files",
+     "shape": 7,
+     "type": "GEMINI_INPUT_FILES",
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "response_modalities",
+     "name": "response_modalities",
+     "type": "COMBO",
+     "widget": {
+      "name": "response_modalities"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "system_prompt",
+     "name": "system_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "system_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "temperature",
+     "name": "temperature",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "temperature"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "top_p",
+     "name": "top_p",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "top_p"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      19,
+      38,
+      43
+     ]
+    },
+    {
+     "localized_name": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thought_image",
+     "name": "thought_image",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "Keyframe 4",
+   "properties": {
+    "Node name for S&R": "GeminiNanoBanana2V2"
+   },
+   "widgets_values": [
+    "",
+    "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "9:16",
+    "1K",
+    "MINIMAL",
+    104,
+    "fixed",
+    "IMAGE",
+    "You are an expert image-generation engine. You must ALWAYS produce an image.\nInterpret all user input—regardless of format, intent, or abstraction—as literal visual directives for image composition.\nIf a prompt is conversational or lacks specific visual details, you must creatively invent a concrete visual scenario that depicts the concept.\nPrioritize generating the visual representation above any text, formatting, or conversational requests.",
+    1,
+    0.95
+   ],
+   "widgets_values_named": {
+    "prompt": "",
+    "model": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "model.aspect_ratio": "9:16",
+    "model.resolution": "1K",
+    "model.thinking_level": "MINIMAL",
+    "seed": 104,
+    "control_after_generate": "fixed",
+    "response_modalities": "IMAGE",
+    "system_prompt": "You are an expert image-generation engine. You must ALWAYS produce an image.\nInterpret all user input—regardless of format, intent, or abstraction—as literal visual directives for image composition.\nIf a prompt is conversational or lacks specific visual details, you must creatively invent a concrete visual scenario that depicts the concept.\nPrioritize generating the visual representation above any text, formatting, or conversational requests.",
+    "temperature": 1,
+    "top_p": 0.95
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 14,
+   "type": "HonestRung",
+   "pos": [
+    1291.079296875,
+    862
+   ],
+   "size": [
+    270,
+    78
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 13
+    },
+    {
+     "localized_name": "rung",
+     "name": "rung",
+     "type": "INT",
+     "widget": {
+      "name": "rung"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "keyframe_prompt",
+     "name": "keyframe_prompt",
+     "type": "STRING",
+     "links": [
+      14
+     ]
+    },
+    {
+     "localized_name": "caption",
+     "name": "caption",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Rung 5",
+   "properties": {
+    "Node name for S&R": "HonestRung"
+   },
+   "widgets_values": [
+    5
+   ],
+   "widgets_values_named": {
+    "rung": 5
+   }
+  },
+  {
+   "id": 15,
+   "type": "GeminiNanoBanana2V2",
+   "pos": [
+    1641.5222656249998,
+    2142
+   ],
+   "size": [
+    400,
+    398
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 14
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "aspect_ratio",
+     "name": "model.aspect_ratio",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.aspect_ratio"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "model.resolution",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.resolution"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "thinking_level",
+     "name": "model.thinking_level",
+     "type": "COMBO",
+     "widget": {
+      "name": "model.thinking_level"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "image_1",
+     "name": "model.images.image_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "files",
+     "name": "model.files",
+     "shape": 7,
+     "type": "GEMINI_INPUT_FILES",
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "response_modalities",
+     "name": "response_modalities",
+     "type": "COMBO",
+     "widget": {
+      "name": "response_modalities"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "system_prompt",
+     "name": "system_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "system_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "temperature",
+     "name": "temperature",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "temperature"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "top_p",
+     "name": "top_p",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "top_p"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      20,
+      44
+     ]
+    },
+    {
+     "localized_name": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thought_image",
+     "name": "thought_image",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "Keyframe 5",
+   "properties": {
+    "Node name for S&R": "GeminiNanoBanana2V2"
+   },
+   "widgets_values": [
+    "",
+    "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "9:16",
+    "1K",
+    "MINIMAL",
+    105,
+    "fixed",
+    "IMAGE",
+    "You are an expert image-generation engine. You must ALWAYS produce an image.\nInterpret all user input—regardless of format, intent, or abstraction—as literal visual directives for image composition.\nIf a prompt is conversational or lacks specific visual details, you must creatively invent a concrete visual scenario that depicts the concept.\nPrioritize generating the visual representation above any text, formatting, or conversational requests.",
+    1,
+    0.95
+   ],
+   "widgets_values_named": {
+    "prompt": "",
+    "model": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "model.aspect_ratio": "9:16",
+    "model.resolution": "1K",
+    "model.thinking_level": "MINIMAL",
+    "seed": 105,
+    "control_after_generate": "fixed",
+    "response_modalities": "IMAGE",
+    "system_prompt": "You are an expert image-generation engine. You must ALWAYS produce an image.\nInterpret all user input—regardless of format, intent, or abstraction—as literal visual directives for image composition.\nIf a prompt is conversational or lacks specific visual details, you must creatively invent a concrete visual scenario that depicts the concept.\nPrioritize generating the visual representation above any text, formatting, or conversational requests.",
+    "temperature": 1,
+    "top_p": 0.95
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 16,
+   "type": "HonestBoard",
+   "pos": [
+    2121.522265625,
+    1430
+   ],
+   "size": [
+    307.253515625,
+    126
+   ],
+   "flags": {},
+   "order": 22,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 15
+    },
+    {
+     "localized_name": "rung_1",
+     "name": "rung_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 16
+    },
+    {
+     "localized_name": "rung_2",
+     "name": "rung_2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 17
+    },
+    {
+     "localized_name": "rung_3",
+     "name": "rung_3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 18
+    },
+    {
+     "localized_name": "rung_4",
+     "name": "rung_4",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 19
+    },
+    {
+     "localized_name": "rung_5",
+     "name": "rung_5",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 20
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "board",
+     "name": "board",
+     "type": "IMAGE",
+     "links": [
+      21
+     ]
+    },
+    {
+     "localized_name": "check",
+     "name": "check",
+     "type": "STRING",
+     "links": [
+      22
+     ]
+    }
+   ],
+   "title": "Board + sign check",
+   "properties": {
+    "Node name for S&R": "HonestBoard"
+   }
+  },
+  {
+   "id": 17,
+   "type": "PreviewImage",
+   "pos": [
+    2601.522265625,
+    758
+   ],
+   "size": [
+    140,
+    26
+   ],
+   "flags": {},
+   "order": 27,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 21
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "Board",
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   }
+  },
+  {
+   "id": 18,
+   "type": "PreviewAny",
+   "pos": [
+    2601.522265625,
+    894
+   ],
+   "size": [
+    210,
+    122
+   ],
+   "flags": {},
+   "order": 28,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "source",
+     "name": "source",
+     "type": "*",
+     "link": 22
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Sign check",
+   "properties": {
+    "Node name for S&R": "PreviewAny"
+   },
+   "widgets_values": [],
+   "widgets_values_named": {}
+  },
+  {
+   "id": 19,
+   "type": "HonestWarp",
+   "pos": [
+    1291.079296875,
+    1050
+   ],
+   "size": [
+    270.44296875,
+    78
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 23
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "warp_prompt",
+     "name": "warp_prompt",
+     "type": "STRING",
+     "links": [
+      24
+     ]
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Warp 1",
+   "properties": {
+    "Node name for S&R": "HonestWarp"
+   },
+   "widgets_values": [
+    1
+   ],
+   "widgets_values_named": {
+    "step": 1
+   }
+  },
+  {
+   "id": 20,
+   "type": "Veo3FirstLastFrameNode",
+   "pos": [
+    2121.522265625,
+    110
+   ],
+   "size": [
+    400,
+    330
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "first_frame",
+     "name": "first_frame",
+     "type": "IMAGE",
+     "link": 25
+    },
+    {
+     "localized_name": "last_frame",
+     "name": "last_frame",
+     "type": "IMAGE",
+     "link": 26
+    },
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 24
+    },
+    {
+     "localized_name": "negative_prompt",
+     "name": "negative_prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "negative_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "type": "COMBO",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "aspect_ratio",
+     "name": "aspect_ratio",
+     "type": "COMBO",
+     "widget": {
+      "name": "aspect_ratio"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "duration",
+     "name": "duration",
+     "type": "INT",
+     "widget": {
+      "name": "duration"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMBO",
+     "widget": {
+      "name": "model"
+     },
+     "link": 27
+    },
+    {
+     "localized_name": "generate_audio",
+     "name": "generate_audio",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "generate_audio"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VIDEO",
+     "name": "VIDEO",
+     "type": "VIDEO",
+     "links": [
+      28,
+      49
+     ]
+    }
+   ],
+   "title": "Video warp 1",
+   "properties": {
+    "Node name for S&R": "Veo3FirstLastFrameNode"
+   },
+   "widgets_values": [
+    "",
+    "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+    "720p",
+    "9:16",
+    6,
+    201,
+    "fixed",
+    "veo-3.1-generate",
+    false
+   ],
+   "widgets_values_named": {
+    "prompt": "",
+    "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "duration": 6,
+    "seed": 201,
+    "control_after_generate": "fixed",
+    "model": "veo-3.1-generate",
+    "generate_audio": false
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 21,
+   "type": "SaveVideo",
+   "pos": [
+    2601.522265625,
+    110
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 24,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 28
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Save warp 1",
+   "properties": {},
+   "widgets_values": [
+    "honest/warps/warp_1",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/warps/warp_1",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  },
+  {
+   "id": 22,
+   "type": "HonestWarp",
+   "pos": [
+    1291.079296875,
+    1238
+   ],
+   "size": [
+    270.44296875,
+    78
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 29
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "warp_prompt",
+     "name": "warp_prompt",
+     "type": "STRING",
+     "links": [
+      30
+     ]
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Warp 2",
+   "properties": {
+    "Node name for S&R": "HonestWarp"
+   },
+   "widgets_values": [
+    2
+   ],
+   "widgets_values_named": {
+    "step": 2
+   }
+  },
+  {
+   "id": 23,
+   "type": "Veo3FirstLastFrameNode",
+   "pos": [
+    2121.522265625,
+    550
+   ],
+   "size": [
+    400,
+    330
+   ],
+   "flags": {},
+   "order": 20,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "first_frame",
+     "name": "first_frame",
+     "type": "IMAGE",
+     "link": 31
+    },
+    {
+     "localized_name": "last_frame",
+     "name": "last_frame",
+     "type": "IMAGE",
+     "link": 32
+    },
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 30
+    },
+    {
+     "localized_name": "negative_prompt",
+     "name": "negative_prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "negative_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "type": "COMBO",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "aspect_ratio",
+     "name": "aspect_ratio",
+     "type": "COMBO",
+     "widget": {
+      "name": "aspect_ratio"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "duration",
+     "name": "duration",
+     "type": "INT",
+     "widget": {
+      "name": "duration"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMBO",
+     "widget": {
+      "name": "model"
+     },
+     "link": 33
+    },
+    {
+     "localized_name": "generate_audio",
+     "name": "generate_audio",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "generate_audio"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VIDEO",
+     "name": "VIDEO",
+     "type": "VIDEO",
+     "links": [
+      34,
+      50
+     ]
+    }
+   ],
+   "title": "Video warp 2",
+   "properties": {
+    "Node name for S&R": "Veo3FirstLastFrameNode"
+   },
+   "widgets_values": [
+    "",
+    "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+    "720p",
+    "9:16",
+    6,
+    202,
+    "fixed",
+    "veo-3.1-generate",
+    false
+   ],
+   "widgets_values_named": {
+    "prompt": "",
+    "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "duration": 6,
+    "seed": 202,
+    "control_after_generate": "fixed",
+    "model": "veo-3.1-generate",
+    "generate_audio": false
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 24,
+   "type": "SaveVideo",
+   "pos": [
+    2601.522265625,
+    326
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 25,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 34
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Save warp 2",
+   "properties": {},
+   "widgets_values": [
+    "honest/warps/warp_2",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/warps/warp_2",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  },
+  {
+   "id": 25,
+   "type": "HonestWarp",
+   "pos": [
+    1291.079296875,
+    1426
+   ],
+   "size": [
+    270.44296875,
+    78
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 35
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "warp_prompt",
+     "name": "warp_prompt",
+     "type": "STRING",
+     "links": [
+      36
+     ]
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Warp 3",
+   "properties": {
+    "Node name for S&R": "HonestWarp"
+   },
+   "widgets_values": [
+    3
+   ],
+   "widgets_values_named": {
+    "step": 3
+   }
+  },
+  {
+   "id": 26,
+   "type": "Veo3FirstLastFrameNode",
+   "pos": [
+    2121.522265625,
+    990
+   ],
+   "size": [
+    400,
+    330
+   ],
+   "flags": {},
+   "order": 21,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "first_frame",
+     "name": "first_frame",
+     "type": "IMAGE",
+     "link": 37
+    },
+    {
+     "localized_name": "last_frame",
+     "name": "last_frame",
+     "type": "IMAGE",
+     "link": 38
+    },
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 36
+    },
+    {
+     "localized_name": "negative_prompt",
+     "name": "negative_prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "negative_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "type": "COMBO",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "aspect_ratio",
+     "name": "aspect_ratio",
+     "type": "COMBO",
+     "widget": {
+      "name": "aspect_ratio"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "duration",
+     "name": "duration",
+     "type": "INT",
+     "widget": {
+      "name": "duration"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMBO",
+     "widget": {
+      "name": "model"
+     },
+     "link": 39
+    },
+    {
+     "localized_name": "generate_audio",
+     "name": "generate_audio",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "generate_audio"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VIDEO",
+     "name": "VIDEO",
+     "type": "VIDEO",
+     "links": [
+      40,
+      51
+     ]
+    }
+   ],
+   "title": "Video warp 3",
+   "properties": {
+    "Node name for S&R": "Veo3FirstLastFrameNode"
+   },
+   "widgets_values": [
+    "",
+    "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+    "720p",
+    "9:16",
+    6,
+    203,
+    "fixed",
+    "veo-3.1-generate",
+    false
+   ],
+   "widgets_values_named": {
+    "prompt": "",
+    "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "duration": 6,
+    "seed": 203,
+    "control_after_generate": "fixed",
+    "model": "veo-3.1-generate",
+    "generate_audio": false
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 27,
+   "type": "SaveVideo",
+   "pos": [
+    2601.522265625,
+    542
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 26,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 40
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Save warp 3",
+   "properties": {},
+   "widgets_values": [
+    "honest/warps/warp_3",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/warps/warp_3",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  },
+  {
+   "id": 28,
+   "type": "HonestWarp",
+   "pos": [
+    1291.079296875,
+    1614
+   ],
+   "size": [
+    270.44296875,
+    78
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 41
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "warp_prompt",
+     "name": "warp_prompt",
+     "type": "STRING",
+     "links": [
+      42
+     ]
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Warp 4",
+   "properties": {
+    "Node name for S&R": "HonestWarp"
+   },
+   "widgets_values": [
+    4
+   ],
+   "widgets_values_named": {
+    "step": 4
+   }
+  },
+  {
+   "id": 29,
+   "type": "Veo3FirstLastFrameNode",
+   "pos": [
+    2121.522265625,
+    1666
+   ],
+   "size": [
+    400,
+    330
+   ],
+   "flags": {},
+   "order": 23,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "first_frame",
+     "name": "first_frame",
+     "type": "IMAGE",
+     "link": 43
+    },
+    {
+     "localized_name": "last_frame",
+     "name": "last_frame",
+     "type": "IMAGE",
+     "link": 44
+    },
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 42
+    },
+    {
+     "localized_name": "negative_prompt",
+     "name": "negative_prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "negative_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "type": "COMBO",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "aspect_ratio",
+     "name": "aspect_ratio",
+     "type": "COMBO",
+     "widget": {
+      "name": "aspect_ratio"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "duration",
+     "name": "duration",
+     "type": "INT",
+     "widget": {
+      "name": "duration"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMBO",
+     "widget": {
+      "name": "model"
+     },
+     "link": 45
+    },
+    {
+     "localized_name": "generate_audio",
+     "name": "generate_audio",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "generate_audio"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VIDEO",
+     "name": "VIDEO",
+     "type": "VIDEO",
+     "links": [
+      46,
+      52
+     ]
+    }
+   ],
+   "title": "Video warp 4",
+   "properties": {
+    "Node name for S&R": "Veo3FirstLastFrameNode"
+   },
+   "widgets_values": [
+    "",
+    "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+    "720p",
+    "9:16",
+    6,
+    204,
+    "fixed",
+    "veo-3.1-generate",
+    false
+   ],
+   "widgets_values_named": {
+    "prompt": "",
+    "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "duration": 6,
+    "seed": 204,
+    "control_after_generate": "fixed",
+    "model": "veo-3.1-generate",
+    "generate_audio": false
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 30,
+   "type": "SaveVideo",
+   "pos": [
+    2601.522265625,
+    1126
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 29,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 46
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Save warp 4",
+   "properties": {},
+   "widgets_values": [
+    "honest/warps/warp_4",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/warps/warp_4",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  },
+  {
+   "id": 31,
+   "type": "HonestAssemble",
+   "pos": [
+    2601.522265625,
+    1342
+   ],
+   "size": [
+    300.425390625,
+    250
+   ],
+   "flags": {},
+   "order": 30,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 47
+    },
+    {
+     "localized_name": "warp_1",
+     "name": "warp_1",
+     "type": "VIDEO",
+     "link": 49
+    },
+    {
+     "localized_name": "warp_2",
+     "name": "warp_2",
+     "type": "VIDEO",
+     "link": 50
+    },
+    {
+     "localized_name": "warp_3",
+     "name": "warp_3",
+     "type": "VIDEO",
+     "link": 51
+    },
+    {
+     "localized_name": "warp_4",
+     "name": "warp_4",
+     "type": "VIDEO",
+     "link": 52
+    },
+    {
+     "localized_name": "ending_photo",
+     "name": "ending_photo",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 48
+    },
+    {
+     "localized_name": "ending_clip",
+     "name": "ending_clip",
+     "shape": 7,
+     "type": "VIDEO",
+     "link": null
+    },
+    {
+     "label": "Burn in captions",
+     "localized_name": "captions",
+     "name": "captions",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "captions"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "ai_label",
+     "name": "ai_label",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "ai_label"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "credit",
+     "name": "credit",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "credit"
+     },
+     "link": null
+    },
+    {
+     "label": "Music you own (optional path)",
+     "localized_name": "music_path",
+     "name": "music_path",
+     "type": "STRING",
+     "widget": {
+      "name": "music_path"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "reel_30s",
+     "name": "reel_30s",
+     "type": "VIDEO",
+     "links": [
+      53
+     ]
+    },
+    {
+     "localized_name": "cutdown_15s",
+     "name": "cutdown_15s",
+     "type": "VIDEO",
+     "links": [
+      54
+     ]
+    },
+    {
+     "localized_name": "receipt",
+     "name": "receipt",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Assemble",
+   "properties": {
+    "Node name for S&R": "HonestAssemble"
+   },
+   "widgets_values": [
+    true,
+    true,
+    true,
+    ""
+   ],
+   "widgets_values_named": {
+    "captions": true,
+    "ai_label": true,
+    "credit": true,
+    "music_path": ""
+   }
+  },
+  {
+   "id": 32,
+   "type": "SaveVideo",
+   "pos": [
+    2981.94765625,
+    110
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 31,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 53
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Your Reel (30 s)",
+   "properties": {},
+   "widgets_values": [
+    "honest/reel_30s",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/reel_30s",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  },
+  {
+   "id": 33,
+   "type": "SaveVideo",
+   "pos": [
+    2981.94765625,
+    326
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 32,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 54
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Cutdown (15 s)",
+   "properties": {},
+   "widgets_values": [
+    "honest/cutdown_15s",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/cutdown_15s",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  }
+ ],
+ "links": [
+  [
+   1,
+   1,
+   1,
+   3,
+   1,
+   "STRING"
+  ],
+  [
+   2,
+   1,
+   0,
+   4,
+   0,
+   "STRING"
+  ],
+  [
+   3,
+   3,
+   0,
+   4,
+   1,
+   "STRING"
+  ],
+  [
+   4,
+   4,
+   1,
+   5,
+   0,
+   "STRING"
+  ],
+  [
+   5,
+   4,
+   0,
+   6,
+   0,
+   "STRING"
+  ],
+  [
+   6,
+   6,
+   0,
+   7,
+   0,
+   "STRING"
+  ],
+  [
+   7,
+   4,
+   0,
+   8,
+   0,
+   "STRING"
+  ],
+  [
+   8,
+   8,
+   0,
+   9,
+   0,
+   "STRING"
+  ],
+  [
+   9,
+   4,
+   0,
+   10,
+   0,
+   "STRING"
+  ],
+  [
+   10,
+   10,
+   0,
+   11,
+   0,
+   "STRING"
+  ],
+  [
+   11,
+   4,
+   0,
+   12,
+   0,
+   "STRING"
+  ],
+  [
+   12,
+   12,
+   0,
+   13,
+   0,
+   "STRING"
+  ],
+  [
+   13,
+   4,
+   0,
+   14,
+   0,
+   "STRING"
+  ],
+  [
+   14,
+   14,
+   0,
+   15,
+   0,
+   "STRING"
+  ],
+  [
+   15,
+   4,
+   0,
+   16,
+   0,
+   "STRING"
+  ],
+  [
+   16,
+   7,
+   0,
+   16,
+   1,
+   "IMAGE"
+  ],
+  [
+   17,
+   9,
+   0,
+   16,
+   2,
+   "IMAGE"
+  ],
+  [
+   18,
+   11,
+   0,
+   16,
+   3,
+   "IMAGE"
+  ],
+  [
+   19,
+   13,
+   0,
+   16,
+   4,
+   "IMAGE"
+  ],
+  [
+   20,
+   15,
+   0,
+   16,
+   5,
+   "IMAGE"
+  ],
+  [
+   21,
+   16,
+   0,
+   17,
+   0,
+   "IMAGE"
+  ],
+  [
+   22,
+   16,
+   1,
+   18,
+   0,
+   "STRING"
+  ],
+  [
+   23,
+   4,
+   0,
+   19,
+   0,
+   "STRING"
+  ],
+  [
+   24,
+   19,
+   0,
+   20,
+   2,
+   "STRING"
+  ],
+  [
+   25,
+   7,
+   0,
+   20,
+   0,
+   "IMAGE"
+  ],
+  [
+   26,
+   9,
+   0,
+   20,
+   1,
+   "IMAGE"
+  ],
+  [
+   27,
+   1,
+   2,
+   20,
+   8,
+   "COMBO"
+  ],
+  [
+   28,
+   20,
+   0,
+   21,
+   0,
+   "VIDEO"
+  ],
+  [
+   29,
+   4,
+   0,
+   22,
+   0,
+   "STRING"
+  ],
+  [
+   30,
+   22,
+   0,
+   23,
+   2,
+   "STRING"
+  ],
+  [
+   31,
+   9,
+   0,
+   23,
+   0,
+   "IMAGE"
+  ],
+  [
+   32,
+   11,
+   0,
+   23,
+   1,
+   "IMAGE"
+  ],
+  [
+   33,
+   1,
+   2,
+   23,
+   8,
+   "COMBO"
+  ],
+  [
+   34,
+   23,
+   0,
+   24,
+   0,
+   "VIDEO"
+  ],
+  [
+   35,
+   4,
+   0,
+   25,
+   0,
+   "STRING"
+  ],
+  [
+   36,
+   25,
+   0,
+   26,
+   2,
+   "STRING"
+  ],
+  [
+   37,
+   11,
+   0,
+   26,
+   0,
+   "IMAGE"
+  ],
+  [
+   38,
+   13,
+   0,
+   26,
+   1,
+   "IMAGE"
+  ],
+  [
+   39,
+   1,
+   2,
+   26,
+   8,
+   "COMBO"
+  ],
+  [
+   40,
+   26,
+   0,
+   27,
+   0,
+   "VIDEO"
+  ],
+  [
+   41,
+   4,
+   0,
+   28,
+   0,
+   "STRING"
+  ],
+  [
+   42,
+   28,
+   0,
+   29,
+   2,
+   "STRING"
+  ],
+  [
+   43,
+   13,
+   0,
+   29,
+   0,
+   "IMAGE"
+  ],
+  [
+   44,
+   15,
+   0,
+   29,
+   1,
+   "IMAGE"
+  ],
+  [
+   45,
+   1,
+   2,
+   29,
+   8,
+   "COMBO"
+  ],
+  [
+   46,
+   29,
+   0,
+   30,
+   0,
+   "VIDEO"
+  ],
+  [
+   47,
+   4,
+   0,
+   31,
+   0,
+   "STRING"
+  ],
+  [
+   48,
+   2,
+   0,
+   31,
+   5,
+   "IMAGE"
+  ],
+  [
+   49,
+   20,
+   0,
+   31,
+   1,
+   "VIDEO"
+  ],
+  [
+   50,
+   23,
+   0,
+   31,
+   2,
+   "VIDEO"
+  ],
+  [
+   51,
+   26,
+   0,
+   31,
+   3,
+   "VIDEO"
+  ],
+  [
+   52,
+   29,
+   0,
+   31,
+   4,
+   "VIDEO"
+  ],
+  [
+   53,
+   31,
+   0,
+   32,
+   0,
+   "VIDEO"
+  ],
+  [
+   54,
+   31,
+   1,
+   33,
+   0,
+   "VIDEO"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.9,
+   "offset": [
+    416,
+    110
+   ]
+  },
+  "linearMode": true,
+  "linearData": {
+   "inputs": [
+    [
+     1,
+     "business_name"
+    ],
+    [
+     1,
+     "family"
+    ],
+    [
+     1,
+     "true_setup"
+    ],
+    [
+     1,
+     "honest_line"
+    ],
+    [
+     1,
+     "real_proof"
+    ],
+    [
+     1,
+     "hero_thing"
+    ],
+    [
+     1,
+     "tone"
+    ],
+    [
+     1,
+     "joke"
+    ],
+    [
+     2,
+     "image"
+    ],
+    [
+     1,
+     "writer"
+    ],
+    [
+     1,
+     "video_model"
+    ],
+    [
+     1,
+     "already_used_warps"
+    ],
+    [
+     31,
+     "music_path"
+    ],
+    [
+     31,
+     "captions"
+    ]
+   ],
+   "outputs": [
+    32,
+    33,
+    17,
+    5,
+    18
+   ]
+  }
+ },
+ "version": 0.4
+}

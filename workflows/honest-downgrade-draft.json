@@ -1,0 +1,2709 @@
+{
+ "id": "40dddcdb-0620-4337-beb9-0b4328539334",
+ "revision": 0,
+ "last_node_id": 32,
+ "last_link_id": 43,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "HonestBrief",
+   "pos": [
+    80,
+    110
+   ],
+   "size": [
+    305.3609375,
+    338
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "Business name",
+     "localized_name": "business_name",
+     "name": "business_name",
+     "type": "STRING",
+     "widget": {
+      "name": "business_name"
+     },
+     "link": null
+    },
+    {
+     "label": "Business family",
+     "localized_name": "family",
+     "name": "family",
+     "type": "COMBO",
+     "widget": {
+      "name": "family"
+     },
+     "link": null
+    },
+    {
+     "label": "The truth: your real setup, exactly",
+     "localized_name": "true_setup",
+     "name": "true_setup",
+     "type": "STRING",
+     "widget": {
+      "name": "true_setup"
+     },
+     "link": null
+    },
+    {
+     "label": "One honest line (empty = playful)",
+     "localized_name": "honest_line",
+     "name": "honest_line",
+     "type": "STRING",
+     "widget": {
+      "name": "honest_line"
+     },
+     "link": null
+    },
+    {
+     "label": "The payoff: real proof people can see",
+     "localized_name": "real_proof",
+     "name": "real_proof",
+     "type": "STRING",
+     "widget": {
+      "name": "real_proof"
+     },
+     "link": null
+    },
+    {
+     "label": "Payoff still: your best product or work (no people)",
+     "localized_name": "hero_thing",
+     "name": "hero_thing",
+     "type": "STRING",
+     "widget": {
+      "name": "hero_thing"
+     },
+     "link": null
+    },
+    {
+     "label": "Tone",
+     "localized_name": "tone",
+     "name": "tone",
+     "type": "COMBO",
+     "widget": {
+      "name": "tone"
+     },
+     "link": null
+    },
+    {
+     "label": "Joke ladder",
+     "localized_name": "joke",
+     "name": "joke",
+     "type": "COMBO",
+     "widget": {
+      "name": "joke"
+     },
+     "link": null
+    },
+    {
+     "label": "Warps you already used (never repeated)",
+     "localized_name": "already_used_warps",
+     "name": "already_used_warps",
+     "type": "STRING",
+     "widget": {
+      "name": "already_used_warps"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "video_model",
+     "name": "video_model",
+     "type": "COMBO",
+     "widget": {
+      "name": "video_model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "writer",
+     "name": "writer",
+     "type": "COMBO",
+     "widget": {
+      "name": "writer"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "brief",
+     "name": "brief",
+     "type": "STRING",
+     "links": [
+      1
+     ]
+    },
+    {
+     "localized_name": "writer_prompt",
+     "name": "writer_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "veo_model",
+     "name": "veo_model",
+     "type": "COMBO",
+     "links": null
+    }
+   ],
+   "title": "Your facts",
+   "properties": {
+    "Node name for S&R": "HonestBrief"
+   },
+   "widgets_values": [
+    "Tacos El Zorrito Azul",
+    "food (Food and drink)",
+    "a truck in a gas station parking lot",
+    "Started with $800 and my mom's recipes.",
+    "The line at 11pm is real.",
+    "three al pastor tacos with lime and cilantro on a plain paper tray, steam rising, night light from a service window",
+    "heartfelt",
+    "joke 1",
+    "",
+    "veo-3.1-lite",
+    "template (offline, free)"
+   ],
+   "widgets_values_named": {
+    "business_name": "Tacos El Zorrito Azul",
+    "family": "food (Food and drink)",
+    "true_setup": "a truck in a gas station parking lot",
+    "honest_line": "Started with $800 and my mom's recipes.",
+    "real_proof": "The line at 11pm is real.",
+    "hero_thing": "three al pastor tacos with lime and cilantro on a plain paper tray, steam rising, night light from a service window",
+    "tone": "heartfelt",
+    "joke": "joke 1",
+    "already_used_warps": "",
+    "video_model": "veo-3.1-lite",
+    "writer": "template (offline, free)"
+   }
+  },
+  {
+   "id": 2,
+   "type": "LoadImage",
+   "pos": [
+    80,
+    558
+   ],
+   "size": [
+    282.798828125,
+    102
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "Your REAL ending photo (optional; real people only here)",
+     "localized_name": "image",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "choose file to upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      37
+     ]
+    },
+    {
+     "localized_name": "MASK",
+     "name": "MASK",
+     "type": "MASK",
+     "links": null
+    }
+   ],
+   "title": "Real ending photo",
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "honest_blank.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "honest_blank.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 3,
+   "type": "HonestLadder",
+   "pos": [
+    465.3609375,
+    110
+   ],
+   "size": [
+    265.718359375,
+    46
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "brief",
+     "name": "brief",
+     "type": "STRING",
+     "link": 1
+    },
+    {
+     "localized_name": "writer_reply",
+     "name": "writer_reply",
+     "shape": 7,
+     "type": "STRING",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "links": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      16,
+      19,
+      21,
+      24,
+      26,
+      29,
+      31,
+      34,
+      36
+     ]
+    },
+    {
+     "localized_name": "ladder_text",
+     "name": "ladder_text",
+     "type": "STRING",
+     "links": [
+      2
+     ]
+    }
+   ],
+   "title": "Ladder",
+   "properties": {
+    "Node name for S&R": "HonestLadder"
+   }
+  },
+  {
+   "id": 4,
+   "type": "PreviewAny",
+   "pos": [
+    811.079296875,
+    2966
+   ],
+   "size": [
+    210,
+    122
+   ],
+   "flags": {},
+   "order": 22,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "source",
+     "name": "source",
+     "type": "*",
+     "link": 2
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Your ladder",
+   "properties": {
+    "Node name for S&R": "PreviewAny"
+   },
+   "widgets_values": [],
+   "widgets_values_named": {}
+  },
+  {
+   "id": 5,
+   "type": "HonestRung",
+   "pos": [
+    811.079296875,
+    110
+   ],
+   "size": [
+    270,
+    78
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 3
+    },
+    {
+     "localized_name": "rung",
+     "name": "rung",
+     "type": "INT",
+     "widget": {
+      "name": "rung"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "keyframe_prompt",
+     "name": "keyframe_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "caption",
+     "name": "caption",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Rung 1",
+   "properties": {
+    "Node name for S&R": "HonestRung"
+   },
+   "widgets_values": [
+    1
+   ],
+   "widgets_values_named": {
+    "rung": 1
+   }
+  },
+  {
+   "id": 6,
+   "type": "LoadImage",
+   "pos": [
+    80,
+    770
+   ],
+   "size": [
+    282.798828125,
+    102
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "Rung 1 still (brag)",
+     "localized_name": "image",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "choose file to upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      9,
+      17
+     ]
+    },
+    {
+     "localized_name": "MASK",
+     "name": "MASK",
+     "type": "MASK",
+     "links": null
+    }
+   ],
+   "title": "Still 1",
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "honest_rung_1.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "honest_rung_1.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 7,
+   "type": "HonestRung",
+   "pos": [
+    811.079296875,
+    298
+   ],
+   "size": [
+    270,
+    78
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 4
+    },
+    {
+     "localized_name": "rung",
+     "name": "rung",
+     "type": "INT",
+     "widget": {
+      "name": "rung"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "keyframe_prompt",
+     "name": "keyframe_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "caption",
+     "name": "caption",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Rung 2",
+   "properties": {
+    "Node name for S&R": "HonestRung"
+   },
+   "widgets_values": [
+    2
+   ],
+   "widgets_values_named": {
+    "rung": 2
+   }
+  },
+  {
+   "id": 8,
+   "type": "LoadImage",
+   "pos": [
+    80,
+    982
+   ],
+   "size": [
+    282.798828125,
+    102
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "Rung 2 still (downgrade 1)",
+     "localized_name": "image",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "choose file to upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      10,
+      18,
+      22
+     ]
+    },
+    {
+     "localized_name": "MASK",
+     "name": "MASK",
+     "type": "MASK",
+     "links": null
+    }
+   ],
+   "title": "Still 2",
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "honest_rung_2.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "honest_rung_2.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 9,
+   "type": "HonestRung",
+   "pos": [
+    811.079296875,
+    486
+   ],
+   "size": [
+    270,
+    78
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 5
+    },
+    {
+     "localized_name": "rung",
+     "name": "rung",
+     "type": "INT",
+     "widget": {
+      "name": "rung"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "keyframe_prompt",
+     "name": "keyframe_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "caption",
+     "name": "caption",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Rung 3",
+   "properties": {
+    "Node name for S&R": "HonestRung"
+   },
+   "widgets_values": [
+    3
+   ],
+   "widgets_values_named": {
+    "rung": 3
+   }
+  },
+  {
+   "id": 10,
+   "type": "LoadImage",
+   "pos": [
+    80,
+    1194
+   ],
+   "size": [
+    282.798828125,
+    102
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "Rung 3 still (downgrade 2)",
+     "localized_name": "image",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "choose file to upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      11,
+      23,
+      27
+     ]
+    },
+    {
+     "localized_name": "MASK",
+     "name": "MASK",
+     "type": "MASK",
+     "links": null
+    }
+   ],
+   "title": "Still 3",
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "honest_rung_3.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "honest_rung_3.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 11,
+   "type": "HonestRung",
+   "pos": [
+    811.079296875,
+    674
+   ],
+   "size": [
+    270,
+    78
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 6
+    },
+    {
+     "localized_name": "rung",
+     "name": "rung",
+     "type": "INT",
+     "widget": {
+      "name": "rung"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "keyframe_prompt",
+     "name": "keyframe_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "caption",
+     "name": "caption",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Rung 4",
+   "properties": {
+    "Node name for S&R": "HonestRung"
+   },
+   "widgets_values": [
+    4
+   ],
+   "widgets_values_named": {
+    "rung": 4
+   }
+  },
+  {
+   "id": 12,
+   "type": "LoadImage",
+   "pos": [
+    80,
+    1406
+   ],
+   "size": [
+    282.798828125,
+    102
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "Rung 4 still (truth)",
+     "localized_name": "image",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "choose file to upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      12,
+      28,
+      32
+     ]
+    },
+    {
+     "localized_name": "MASK",
+     "name": "MASK",
+     "type": "MASK",
+     "links": null
+    }
+   ],
+   "title": "Still 4",
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "honest_rung_4.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "honest_rung_4.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 13,
+   "type": "HonestRung",
+   "pos": [
+    811.079296875,
+    862
+   ],
+   "size": [
+    270,
+    78
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 7
+    },
+    {
+     "localized_name": "rung",
+     "name": "rung",
+     "type": "INT",
+     "widget": {
+      "name": "rung"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "keyframe_prompt",
+     "name": "keyframe_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "caption",
+     "name": "caption",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Rung 5",
+   "properties": {
+    "Node name for S&R": "HonestRung"
+   },
+   "widgets_values": [
+    5
+   ],
+   "widgets_values_named": {
+    "rung": 5
+   }
+  },
+  {
+   "id": 14,
+   "type": "LoadImage",
+   "pos": [
+    80,
+    1618
+   ],
+   "size": [
+    282.798828125,
+    102
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "Rung 5 still (payoff)",
+     "localized_name": "image",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "choose file to upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      13,
+      33
+     ]
+    },
+    {
+     "localized_name": "MASK",
+     "name": "MASK",
+     "type": "MASK",
+     "links": null
+    }
+   ],
+   "title": "Still 5",
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "honest_rung_5.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "honest_rung_5.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 15,
+   "type": "HonestBoard",
+   "pos": [
+    811.079296875,
+    1050
+   ],
+   "size": [
+    307.253515625,
+    126
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 8
+    },
+    {
+     "localized_name": "rung_1",
+     "name": "rung_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 9
+    },
+    {
+     "localized_name": "rung_2",
+     "name": "rung_2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 10
+    },
+    {
+     "localized_name": "rung_3",
+     "name": "rung_3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 11
+    },
+    {
+     "localized_name": "rung_4",
+     "name": "rung_4",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 12
+    },
+    {
+     "localized_name": "rung_5",
+     "name": "rung_5",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 13
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "board",
+     "name": "board",
+     "type": "IMAGE",
+     "links": [
+      14
+     ]
+    },
+    {
+     "localized_name": "check",
+     "name": "check",
+     "type": "STRING",
+     "links": [
+      15
+     ]
+    }
+   ],
+   "title": "Board + sign check",
+   "properties": {
+    "Node name for S&R": "HonestBoard"
+   }
+  },
+  {
+   "id": 16,
+   "type": "PreviewImage",
+   "pos": [
+    1231.1326171874998,
+    110
+   ],
+   "size": [
+    140,
+    26
+   ],
+   "flags": {},
+   "order": 23,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 14
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "Board",
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   }
+  },
+  {
+   "id": 17,
+   "type": "PreviewAny",
+   "pos": [
+    1231.1326171874998,
+    246
+   ],
+   "size": [
+    210,
+    122
+   ],
+   "flags": {},
+   "order": 24,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "source",
+     "name": "source",
+     "type": "*",
+     "link": 15
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Sign check",
+   "properties": {
+    "Node name for S&R": "PreviewAny"
+   },
+   "widgets_values": [],
+   "widgets_values_named": {}
+  },
+  {
+   "id": 18,
+   "type": "HonestWarp",
+   "pos": [
+    811.079296875,
+    1286
+   ],
+   "size": [
+    270.44296875,
+    78
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 16
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "warp_prompt",
+     "name": "warp_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Warp 1",
+   "properties": {
+    "Node name for S&R": "HonestWarp"
+   },
+   "widgets_values": [
+    1
+   ],
+   "widgets_values_named": {
+    "step": 1
+   }
+  },
+  {
+   "id": 19,
+   "type": "HonestDraftWarp",
+   "pos": [
+    811.079296875,
+    1474
+   ],
+   "size": [
+    340.0533203125,
+    122
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "first_frame",
+     "name": "first_frame",
+     "type": "IMAGE",
+     "link": 17
+    },
+    {
+     "localized_name": "last_frame",
+     "name": "last_frame",
+     "type": "IMAGE",
+     "link": 18
+    },
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 19
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seconds",
+     "name": "seconds",
+     "type": "INT",
+     "widget": {
+      "name": "seconds"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VIDEO",
+     "name": "VIDEO",
+     "type": "VIDEO",
+     "links": [
+      20,
+      38
+     ]
+    }
+   ],
+   "title": "Draft warp 1",
+   "properties": {
+    "Node name for S&R": "HonestDraftWarp"
+   },
+   "widgets_values": [
+    1,
+    6
+   ],
+   "widgets_values_named": {
+    "step": 1,
+    "seconds": 6
+   }
+  },
+  {
+   "id": 20,
+   "type": "SaveVideo",
+   "pos": [
+    1231.1326171874998,
+    478
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 25,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 20
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Save warp 1",
+   "properties": {},
+   "widgets_values": [
+    "honest/warps/warp_1",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/warps/warp_1",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  },
+  {
+   "id": 21,
+   "type": "HonestWarp",
+   "pos": [
+    811.079296875,
+    1706
+   ],
+   "size": [
+    270.44296875,
+    78
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 21
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "warp_prompt",
+     "name": "warp_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Warp 2",
+   "properties": {
+    "Node name for S&R": "HonestWarp"
+   },
+   "widgets_values": [
+    2
+   ],
+   "widgets_values_named": {
+    "step": 2
+   }
+  },
+  {
+   "id": 22,
+   "type": "HonestDraftWarp",
+   "pos": [
+    811.079296875,
+    1894
+   ],
+   "size": [
+    340.0533203125,
+    122
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "first_frame",
+     "name": "first_frame",
+     "type": "IMAGE",
+     "link": 22
+    },
+    {
+     "localized_name": "last_frame",
+     "name": "last_frame",
+     "type": "IMAGE",
+     "link": 23
+    },
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 24
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seconds",
+     "name": "seconds",
+     "type": "INT",
+     "widget": {
+      "name": "seconds"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VIDEO",
+     "name": "VIDEO",
+     "type": "VIDEO",
+     "links": [
+      25,
+      39
+     ]
+    }
+   ],
+   "title": "Draft warp 2",
+   "properties": {
+    "Node name for S&R": "HonestDraftWarp"
+   },
+   "widgets_values": [
+    2,
+    6
+   ],
+   "widgets_values_named": {
+    "step": 2,
+    "seconds": 6
+   }
+  },
+  {
+   "id": 23,
+   "type": "SaveVideo",
+   "pos": [
+    1231.1326171874998,
+    694
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 26,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 25
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Save warp 2",
+   "properties": {},
+   "widgets_values": [
+    "honest/warps/warp_2",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/warps/warp_2",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  },
+  {
+   "id": 24,
+   "type": "HonestWarp",
+   "pos": [
+    811.079296875,
+    2126
+   ],
+   "size": [
+    270.44296875,
+    78
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 26
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "warp_prompt",
+     "name": "warp_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Warp 3",
+   "properties": {
+    "Node name for S&R": "HonestWarp"
+   },
+   "widgets_values": [
+    3
+   ],
+   "widgets_values_named": {
+    "step": 3
+   }
+  },
+  {
+   "id": 25,
+   "type": "HonestDraftWarp",
+   "pos": [
+    811.079296875,
+    2314
+   ],
+   "size": [
+    340.0533203125,
+    122
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "first_frame",
+     "name": "first_frame",
+     "type": "IMAGE",
+     "link": 27
+    },
+    {
+     "localized_name": "last_frame",
+     "name": "last_frame",
+     "type": "IMAGE",
+     "link": 28
+    },
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 29
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seconds",
+     "name": "seconds",
+     "type": "INT",
+     "widget": {
+      "name": "seconds"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VIDEO",
+     "name": "VIDEO",
+     "type": "VIDEO",
+     "links": [
+      30,
+      40
+     ]
+    }
+   ],
+   "title": "Draft warp 3",
+   "properties": {
+    "Node name for S&R": "HonestDraftWarp"
+   },
+   "widgets_values": [
+    3,
+    6
+   ],
+   "widgets_values_named": {
+    "step": 3,
+    "seconds": 6
+   }
+  },
+  {
+   "id": 26,
+   "type": "SaveVideo",
+   "pos": [
+    1231.1326171874998,
+    910
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 27,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 30
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Save warp 3",
+   "properties": {},
+   "widgets_values": [
+    "honest/warps/warp_3",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/warps/warp_3",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  },
+  {
+   "id": 27,
+   "type": "HonestWarp",
+   "pos": [
+    811.079296875,
+    2546
+   ],
+   "size": [
+    270.44296875,
+    78
+   ],
+   "flags": {},
+   "order": 20,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 31
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "warp_prompt",
+     "name": "warp_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Warp 4",
+   "properties": {
+    "Node name for S&R": "HonestWarp"
+   },
+   "widgets_values": [
+    4
+   ],
+   "widgets_values_named": {
+    "step": 4
+   }
+  },
+  {
+   "id": 28,
+   "type": "HonestDraftWarp",
+   "pos": [
+    811.079296875,
+    2734
+   ],
+   "size": [
+    340.0533203125,
+    122
+   ],
+   "flags": {},
+   "order": 21,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "first_frame",
+     "name": "first_frame",
+     "type": "IMAGE",
+     "link": 32
+    },
+    {
+     "localized_name": "last_frame",
+     "name": "last_frame",
+     "type": "IMAGE",
+     "link": 33
+    },
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 34
+    },
+    {
+     "localized_name": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seconds",
+     "name": "seconds",
+     "type": "INT",
+     "widget": {
+      "name": "seconds"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VIDEO",
+     "name": "VIDEO",
+     "type": "VIDEO",
+     "links": [
+      35,
+      41
+     ]
+    }
+   ],
+   "title": "Draft warp 4",
+   "properties": {
+    "Node name for S&R": "HonestDraftWarp"
+   },
+   "widgets_values": [
+    4,
+    6
+   ],
+   "widgets_values_named": {
+    "step": 4,
+    "seconds": 6
+   }
+  },
+  {
+   "id": 29,
+   "type": "SaveVideo",
+   "pos": [
+    1231.1326171874998,
+    1126
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 28,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 35
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Save warp 4",
+   "properties": {},
+   "widgets_values": [
+    "honest/warps/warp_4",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/warps/warp_4",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  },
+  {
+   "id": 30,
+   "type": "HonestAssemble",
+   "pos": [
+    1231.1326171874998,
+    1342
+   ],
+   "size": [
+    300.425390625,
+    250
+   ],
+   "flags": {},
+   "order": 29,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "ladder",
+     "name": "ladder",
+     "type": "STRING",
+     "link": 36
+    },
+    {
+     "localized_name": "warp_1",
+     "name": "warp_1",
+     "type": "VIDEO",
+     "link": 38
+    },
+    {
+     "localized_name": "warp_2",
+     "name": "warp_2",
+     "type": "VIDEO",
+     "link": 39
+    },
+    {
+     "localized_name": "warp_3",
+     "name": "warp_3",
+     "type": "VIDEO",
+     "link": 40
+    },
+    {
+     "localized_name": "warp_4",
+     "name": "warp_4",
+     "type": "VIDEO",
+     "link": 41
+    },
+    {
+     "localized_name": "ending_photo",
+     "name": "ending_photo",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 37
+    },
+    {
+     "localized_name": "ending_clip",
+     "name": "ending_clip",
+     "shape": 7,
+     "type": "VIDEO",
+     "link": null
+    },
+    {
+     "label": "Burn in captions",
+     "localized_name": "captions",
+     "name": "captions",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "captions"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "ai_label",
+     "name": "ai_label",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "ai_label"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "credit",
+     "name": "credit",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "credit"
+     },
+     "link": null
+    },
+    {
+     "label": "Music you own (optional path)",
+     "localized_name": "music_path",
+     "name": "music_path",
+     "type": "STRING",
+     "widget": {
+      "name": "music_path"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "reel_30s",
+     "name": "reel_30s",
+     "type": "VIDEO",
+     "links": [
+      42
+     ]
+    },
+    {
+     "localized_name": "cutdown_15s",
+     "name": "cutdown_15s",
+     "type": "VIDEO",
+     "links": [
+      43
+     ]
+    },
+    {
+     "localized_name": "receipt",
+     "name": "receipt",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "Assemble",
+   "properties": {
+    "Node name for S&R": "HonestAssemble"
+   },
+   "widgets_values": [
+    true,
+    true,
+    true,
+    ""
+   ],
+   "widgets_values_named": {
+    "captions": true,
+    "ai_label": true,
+    "credit": true,
+    "music_path": ""
+   }
+  },
+  {
+   "id": 31,
+   "type": "SaveVideo",
+   "pos": [
+    1611.5580078125,
+    110
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 30,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 42
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Your Reel (30 s)",
+   "properties": {},
+   "widgets_values": [
+    "honest/reel_30s",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/reel_30s",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  },
+  {
+   "id": 32,
+   "type": "SaveVideo",
+   "pos": [
+    1611.5580078125,
+    326
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 31,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "link": 43
+    },
+    {
+     "localized_name": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "codec",
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "VIDEO",
+     "links": null
+    }
+   ],
+   "title": "Cutdown (15 s)",
+   "properties": {},
+   "widgets_values": [
+    "honest/cutdown_15s",
+    "mp4",
+    "auto",
+    "auto"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "honest/cutdown_15s",
+    "format": "mp4",
+    "format.codec": "auto",
+    "codec": "auto"
+   }
+  }
+ ],
+ "links": [
+  [
+   1,
+   1,
+   0,
+   3,
+   0,
+   "STRING"
+  ],
+  [
+   2,
+   3,
+   1,
+   4,
+   0,
+   "STRING"
+  ],
+  [
+   3,
+   3,
+   0,
+   5,
+   0,
+   "STRING"
+  ],
+  [
+   4,
+   3,
+   0,
+   7,
+   0,
+   "STRING"
+  ],
+  [
+   5,
+   3,
+   0,
+   9,
+   0,
+   "STRING"
+  ],
+  [
+   6,
+   3,
+   0,
+   11,
+   0,
+   "STRING"
+  ],
+  [
+   7,
+   3,
+   0,
+   13,
+   0,
+   "STRING"
+  ],
+  [
+   8,
+   3,
+   0,
+   15,
+   0,
+   "STRING"
+  ],
+  [
+   9,
+   6,
+   0,
+   15,
+   1,
+   "IMAGE"
+  ],
+  [
+   10,
+   8,
+   0,
+   15,
+   2,
+   "IMAGE"
+  ],
+  [
+   11,
+   10,
+   0,
+   15,
+   3,
+   "IMAGE"
+  ],
+  [
+   12,
+   12,
+   0,
+   15,
+   4,
+   "IMAGE"
+  ],
+  [
+   13,
+   14,
+   0,
+   15,
+   5,
+   "IMAGE"
+  ],
+  [
+   14,
+   15,
+   0,
+   16,
+   0,
+   "IMAGE"
+  ],
+  [
+   15,
+   15,
+   1,
+   17,
+   0,
+   "STRING"
+  ],
+  [
+   16,
+   3,
+   0,
+   18,
+   0,
+   "STRING"
+  ],
+  [
+   17,
+   6,
+   0,
+   19,
+   0,
+   "IMAGE"
+  ],
+  [
+   18,
+   8,
+   0,
+   19,
+   1,
+   "IMAGE"
+  ],
+  [
+   19,
+   3,
+   0,
+   19,
+   2,
+   "STRING"
+  ],
+  [
+   20,
+   19,
+   0,
+   20,
+   0,
+   "VIDEO"
+  ],
+  [
+   21,
+   3,
+   0,
+   21,
+   0,
+   "STRING"
+  ],
+  [
+   22,
+   8,
+   0,
+   22,
+   0,
+   "IMAGE"
+  ],
+  [
+   23,
+   10,
+   0,
+   22,
+   1,
+   "IMAGE"
+  ],
+  [
+   24,
+   3,
+   0,
+   22,
+   2,
+   "STRING"
+  ],
+  [
+   25,
+   22,
+   0,
+   23,
+   0,
+   "VIDEO"
+  ],
+  [
+   26,
+   3,
+   0,
+   24,
+   0,
+   "STRING"
+  ],
+  [
+   27,
+   10,
+   0,
+   25,
+   0,
+   "IMAGE"
+  ],
+  [
+   28,
+   12,
+   0,
+   25,
+   1,
+   "IMAGE"
+  ],
+  [
+   29,
+   3,
+   0,
+   25,
+   2,
+   "STRING"
+  ],
+  [
+   30,
+   25,
+   0,
+   26,
+   0,
+   "VIDEO"
+  ],
+  [
+   31,
+   3,
+   0,
+   27,
+   0,
+   "STRING"
+  ],
+  [
+   32,
+   12,
+   0,
+   28,
+   0,
+   "IMAGE"
+  ],
+  [
+   33,
+   14,
+   0,
+   28,
+   1,
+   "IMAGE"
+  ],
+  [
+   34,
+   3,
+   0,
+   28,
+   2,
+   "STRING"
+  ],
+  [
+   35,
+   28,
+   0,
+   29,
+   0,
+   "VIDEO"
+  ],
+  [
+   36,
+   3,
+   0,
+   30,
+   0,
+   "STRING"
+  ],
+  [
+   37,
+   2,
+   0,
+   30,
+   5,
+   "IMAGE"
+  ],
+  [
+   38,
+   19,
+   0,
+   30,
+   1,
+   "VIDEO"
+  ],
+  [
+   39,
+   22,
+   0,
+   30,
+   2,
+   "VIDEO"
+  ],
+  [
+   40,
+   25,
+   0,
+   30,
+   3,
+   "VIDEO"
+  ],
+  [
+   41,
+   28,
+   0,
+   30,
+   4,
+   "VIDEO"
+  ],
+  [
+   42,
+   30,
+   0,
+   31,
+   0,
+   "VIDEO"
+  ],
+  [
+   43,
+   30,
+   1,
+   32,
+   0,
+   "VIDEO"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.9,
+   "offset": [
+    416,
+    110
+   ]
+  },
+  "linearMode": true,
+  "linearData": {
+   "inputs": [
+    [
+     1,
+     "business_name"
+    ],
+    [
+     1,
+     "family"
+    ],
+    [
+     1,
+     "true_setup"
+    ],
+    [
+     1,
+     "honest_line"
+    ],
+    [
+     1,
+     "real_proof"
+    ],
+    [
+     1,
+     "hero_thing"
+    ],
+    [
+     1,
+     "tone"
+    ],
+    [
+     1,
+     "joke"
+    ],
+    [
+     6,
+     "image"
+    ],
+    [
+     8,
+     "image"
+    ],
+    [
+     10,
+     "image"
+    ],
+    [
+     12,
+     "image"
+    ],
+    [
+     14,
+     "image"
+    ],
+    [
+     2,
+     "image"
+    ],
+    [
+     1,
+     "already_used_warps"
+    ],
+    [
+     30,
+     "music_path"
+    ],
+    [
+     30,
+     "captions"
+    ]
+   ],
+   "outputs": [
+    31,
+    32,
+    16,
+    4,
+    17
+   ]
+  }
+ },
+ "version": 0.4
+}
