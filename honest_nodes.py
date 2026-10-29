@@ -22,7 +22,7 @@ except ImportError:  # older ComfyUI
     from comfy_api.latest._input_impl import VideoFromFile
 
 CAT = "Honest Downgrade"
-FAMILY_CHOICES = [f"{k} ({v['label']})" for k, v in core.FAMILIES.items()]
+TYPE_CHOICES = core.TYPE_CHOICES
 WRITERS = ["template (offline, free)", "Gemini (new jokes for your business)"]
 JOKES = ["joke 1", "joke 2", "joke 3"]
 PRESET = core.load_preset(core.list_presets()[0]) if core.list_presets() else {}
@@ -52,7 +52,9 @@ def _out_dir():
 
 
 class HonestBrief:
-    """The business's true facts and the choices. The facts are locked: no model may rewrite them."""
+    """The business's true facts and the choices, for any small business (shop or not). The business type picks the
+    joke ladder's nouns and the wild cards; offer, setting and audience fill the prompts. The facts are locked: no model
+    may rewrite them. Defaults are the sample taco truck; type your own."""
     CATEGORY = CAT
     RETURN_TYPES = ("STRING", "STRING", core.VEO_MODELS)
     RETURN_NAMES = ("brief", "writer_prompt", "veo_model")
@@ -62,26 +64,37 @@ class HonestBrief:
     def INPUT_TYPES(cls):
         p = PRESET
         txt = lambda d, tip, ml=False: ("STRING", {"default": d, "multiline": ml, "tooltip": tip})
-        fam = next((c for c in FAMILY_CHOICES if c.startswith(p.get("family", "food"))), FAMILY_CHOICES[0])
+        bt = core.BUSINESS_TYPES[core.business_type_key(p.get("business_type", core.TYPE_KEYS[0]))]
         return {"required": {
             "business_name": txt(p.get("business_name", ""), "Shown on the end card."),
-            "family": (FAMILY_CHOICES, {"default": fam, "tooltip": "Sets the joke ladder and the wild-card warps that fit."}),
-            "true_setup": txt(p.get("true_setup", ""), "The truth rung, exactly as it is: 'a truck in a gas station parking lot'."),
+            "business_type": (TYPE_CHOICES, {"default": bt["label"], "tooltip": "Any small business, shop or not: sets the nouns "
+                              "of the joke ladder and the wild-card warps that fit. 'Other' works for anything; describe the offer."}),
+            "offer": txt(p.get("offer", ""), "What you sell or do, in your words: 'leak repairs and new installs', 'one-to-one "
+                         "maths lessons', 'poured soy candles'. Empty = the business type's default."),
+            "setting": txt(p.get("setting", ""), "Where the work really happens: 'at customers' homes', 'online', 'a two-chair "
+                           "practice'. Empty = the business type's default."),
+            "audience": txt(p.get("audience", ""), "Who it is for: 'busy dog owners', 'beginners who hate big gyms'. "
+                            "Steers the joke writer. Empty = the business type's default."),
+            "true_setup": txt(p.get("true_setup", ""), "The truth rung, exactly as it is: 'a van and a phone that never stops "
+                              "ringing', 'one chair in my garage', 'a truck in a gas station parking lot'."),
             "honest_line": txt(p.get("honest_line", ""), "One true line about how you started ('Started with $800 in 2019.'). Empty = playful tone."),
-            "real_proof": txt(p.get("real_proof", ""), "The payoff people can see and check: 'The line at 11pm is real.'"),
-            "hero_thing": txt(p.get("hero_thing", ""), "The payoff still: your best product or finished work, no people."),
+            "real_proof": txt(p.get("real_proof", ""), "The payoff people can see and check: 'Same-day callbacks, every time.', "
+                              "'Booked out every Saturday.'"),
+            "hero_thing": txt(p.get("hero_thing", ""), "The payoff still: your best product or finished work, no people. "
+                              "Empty = built from the business type and offer."),
             "tone": (list(core.TONES), {"default": p.get("tone", "heartfelt")}),
-            "joke": (JOKES, {"default": "joke 1", "tooltip": "Three ladders per business family. Pick the one that sounds like you."}),
+            "joke": (JOKES, {"default": "joke 1", "tooltip": "Three joke ladders (places, capacity, crew), filled for your "
+                     "business type. Pick the one that sounds like you."}),
             "already_used_warps": ("STRING", {"default": "", "tooltip": "Warp devices you used before, comma separated. Never repeated."}),
             "video_model": (core.VEO_MODELS, {"default": "veo-3.1-lite", "tooltip": "Veo 3.1 lite: about $0.03/s at 720p without audio."}),
             "writer": (WRITERS, {"default": WRITERS[0]}),
         }}
 
-    def run(self, business_name, family, true_setup, honest_line, real_proof, hero_thing, tone, joke, already_used_warps,
-            video_model, writer):
-        brief = core.make_brief(business_name, family, true_setup, honest_line, real_proof, hero_thing, tone,
+    def run(self, business_name, business_type, offer, setting, audience, true_setup, honest_line, real_proof, hero_thing, tone,
+            joke, already_used_warps, video_model, writer):
+        brief = core.make_brief(business_name, business_type, true_setup, honest_line, real_proof, hero_thing, tone,
                                 JOKES.index(joke) + 1 if joke in JOKES else 1, already_used_warps, video_model,
-                                "gemini" if writer.startswith("Gemini") else "template")
+                                "gemini" if writer.startswith("Gemini") else "template", offer, setting, audience)
         return (json.dumps(brief), core.writer_prompt(brief), video_model)
 
 
@@ -240,7 +253,7 @@ class HonestAssemble:
                              "credit": ("BOOLEAN", {"default": True}),
                              "music_path": ("STRING", {"default": "", "tooltip": "Optional: a track you OWN or licensed. Empty = the "
                                                        "built-in synth bed (original, no licence needed). Never a copyrighted song."})},
-                "optional": {"ending_photo": ("IMAGE", {"tooltip": "Your REAL photo for the payoff (owner, customers, the line). "
+                "optional": {"ending_photo": ("IMAGE", {"tooltip": "Your REAL photo for the payoff (you, your team, your work, happy customers). "
                                                         "Empty slot = no ending, the AI payoff still closes the Reel."}),
                              "ending_clip": ("VIDEO", {"tooltip": "Or a REAL clip instead of a photo."})}}
 

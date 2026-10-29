@@ -16,7 +16,7 @@ def test_opens_in_app_mode_with_the_form(name):
     wf, nodes = load(name)
     assert wf["extra"]["linearMode"] is True
     names = [(nodes[i]["type"], w) for i, w in wf["extra"]["linearData"]["inputs"]]
-    for w in ("business_name", "family", "true_setup", "honest_line", "real_proof", "hero_thing", "tone", "joke", "already_used_warps"):
+    for w in ("business_name", "business_type", "offer", "setting", "audience", "true_setup", "honest_line", "real_proof", "hero_thing", "tone", "joke", "already_used_warps"):
         assert ("HonestBrief", w) in names
     assert ("HonestAssemble", "music_path") in names and ("LoadImage", "image") in names
     outs = sorted(nodes[i]["title"] for i in wf["extra"]["linearData"]["outputs"])

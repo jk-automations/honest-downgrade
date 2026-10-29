@@ -44,6 +44,12 @@ DEVICES = {
     "push-through window": "the camera pushes straight through a window into",
     "pull-back reveal": "the camera pulls back fast and wide to reveal",
     "melt": "the scene melts like warm wax and re-forms as",
+    "flour cloud": "a cloud of flour puffs up, fills the whole frame, then settles to reveal",
+    "water splash": "a burst of clean water splashes across the lens, then drains away to reveal",
+    "bubble burst": "a wall of soap bubbles rises across the lens, then pops all at once to reveal",
+    "page flip": "the whole frame turns like a giant book page to reveal",
+    "chalk dust": "a puff of chalk dust blows across the lens, then clears to reveal",
+    "box unfold": "a cardboard box unfolds flat across the lens and refolds into",
 }
 GENERIC_DEVICES = ["pop-up fold", "flock burst", "push-through window", "melt", "pull-back reveal"]
 # The cheap local draft (no AI video) maps each device to an ffmpeg transition so the animatic still reads as that device.
@@ -51,79 +57,206 @@ DRAFT_TRANSITION = {"ribbon snake": "slideleft", "steam swirl": "fadewhite", "fl
                     "paint wave": "wipeup", "tool-belt burst": "circleopen", "towel wipe": "wiperight", "mirror shatter": "pixelize",
                     "petal confetti": "dissolve", "elevator drop": "slideup", "paper-plane swarm": "slideright", "screen pull": "smoothleft",
                     "pop-up fold": "horzclose", "flock burst": "circleopen", "push-through window": "zoomin", "pull-back reveal": "circleclose",
-                    "melt": "dissolve"}
+                    "melt": "dissolve", "flour cloud": "fadewhite", "water splash": "wipedown", "bubble burst": "circleopen",
+                    "page flip": "slideleft", "chalk dust": "fadewhite", "box unfold": "vertopen"}
 
-# ---------------------------------------------------------------- the four business families (W13 card)
-# Each family: the default truth/proof wording when a field is left empty, the hero for the payoff still, the wild
-# cards that fit, and three joke ladders (brag, downgrade 1 = cut the number, downgrade 2 = cut the fancy thing).
-# visual = what the frame must show so the caption is literally true (block B35). sign = short sign text, may be "".
-FAMILIES = {
-    "food": {
-        "label": "Food and drink",
+# ---------------------------------------------------------------- the joke ladders: three templates for any business
+# The same three ladders serve every business. The business type fills the nouns: brag (impossible scale), downgrade 1
+# (cut the number), downgrade 2 (cut the fancy thing to one humble thing). Each rung is (caption, visual, sign).
+# visual = what the frame must show so the caption is literally true (block B35); the numbers are in the template, so a
+# caption's number is always in its visual. sign = short sign text, may be "".
+LADDER_TEMPLATES = [
+    [("Our 200th {place} just opened.", "a gleaming grand-opening plaza in front of {big_place}, a huge red ribbon across the doors, a banner over the entrance", "200TH {PLACE}"),
+     ("Ok, it's 2 {places}.", "exactly 2 {two_places}, side by side, both lit", "2 {PLACES}"),
+     ("Ok, it's one {one}.", "{one_visual}", "")],
+    [("We have 40 {units}.", "{big_hall} with 40 identical {units} in long rows", "40 {UNITS}"),
+     ("Ok, it's 4 {units}.", "exactly 4 {units} {small_spot}", ""),
+     ("Ok, no {units}. One {tool}.", "{tool_visual}", "")],
+    [("Our crew is 50 strong.", "{crew_hall} with 50 {crew_items} in long rows", "50 {CREW_ITEMS}"),
+     ("Ok, it's 5 {crew_items}.", "exactly 5 {crew_items} {crew_spot}", ""),
+     ("Ok, no crew. One {solo}.", "{solo_visual}", "")],
+]
+TEMPLATE_SLOTS = ["place", "places", "big_place", "two_places", "one", "one_visual", "units", "big_hall", "small_spot", "tool",
+                  "tool_visual", "crew_items", "crew_hall", "crew_spot", "solo", "solo_visual"]
+
+# ---------------------------------------------------------------- business types (the preset table)
+# One row per kind of small business, storefront or not. kind = how prompts name the business (a business, never a
+# person, so image models are not nudged to draw one). offer / setting / audience are the defaults for those inputs.
+# example = sample true facts (truth, honest line, payoff) used for tooltips, tests and docs; all fictional.
+# devices = the three wild-card warps that fit this business; slots fill LADDER_TEMPLATES.
+# No slot or default names people: AI stills show places and things only.
+BUSINESS_TYPES = {
+    "food-truck": {
+        "label": "Food truck", "kind": "food truck", "storefront": False,
+        "offer": "street food made to order", "setting": "a truck parked wherever the evening crowd is",
+        "audience": "hungry locals and night-shift workers nearby",
         "hero": "the signature dish in a tight close-up, steam rising, on a plain paper tray",
+        "example": ("a truck in a gas station parking lot", "Started with $800 and my mom's recipes.", "The line at 11pm is real."),
         "devices": ["ribbon snake", "steam swirl", "flying ingredients"],
-        "ladders": [
-            [("Our 200th location just opened.", "a gleaming grand-opening plaza of a giant restaurant tower, a huge red ribbon across the doors, a banner over the entrance", "200TH LOCATION"),
-             ("Ok, it's 2 locations.", "two small identical storefront restaurants side by side on a quiet street, both lit", "2 LOCATIONS"),
-             ("Ok, it's one window.", "one small service window in a plain painted wall, a chalk menu board beside it", "")],
-            [("We seat 500 a night.", "a vast dining hall with 500 empty set tables and chandeliers, a sign on the wall", "500 SEATS"),
-             ("Ok, it's 5 tables.", "five small tables with folding chairs on a sidewalk, string lights above", ""),
-             ("Ok, no tables. One counter.", "one short counter with a napkin holder and a hot-sauce bottle, nothing else", "")],
-            [("Our kitchen has 40 grills.", "an enormous stainless steel kitchen with 40 identical grills in long rows", "40 GRILLS"),
-             ("Ok, it's 4 burners.", "a small stove with exactly four burners, a single pan on one of them", ""),
-             ("Ok, it's one flat-top grill.", "one well-seasoned flat-top grill with a spatula resting on it", "")],
-        ],
+        "slots": {"place": "location", "places": "locations", "big_place": "a giant restaurant tower",
+                  "two_places": "small identical restaurants on a quiet street", "one": "window",
+                  "one_visual": "one small service window in a plain painted wall, a chalk menu board beside it",
+                  "units": "tables", "big_hall": "a vast dining hall under chandeliers",
+                  "small_spot": "with folding chairs on a sidewalk, string lights above", "tool": "counter",
+                  "tool_visual": "one short counter with a napkin holder and a hot-sauce bottle, nothing else",
+                  "crew_items": "aprons", "crew_hall": "a huge back-of-house corridor", "crew_spot": "on hooks by a back door",
+                  "solo": "spatula", "solo_visual": "one well-worn spatula resting on a seasoned flat-top grill"},
     },
-    "trades": {
-        "label": "Trades and home",
-        "hero": "the finished work in a clean, bright close-up",
-        "devices": ["blueprint fold", "paint wave", "tool-belt burst"],
-        "ladders": [
-            [("We just finished this mansion.", "a huge white mansion with columns and a fountain, a finished-project sign on the lawn", "PROJECT COMPLETE"),
-             ("Ok, it's 2 rooms.", "two finished rooms seen through one doorway, fresh paint, drop cloths folded", ""),
-             ("Ok, no mansion. One wall.", "one freshly finished wall with a ladder leaning against it", "")],
-            [("Our fleet has 50 trucks.", "a lot with 50 identical unbranded white work trucks lined up in rows", "50 TRUCKS"),
-             ("Ok, it's 5 trucks.", "five plain work trucks parked in a row", ""),
-             ("Ok, no fleet. One ladder rack.", "one roof ladder rack on a plain vehicle roof, a single ladder strapped on", "")],
-            [("Our crew is 50 people strong.", "a huge equipment yard with 50 hard hats hanging on hooks in rows", "50 HARD HATS"),
-             ("Ok, it's 5 hard hats.", "five hard hats on a workbench", ""),
-             ("Ok, no yard. One toolbox.", "one well-worn toolbox on a garage floor", "")],
-        ],
+    "bakery": {
+        "label": "Bakery", "kind": "bakery", "storefront": True,
+        "offer": "bread and pastries baked fresh every morning", "setting": "a small bakery that opens at 6am",
+        "audience": "neighbours on the way to work",
+        "hero": "a golden loaf just out of the oven, crust cracked, on a wooden board, steam rising",
+        "example": ("a rented kitchen from 3am to 7am", "I bake every loaf myself before sunrise.", "We sell out by 9am most days."),
+        "devices": ["flour cloud", "steam swirl", "ribbon snake"],
+        "slots": {"place": "bakery", "places": "bakeries", "big_place": "a giant glass pastry palace",
+                  "two_places": "small identical bakeries on a quiet street", "one": "oven",
+                  "one_visual": "one small oven with a single batch of rolls inside, warm light",
+                  "units": "ovens", "big_hall": "a vast industrial bakery hall", "small_spot": "in a small tiled room",
+                  "tool": "mixing bowl", "tool_visual": "one big mixing bowl dusted with flour on a wooden counter",
+                  "crew_items": "aprons", "crew_hall": "a huge flour-dusted corridor", "crew_spot": "on hooks by an oven",
+                  "solo": "rolling pin", "solo_visual": "one well-worn wooden rolling pin on a floured counter"},
     },
-    "beauty": {
-        "label": "Beauty and fitness",
-        "hero": "the room ready for the next session, warm light, everything in its place",
-        "devices": ["towel wipe", "mirror shatter", "petal confetti"],
-        "ladders": [
-            [("Welcome to our 5-floor spa.", "a five-floor glass wellness tower with a glowing sign at the entrance", "5 FLOORS"),
-             ("Ok, it's 2 floors.", "a two-floor building with plants in the windows", ""),
-             ("Ok, no spa. One room.", "one calm room with a single treatment chair and a mirror", "")],
-            [("We have 40 machines.", "a huge gym hall with 40 identical machines in rows, all empty", "40 MACHINES"),
-             ("Ok, it's 4 machines.", "four machines in a small bright room", ""),
-             ("Ok, no machines. One mat.", "one exercise mat rolled out on a wooden floor", "")],
-            [("Our juice bar never closes.", "a giant neon-lit juice bar counter with 30 blenders in a row", "JUICE BAR"),
-             ("Ok, it's 2 blenders.", "two blenders on a small counter", ""),
-             ("Ok, no juice bar. One water jug.", "one big water jug with paper cups beside it on a side table", "")],
-        ],
+    "plumber": {
+        "label": "Plumber (no storefront)", "kind": "plumbing business", "storefront": False,
+        "offer": "leak repairs, drains and new installs", "setting": "on call across town, working in homes and small offices",
+        "audience": "homeowners and landlords nearby",
+        "hero": "a gleaming new copper pipe fitting under a clean sink, dry and tidy",
+        "example": ("a van and a phone that never stops ringing", "My dad taught me on weekends.", "Same-day callbacks, every time."),
+        "devices": ["water splash", "tool-belt burst", "blueprint fold"],
+        "slots": {"place": "branch", "places": "branches", "big_place": "a giant glass plumbing headquarters tower",
+                  "two_places": "small plain workshop garages", "one": "van",
+                  "one_visual": "one plain white work van parked on a quiet residential street, a ladder on its roof rack",
+                  "units": "work trucks", "big_hall": "a vast depot lot", "small_spot": "parked in a row on a driveway",
+                  "tool": "toolbox", "tool_visual": "one well-worn toolbox on a garage floor",
+                  "crew_items": "hard hats", "crew_hall": "a huge equipment yard", "crew_spot": "on a workbench",
+                  "solo": "wrench", "solo_visual": "one well-worn pipe wrench on a garage floor"},
     },
-    "retail": {
-        "label": "Retail and services",
-        "hero": "the product or the finished work on a clean table, in soft daylight",
+    "dentist": {
+        "label": "Dentist", "kind": "dental practice", "storefront": True,
+        "offer": "check-ups, cleanings and fillings", "setting": "a small two-chair practice",
+        "audience": "families who keep putting off the dentist",
+        "hero": "a spotless dental chair under a bright lamp, instruments laid out neatly on a white cloth",
+        "example": ("two chairs above a laundromat", "I opened it with my sister after dental school.", "Most fillings done in 30 minutes."),
+        "devices": ["bubble burst", "screen pull", "elevator drop"],
+        "slots": {"place": "clinic", "places": "clinics", "big_place": "a giant glass medical tower",
+                  "two_places": "small bright clinics on a quiet street", "one": "chair",
+                  "one_visual": "one dental chair under a single bright lamp in a small calm room",
+                  "units": "dental chairs", "big_hall": "a vast white treatment hall", "small_spot": "in a small bright room",
+                  "tool": "mirror", "tool_visual": "one small round dental mirror on a clean white cloth",
+                  "crew_items": "white coats", "crew_hall": "a huge white corridor", "crew_spot": "on hooks by a door",
+                  "solo": "stool", "solo_visual": "one rolling stool beside a dental chair"},
+    },
+    "dog-groomer": {
+        "label": "Dog groomer (mobile)", "kind": "mobile dog grooming business", "storefront": False,
+        "offer": "baths, trims and nail clips for dogs", "setting": "a grooming van that comes to your street",
+        "audience": "busy dog owners",
+        "hero": "a freshly groomed, fluffy dog sitting on a clean towel, a bow on its collar",
+        "example": ("a converted van with one tub", "I quit my office job to do this.", "Every dog goes home with a bow."),
+        "devices": ["bubble burst", "towel wipe", "petal confetti"],
+        "slots": {"place": "grooming spa", "places": "grooming spas", "big_place": "a giant pet resort tower",
+                  "two_places": "small pastel grooming spas", "one": "van",
+                  "one_visual": "one small converted grooming van at a curb, its side door open to a tiny tub",
+                  "units": "bathtubs", "big_hall": "a vast tiled wash hall", "small_spot": "in a small tiled room",
+                  "tool": "hose", "tool_visual": "one coiled hose next to a small folding grooming table",
+                  "crew_items": "aprons", "crew_hall": "a huge pet resort corridor", "crew_spot": "on hooks inside a van door",
+                  "solo": "brush", "solo_visual": "one well-used slicker brush on a folded towel"},
+    },
+    "tutor": {
+        "label": "Tutor (no storefront)", "kind": "tutoring business", "storefront": False,
+        "offer": "one-to-one maths and reading lessons", "setting": "online and at a quiet desk at home",
+        "audience": "parents of children who are falling behind",
+        "hero": "an open notebook with a fully solved maths problem and a gold star sticker, a pencil beside it",
+        "example": ("my laptop and a lot of patience", "I failed maths once, too.", "Every lesson ends with one thing they got right."),
+        "devices": ["page flip", "chalk dust", "paper-plane swarm"],
+        "slots": {"place": "campus", "places": "campuses", "big_place": "a giant glass learning academy",
+                  "two_places": "small brick classroom buildings", "one": "desk",
+                  "one_visual": "one small desk with a laptop, a notebook and a pencil cup",
+                  "units": "classrooms", "big_hall": "a vast school building", "small_spot": "along one short corridor",
+                  "tool": "whiteboard", "tool_visual": "one small whiteboard on an easel with a solved sum on it",
+                  "crew_items": "lanyards", "crew_hall": "a huge reception hall", "crew_spot": "on a desk",
+                  "solo": "pencil", "solo_visual": "one well-chewed pencil on an open notebook"},
+    },
+    "salon": {
+        "label": "Hair salon", "kind": "hair salon", "storefront": True,
+        "offer": "cuts, colour and blow-dries", "setting": "a small salon with room for two",
+        "audience": "regulars who like a chat",
+        "hero": "a styling station ready for the next appointment, warm light, scissors and a comb laid out",
+        "example": ("one chair in my garage", "My grandma cut hair for 40 years.", "Booked out every Saturday."),
+        "devices": ["mirror shatter", "petal confetti", "towel wipe"],
+        "slots": {"place": "salon", "places": "salons", "big_place": "a giant glass beauty tower",
+                  "two_places": "small pastel salons on a quiet street", "one": "chair",
+                  "one_visual": "one styling chair in front of a single mirror",
+                  "units": "hair dryers", "big_hall": "a vast mirrored hall", "small_spot": "on a small shelf",
+                  "tool": "comb", "tool_visual": "one wide-tooth comb on a folded towel",
+                  "crew_items": "capes", "crew_hall": "a huge mirrored corridor", "crew_spot": "on hooks by a mirror",
+                  "solo": "pair of scissors", "solo_visual": "one pair of scissors on a folded towel"},
+    },
+    "gym": {
+        "label": "Gym", "kind": "small gym", "storefront": True,
+        "offer": "small-group strength classes", "setting": "a converted garage unit",
+        "audience": "beginners who hate big gyms",
+        "hero": "a clean row of kettlebells on a rubber floor in morning light",
+        "example": ("a garage with six kettlebells", "I started coaching after my own knee surgery.", "Our 6am class has a waitlist."),
+        "devices": ["towel wipe", "elevator drop", "mirror shatter"],
+        "slots": {"place": "gym", "places": "gyms", "big_place": "a giant glass fitness tower",
+                  "two_places": "small brick gyms", "one": "garage",
+                  "one_visual": "one roll-up garage door half open to a rubber floor and a single rack",
+                  "units": "machines", "big_hall": "a vast gym hall", "small_spot": "in a small bright room",
+                  "tool": "mat", "tool_visual": "one exercise mat rolled out on a wooden floor",
+                  "crew_items": "water bottles", "crew_hall": "a huge gym corridor", "crew_spot": "on a bench",
+                  "solo": "kettlebell", "solo_visual": "one well-used kettlebell on a rubber floor"},
+    },
+    "online-seller": {
+        "label": "Online seller (no storefront)", "kind": "online shop", "storefront": False,
+        "offer": "poured soy candles shipped nationwide", "setting": "packed at home in a spare room",
+        "audience": "gift buyers who shop online",
+        "hero": "a finished soy candle in its gift box with tissue paper, on a clean table in soft daylight",
+        "example": ("a spare bedroom full of boxes", "The first 30 orders were all my friends.", "Every order ships within 24 hours."),
+        "devices": ["box unfold", "paper-plane swarm", "screen pull"],
+        "slots": {"place": "warehouse", "places": "warehouses", "big_place": "a giant automated warehouse",
+                  "two_places": "small plain storage units", "one": "shelf",
+                  "one_visual": "one shelf in a spare room, stacked with small boxes",
+                  "units": "packing stations", "big_hall": "a vast fulfilment hall", "small_spot": "in a small spare room",
+                  "tool": "tape gun", "tool_visual": "one tape gun beside a single half-packed box on a table",
+                  "crew_items": "label printers", "crew_hall": "a huge open-plan office", "crew_spot": "on one long desk",
+                  "solo": "laptop", "solo_visual": "one laptop on a table with a shipping label beside it"},
+    },
+    "other": {
+        "label": "Other (describe the offer and setting)", "kind": "small business", "storefront": False,
+        "offer": "", "setting": "", "audience": "",
+        "hero": "",   # built from the offer
+        "example": ("a laptop at the end of a table", "I started this on weekends.", "Every message gets a reply the same day."),
         "devices": ["elevator drop", "paper-plane swarm", "screen pull"],
-        "ladders": [
-            [("Welcome to our HQ tower.", "a 60-floor glass headquarters tower at dusk, a big sign at the top", "HQ"),
-             ("Ok, it's 2 floors.", "a two-floor office building on a small street", ""),
-             ("Ok, no tower. One room.", "one small room with a single desk, a lamp and a chair", "")],
-            [("Our team is 300 people.", "a huge open-plan office with 300 empty identical desks in rows", "300 DESKS"),
-             ("Ok, it's 3 desks.", "three desks pushed together in a small room", ""),
-             ("Ok, it's 2 chairs.", "two chairs at one shared desk, two coffee mugs", "")],
-            [("Our lobby has its own fountain.", "a marble lobby with a huge fountain in the middle and a reception desk", "LOBBY"),
-             ("Ok, it's a hallway.", "a narrow hallway with a single potted plant", ""),
-             ("Ok, no lobby. One doormat.", "one doormat in front of a plain door", "")],
-        ],
+        "slots": {"place": "office", "places": "offices", "big_place": "a giant glass headquarters tower",
+                  "two_places": "small plain offices on a quiet street", "one": "room",
+                  "one_visual": "one small room with a single desk, a lamp and a chair",
+                  "units": "desks", "big_hall": "a vast open-plan office", "small_spot": "pushed together in a small room",
+                  "tool": "laptop", "tool_visual": "one laptop on a plain table, a mug beside it",
+                  "crew_items": "name badges", "crew_hall": "a huge reception hall", "crew_spot": "on one small desk",
+                  "solo": "notebook", "solo_visual": "one well-used notebook and a pen on a plain desk"},
     },
 }
-FAMILY_KEYS = list(FAMILIES)
+TYPE_KEYS = list(BUSINESS_TYPES)
+TYPE_CHOICES = [t["label"] for t in BUSINESS_TYPES.values()]
+
+
+def business_type_key(value):
+    """'plumber', 'Plumber (no storefront)' or 'online seller' -> the BUSINESS_TYPES key."""
+    v = (value or "").strip().lower()
+    for k, t in BUSINESS_TYPES.items():
+        if v in (k, k.replace("-", " "), t["label"].lower()):
+            return k
+    raise ValueError(f"Pick a business type: {TYPE_KEYS} (or 'other' and describe the offer and setting).")
+
+
+def fill_ladder(slots, variant):
+    """One of the three ladder templates, filled with a business type's nouns."""
+    vals = dict(slots)
+    vals.update({k.upper(): v.upper() for k, v in slots.items()})
+    return [{"caption": c.format(**vals), "visual": v.format(**vals), "sign": s.format(**vals)}
+            for c, v, s in LADDER_TEMPLATES[variant - 1]]
+
 
 BRANDS = {"ferrari", "lamborghini", "lambo", "porsche", "mclaren", "bugatti", "tesla", "bmw", "mercedes", "audi", "starbucks",
           "mcdonald's", "mcdonalds", "dunkin", "nike", "adidas", "apple", "iphone", "instagram", "tiktok", "youtube", "facebook",
@@ -131,7 +264,8 @@ BRANDS = {"ferrari", "lamborghini", "lambo", "porsche", "mclaren", "bugatti", "t
 # AI changes places and things, never people: real people appear only in the real ending photo or clip.
 PEOPLE = ["person", "people", "man", "men", "woman", "women", "crowd", "chef", "chefs", "cook", "customer", "customers", "owner",
           "worker", "workers", "staff", "face", "faces", "hand", "hands", "kid", "kids", "child", "girl", "boy", "guy", "lady",
-          "barber", "stylist", "trainer", "client", "clients", "employee", "employees", "family", "couple", "selfie"]
+          "barber", "stylist", "trainer", "client", "clients", "employee", "employees", "family", "couple", "selfie",
+          "patient", "patients", "student", "students", "pupil", "pupils"]
 NEGATED_PEOPLE = re.compile(r"\b(no|without|empty of|free of)\s+(people|persons?|faces?|hands?|one|crowds?|customers?|staff)\b", re.I)
 NUMBER_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
                 "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "hundred": 100}
@@ -167,6 +301,10 @@ def _has_word(text, word):
     return re.search(r"(?<![A-Za-z])" + re.escape(word) + r"(?![A-Za-z])", text, re.I) is not None
 
 
+def _a(noun):
+    return ("an " if noun[:1].lower() in "aeiou" else "a ") + noun
+
+
 def _sentence(s):
     s = s.strip()
     return s if not s or s[-1] in ".!?" else s + "."
@@ -189,44 +327,59 @@ def brands_in(text):
 
 
 # ---------------------------------------------------------------- the brief
-def make_brief(business_name, family, true_setup, honest_line, real_proof, hero_thing="", tone="heartfelt", variant=1,
-               avoid_devices="", model="veo-3.1-lite", source="template"):
-    fam = family.split(" ")[0].strip().lower() if family else ""
-    fam = {"food": "food", "trades": "trades", "beauty": "beauty", "retail": "retail"}.get(fam)
-    if fam is None:
-        raise ValueError(f"Pick a business family: {FAMILY_KEYS}.")
+def make_brief(business_name, business_type, true_setup, honest_line, real_proof, hero_thing="", tone="heartfelt", variant=1,
+               avoid_devices="", model="veo-3.1-lite", source="template", offer="", setting="", audience=""):
+    """The business's inputs -> the brief every later step reads. business_type picks the preset row (nouns for the joke
+    ladder, the wild cards that fit); offer / setting / audience are the business's own words (empty = the type's
+    defaults) and fill the writer prompt, the keyframe prompts and the default payoff still."""
+    key = business_type_key(business_type)
+    bt = BUSINESS_TYPES[key]
     facts = {"true_setup": true_setup.strip().rstrip("."), "real_proof": real_proof.strip(), "honest_line": honest_line.strip()}
+    ex = bt["example"]
     if not facts["true_setup"]:
-        raise ValueError("Tell us the real setup (the truth rung), e.g. 'a truck in a gas station parking lot'.")
+        raise ValueError(f"Tell us the real setup (the truth rung), e.g. '{ex[0]}'.")
     if not facts["real_proof"]:
-        raise ValueError("Give one real proof people can see (the payoff), e.g. 'The line at 11pm is real.'")
+        raise ValueError(f"Give one real proof people can see (the payoff), e.g. '{ex[2]}'")
     tone = tone if tone in TONES else "heartfelt"
     if tone == "heartfelt" and not facts["honest_line"]:
         tone = "playful"   # the honest beat needs a true line from the business; we never invent one
-    for k, v in list(facts.items()) + [("business_name", business_name), ("hero_thing", hero_thing)]:
+    ctx = {"offer": (offer or "").strip().rstrip(".") or bt["offer"], "setting": (setting or "").strip().rstrip(".") or bt["setting"],
+           "audience": (audience or "").strip().rstrip(".") or bt["audience"]}
+    if key == "other" and not ctx["offer"]:
+        raise ValueError("For 'other', say what the business offers (e.g. 'wedding photo albums', 'bike repairs').")
+    for k, v in list(facts.items()) + list(ctx.items()) + [("business_name", business_name), ("hero_thing", hero_thing)]:
         if brands_in(v):
             raise ValueError(f"{k} names a real brand ({', '.join(brands_in(v))}). Use plain, unbranded words.")
+    hero = hero_thing.strip() or bt["hero"] or f"{ctx['offer']}: the finished result in a clean, bright close-up, on a plain table in soft daylight"
     avoid = sorted({d.strip().lower() for d in avoid_devices.split(",") if d.strip()})
-    return {"business_name": business_name.strip() or "Your Business", "family": fam, "facts": facts,
-            "hero_thing": hero_thing.strip() or FAMILIES[fam]["hero"], "tone": tone, "variant": max(1, min(3, int(variant))),
+    return {"business_name": business_name.strip() or "Your Business", "business_type": key, "kind": bt["kind"], **ctx,
+            "facts": facts, "hero_thing": hero, "tone": tone, "variant": max(1, min(3, int(variant))),
             "avoid_devices": avoid, "model": model, "source": source}
 
 
+def type_brief(business_type, business_name="Sample Business", **kw):
+    """A brief from a business type's own example facts (docs, tests, quick tries)."""
+    setup, honest, proof = BUSINESS_TYPES[business_type_key(business_type)]["example"]
+    args = dict(true_setup=setup, honest_line=honest, real_proof=proof)
+    args.update(kw)
+    return make_brief(business_name, business_type, **args)
+
+
 def device_order(brief):
-    """Every device that fits this family, family wild cards first, rotated by the joke variant, minus the ones this
-    client already used. The template writer takes the first four."""
-    fam = FAMILIES[brief["family"]]
-    pool = fam["devices"] + [d for d in GENERIC_DEVICES if d not in fam["devices"]]
-    k = (brief["variant"] - 1) % len(fam["devices"])
-    pool = pool[k:len(fam["devices"])] + pool[:k] + pool[len(fam["devices"]):]
+    """Every device that fits this business type, its own wild cards first, rotated by the joke variant, minus the ones
+    this client already used. The template writer takes the first four."""
+    own = BUSINESS_TYPES[brief["business_type"]]["devices"]
+    pool = own + [d for d in GENERIC_DEVICES if d not in own]
+    k = (brief["variant"] - 1) % len(own)
+    pool = pool[k:len(own)] + pool[:k] + pool[len(own):]
     return [d for d in pool if d not in brief["avoid_devices"]]
 
 
 # ---------------------------------------------------------------- the ladder writers
 def template_joke(brief):
-    """The deterministic offline writer: the family's ladder for this variant and four distinct warps."""
-    fam = FAMILIES[brief["family"]]
-    rungs = [{"caption": c, "visual": v, "sign": s} for c, v, s in fam["ladders"][brief["variant"] - 1]]
+    """The deterministic offline writer: the ladder template for this variant, filled with the business type's nouns,
+    and four distinct warps."""
+    rungs = fill_ladder(BUSINESS_TYPES[brief["business_type"]]["slots"], brief["variant"])
     devs = device_order(brief)
     if len(devs) < 4:
         raise ValueError("Not enough unused warp devices left for this client (need 4). Clear some from 'already used'.")
@@ -234,22 +387,25 @@ def template_joke(brief):
 
 
 def writer_prompt(brief):
-    fam = FAMILIES[brief["family"]]
     example = template_joke(brief)
     allowed = device_order(brief)
     f = brief["facts"]
     return f"""You write the joke for an "I'm so sorry I lied" short video ad for a real small business.
-Business: {brief['business_name']} ({fam['label']}).
+Business: {brief['business_name']}, {_a(brief['kind'])}.
+What it offers: {brief['offer']}.
+Where the work really happens: {brief['setting'] or 'not given'}.
+Who it is for: {brief['audience'] or 'not given'}.
 The TRUE setup, the last rung, is fixed: "{f['true_setup']}". The real proof, the payoff, is fixed: "{f['real_proof']}".
 
 Write the first three rungs: a brag at impossible scale, downgrade 1 that cuts the number, downgrade 2 that cuts the fancy
-thing. Each one gets the next rung closer to the truth. Then pick four wild-card warps, one for each step between the five rungs
-(brag > downgrade 1 > downgrade 2 > truth > payoff), all different.
+thing. Each one gets the next rung closer to the truth. Make the brag something this kind of business would dream of, in its
+own world, never borrowed from another trade. Then pick four wild-card warps, one for each step between the five
+rungs (brag > downgrade 1 > downgrade 2 > truth > payoff), all different.
 
 Rules:
-- "caption": what appears on screen, at most {MAX_CAPTION_WORDS} words, casual ("Ok, it's 2 locations.").
+- "caption": what appears on screen, at most {MAX_CAPTION_WORDS} words, casual ("{example['rungs'][1]['caption']}").
 - "visual": a place or a thing only, never people (no faces, hands, crowds, staff, customers). It must make the caption
-  literally true at a glance: if the caption says 2 locations, the visual shows exactly two. Every number in the caption is in the visual.
+  literally true at a glance: if the caption says 2 of something, the visual shows exactly two. Every number in the caption is in the visual.
 - "sign": up to 3 words of sign text that proves the caption, or "".
 - No real brands, logos, apps or car makers anywhere.
 - Warps: pick "device" from {json.dumps(allowed)} or invent a new one; "motion" says what the device does, ending in a verb
@@ -296,8 +452,9 @@ def build_ladder(brief, joke):
             raise ValueError("Every warp needs a 'device'.")
         d = str(w["device"]).strip().lower()
         warps.append({"device": d, "motion": str(w.get("motion") or DEVICES.get(d, "")).strip()})
-    ladder = {"business_name": brief["business_name"], "family": brief["family"], "tone": brief["tone"], "rungs": rungs,
-              "warps": warps, "facts": f}
+    ladder = {"business_name": brief["business_name"], "business_type": brief["business_type"], "kind": brief["kind"],
+              "offer": brief["offer"], "setting": brief["setting"], "audience": brief["audience"], "tone": brief["tone"],
+              "rungs": rungs, "warps": warps, "facts": f}
     errs = check_ladder(ladder, brief)
     if errs:
         raise ValueError("The ladder broke the rules:\n- " + "\n- ".join(errs[:20]))
@@ -357,10 +514,16 @@ def check_ladder(ladder, brief):
 
 # ---------------------------------------------------------------- prompts
 def keyframe_prompt(ladder, k):
+    """The still for rung k, filled from the ladder and the business's own inputs (kind, offer, setting)."""
     r = ladder["rungs"][k]
     sign = f' A plain sign in the frame reads exactly "{r["sign"]}", spelled correctly, clean lettering.' if r.get("sign") else ""
     place = "" if r["role"] != "payoff" else " Product or finished-work hero shot."
-    return (f"{KEYFRAME_HEAD}{place}\nShow: {r['visual']}.{sign}\nThe picture must make this line literally true at a glance: "
+    world = ""
+    if ladder.get("kind"):
+        world = f"\nThe business: {_a(ladder['kind'])}" + (f" offering {ladder['offer']}" if ladder.get("offer") else "") + "."
+    if r["role"] == "truth" and ladder.get("setting"):
+        world += f" Where it really happens: {ladder['setting']}."
+    return (f"{KEYFRAME_HEAD}{place}{world}\nShow: {r['visual']}.{sign}\nThe picture must make this line literally true at a glance: "
             f"\"{r['caption']}\"\n{KEYFRAME_TAIL}")
 
 

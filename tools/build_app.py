@@ -30,9 +30,10 @@ def node(cls, title=None, **inputs):
 def o(i, k=0): return [i, k]
 
 p = core.load_preset(a.preset)
-fam = next(f"{k} ({v['label']})" for k, v in core.FAMILIES.items() if k == p["family"])
-# ---------- user inputs ----------
-brief = node("HonestBrief", "Your facts", business_name=p["business_name"], family=fam, true_setup=p["true_setup"],
+btype = core.BUSINESS_TYPES[core.business_type_key(p["business_type"])]["label"]
+# ---------- user inputs (defaults = the preset; the sample is the taco truck, any business type works) ----------
+brief = node("HonestBrief", "Your facts", business_name=p["business_name"], business_type=btype, offer=p.get("offer", ""),
+             setting=p.get("setting", ""), audience=p.get("audience", ""), true_setup=p["true_setup"],
              honest_line=p["honest_line"], real_proof=p["real_proof"], hero_thing=p["hero_thing"], tone=p["tone"], joke="joke 1",
              already_used_warps="", video_model="veo-3.1-lite", writer="template (offline, free)")
 ending = node("LoadImage", "Real ending photo", image=a.ending)

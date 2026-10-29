@@ -10,6 +10,14 @@ what the app is for: photo-real rungs where each caption is literally visible, a
 
 ## The run (taco-truck preset, unchanged)
 
+The app is a general small-business workflow (any business type, shop or not; see the README's business-type table).
+The taco truck is the one example the demo uses, by founder decision 2026-10-29. To show it is not food-specific
+without spending, the recording can also open the FREE draft app (`workflows/honest-downgrade-draft.json`), switch
+**Business type** to *Plumber (no storefront)* with the facts from `docs/examples/plumber-brief.md`, press Run and show
+the ladder text (checked 2026-10-29 on the CPU ComfyUI: a $0 draft run as the plumber finished in 9 s). The draft stills
+stay the taco placeholders, so show the ladder, not that Reel. Never press Run in the main app for this: it pays.
+
+
 1. Start a ComfyUI that can reach the Comfy API, with this pack in `custom_nodes`; sign in with the JK Comfy account.
 2. Open `workflows/honest-downgrade.json` (App Mode). Keep the preset, `template` writer, `veo-3.1-lite`.
 3. Screen-record, press **Run**. Order on screen: ladder text, board with 5 stills and the sign check, 4 warps, the Reel.

@@ -1,31 +1,26 @@
-"""The ladder writer: every family and joke, facts copied word for word, caption truth, no people, no repeated warp."""
+"""The ladder writer: every business type and joke, facts copied word for word, caption truth, no people, no repeated warp."""
 import json
 import pytest
 import honest_core as core
 
-FACTS = {"food": ("a truck in a gas station parking lot", "The line at 11pm is real."),
-         "trades": ("a guest bathroom", "Look at that tile though."),
-         "beauty": ("6 reformers in one room", "You WILL feel your core tomorrow."),
-         "retail": ("a small room with two desks", "Every order packed by hand, same day.")}
+def brief(fam="food-truck", tone="heartfelt", variant=1, honest="Started with $800 in 2019.", avoid=""):
+    setup, _, proof = core.BUSINESS_TYPES[fam]["example"]
+    offer = "custom cake toppers" if fam == "other" else ""
+    return core.make_brief("Test Shop", fam, setup, honest, proof, "", tone, variant, avoid, offer=offer)
 
 
-def brief(fam="food", tone="heartfelt", variant=1, honest="Started with $800 in 2019.", avoid=""):
-    setup, proof = FACTS[fam]
-    return core.make_brief("Test Shop", fam, setup, honest, proof, "", tone, variant, avoid)
-
-
-@pytest.mark.parametrize("fam", core.FAMILY_KEYS)
+@pytest.mark.parametrize("fam", core.TYPE_KEYS)
 @pytest.mark.parametrize("variant", [1, 2, 3])
 @pytest.mark.parametrize("tone", ["heartfelt", "playful"])
-def test_every_family_joke_and_tone_builds_a_valid_ladder(fam, variant, tone):
+def test_every_business_type_joke_and_tone_builds_a_valid_ladder(fam, variant, tone):
     b = brief(fam, tone, variant)
     lad = core.build_ladder(b, core.template_joke(b))
     assert [r["role"] for r in lad["rungs"]] == core.ROLES
     assert core.check_ladder(lad, b) == []
     devs = [w["device"] for w in lad["warps"]]
     assert len(devs) == 4 and len(set(devs)) == 4, "no repeated warp device"
-    assert devs[0] in core.FAMILIES[fam]["devices"], "the family's own wild cards come first"
-    setup, proof = FACTS[fam]
+    assert devs[0] in core.BUSINESS_TYPES[fam]["devices"], "the business type's own wild cards come first"
+    setup, _, proof = core.BUSINESS_TYPES[fam]["example"]
     assert setup in lad["rungs"][3]["caption"] and lad["rungs"][4]["caption"] == proof
     assert lad["rungs"][3]["honest_line"] == ("Started with $800 in 2019." if tone == "heartfelt" else "")
     for k in range(5):
@@ -61,13 +56,17 @@ def test_no_honest_line_means_playful_never_invented():
 
 def test_missing_facts_and_brands_are_refused():
     with pytest.raises(ValueError, match="real setup"):
-        core.make_brief("Shop", "food", "", "", "proof", "")
+        core.make_brief("Shop", "food-truck", "", "", "proof", "")
     with pytest.raises(ValueError, match="real proof"):
-        core.make_brief("Shop", "food", "a truck", "", "", "")
+        core.make_brief("Shop", "food-truck", "a truck", "", "", "")
     with pytest.raises(ValueError, match="brand"):
-        core.make_brief("Shop", "trades", "my van", "", "Ask about our Lamborghini detailing.", "")
-    with pytest.raises(ValueError, match="family"):
+        core.make_brief("Shop", "plumber", "my van", "", "Ask about our Lamborghini detailing.", "")
+    with pytest.raises(ValueError, match="brand"):
+        core.make_brief("Shop", "online-seller", "my room", "", "proof", "", offer="cases for your iPhone")
+    with pytest.raises(ValueError, match="business type"):
         core.make_brief("Shop", "cars", "my van", "", "proof", "")
+    with pytest.raises(ValueError, match="offers"):
+        core.make_brief("Shop", "other", "my van", "", "proof", "")
 
 
 def test_already_used_warps_are_never_repeated():
@@ -75,7 +74,7 @@ def test_already_used_warps_are_never_repeated():
     b = brief(avoid=used)
     devs = [w["device"] for w in core.build_ladder(b, core.template_joke(b))["warps"]]
     assert not {"ribbon snake", "steam swirl"} & set(devs)
-    b = brief(avoid=",".join(core.FAMILIES["food"]["devices"] + core.GENERIC_DEVICES[:3]))
+    b = brief(avoid=",".join(core.BUSINESS_TYPES["food-truck"]["devices"] + core.GENERIC_DEVICES[:3]))
     with pytest.raises(ValueError, match="Not enough unused warp devices"):
         core.template_joke(b)
 
@@ -102,7 +101,7 @@ def test_ai_stills_never_show_people():
     ok = _reply(**{"2_visual": "one service window, no people, a chalk menu board"})
     assert core.build_ladder(b, ok)["rungs"][2]["visual"].startswith("one service window")
     with pytest.raises(ValueError, match="may not show people"):
-        core.build_ladder(core.make_brief("S", "food", "a truck", "", "proof", "the owner holding a plate"), core.template_joke(b))
+        core.build_ladder(core.make_brief("S", "food-truck", "a truck", "", "proof", "the owner holding a plate"), core.template_joke(b))
 
 
 def test_downgrade_must_cut_the_number():

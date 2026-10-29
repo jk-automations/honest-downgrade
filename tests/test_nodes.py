@@ -22,7 +22,8 @@ def _img(nodes, path):
 
 def _brief(nodes, writer=None, **kw):
     p = core.load_preset("taco-truck")
-    args = dict(business_name=p["business_name"], family=nodes.FAMILY_CHOICES[0], true_setup=p["true_setup"], honest_line=p["honest_line"],
+    args = dict(business_name=p["business_name"], business_type=nodes.TYPE_CHOICES[0], offer=p["offer"], setting=p["setting"],
+                audience=p["audience"], true_setup=p["true_setup"], honest_line=p["honest_line"],
                 real_proof=p["real_proof"], hero_thing=p["hero_thing"], tone="heartfelt", joke="joke 1", already_used_warps="",
                 video_model="veo-3.1-lite", writer=writer or nodes.WRITERS[0])
     args.update(kw)
@@ -82,7 +83,7 @@ def _save(video, name):
 
 def test_brief_node_outputs(nodes):
     b, wp, model = _brief(nodes)
-    assert json.loads(b)["family"] == "food" and model == "veo-3.1-lite" and "JSON only" in wp
+    assert json.loads(b)["business_type"] == "food-truck" and model == "veo-3.1-lite" and "JSON only" in wp
     assert set(core.VEO_MODELS) <= set(nodes.HonestBrief.INPUT_TYPES()["required"]["video_model"][0])
     assert nodes.HonestBrief.RETURN_TYPES[2] == core.VEO_MODELS
 

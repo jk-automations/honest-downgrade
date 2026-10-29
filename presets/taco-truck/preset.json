@@ -1,8 +1,11 @@
 {
  "name": "taco-truck",
- "note": "Fictional business for demos. Every fact below is invented for the sample; a real business types its own true facts.",
+ "note": "Fictional business for demos: the example the app opens with. Every fact below is invented for the sample; a real business picks its own business type and types its own true facts.",
  "business_name": "Tacos El Zorrito Azul",
- "family": "food",
+ "business_type": "food-truck",
+ "offer": "al pastor tacos made to order, late at night",
+ "setting": "a truck parked in a gas station lot, open till 2am",
+ "audience": "night-shift workers and late-night eaters nearby",
  "true_setup": "a truck in a gas station parking lot",
  "honest_line": "Started with $800 and my mom's recipes.",
  "real_proof": "The line at 11pm is real.",

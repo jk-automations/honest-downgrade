@@ -8,7 +8,8 @@ from conftest import FFMPEG, make_clip
 
 def ladder(tone="heartfelt", honest="Started with $800 and my mom's recipes."):
     p = core.load_preset("taco-truck")
-    b = core.make_brief(p["business_name"], p["family"], p["true_setup"], honest, p["real_proof"], p["hero_thing"], tone, 1)
+    b = core.make_brief(p["business_name"], p["business_type"], p["true_setup"], honest, p["real_proof"], p["hero_thing"], tone, 1,
+                        offer=p["offer"], setting=p["setting"], audience=p["audience"])
     return core.build_ladder(b, core.template_joke(b))
 
 

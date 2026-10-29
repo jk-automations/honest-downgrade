@@ -1,5 +1,5 @@
 {
- "id": "40dddcdb-0620-4337-beb9-0b4328539334",
+ "id": "65d126df-0e1b-4997-99d7-4fcc9d82d640",
  "revision": 0,
  "last_node_id": 32,
  "last_link_id": 43,
@@ -13,7 +13,7 @@
    ],
    "size": [
     305.3609375,
-    338
+    410
    ],
    "flags": {},
    "order": 0,
@@ -30,12 +30,42 @@
      "link": null
     },
     {
-     "label": "Business family",
-     "localized_name": "family",
-     "name": "family",
+     "label": "Business type (any kind)",
+     "localized_name": "business_type",
+     "name": "business_type",
      "type": "COMBO",
      "widget": {
-      "name": "family"
+      "name": "business_type"
+     },
+     "link": null
+    },
+    {
+     "label": "What you offer",
+     "localized_name": "offer",
+     "name": "offer",
+     "type": "STRING",
+     "widget": {
+      "name": "offer"
+     },
+     "link": null
+    },
+    {
+     "label": "Where the work happens",
+     "localized_name": "setting",
+     "name": "setting",
+     "type": "STRING",
+     "widget": {
+      "name": "setting"
+     },
+     "link": null
+    },
+    {
+     "label": "Who it is for",
+     "localized_name": "audience",
+     "name": "audience",
+     "type": "STRING",
+     "widget": {
+      "name": "audience"
      },
      "link": null
     },
@@ -156,7 +186,10 @@
    },
    "widgets_values": [
     "Tacos El Zorrito Azul",
-    "food (Food and drink)",
+    "Food truck",
+    "al pastor tacos made to order, late at night",
+    "a truck parked in a gas station lot, open till 2am",
+    "night-shift workers and late-night eaters nearby",
     "a truck in a gas station parking lot",
     "Started with $800 and my mom's recipes.",
     "The line at 11pm is real.",
@@ -169,7 +202,10 @@
    ],
    "widgets_values_named": {
     "business_name": "Tacos El Zorrito Azul",
-    "family": "food (Food and drink)",
+    "business_type": "Food truck",
+    "offer": "al pastor tacos made to order, late at night",
+    "setting": "a truck parked in a gas station lot, open till 2am",
+    "audience": "night-shift workers and late-night eaters nearby",
     "true_setup": "a truck in a gas station parking lot",
     "honest_line": "Started with $800 and my mom's recipes.",
     "real_proof": "The line at 11pm is real.",
@@ -186,7 +222,7 @@
    "type": "LoadImage",
    "pos": [
     80,
-    558
+    630
    ],
    "size": [
     282.798828125,
@@ -409,7 +445,7 @@
    "type": "LoadImage",
    "pos": [
     80,
-    770
+    842
    ],
    "size": [
     282.798828125,
@@ -530,7 +566,7 @@
    "type": "LoadImage",
    "pos": [
     80,
-    982
+    1054
    ],
    "size": [
     282.798828125,
@@ -652,7 +688,7 @@
    "type": "LoadImage",
    "pos": [
     80,
-    1194
+    1266
    ],
    "size": [
     282.798828125,
@@ -774,7 +810,7 @@
    "type": "LoadImage",
    "pos": [
     80,
-    1406
+    1478
    ],
    "size": [
     282.798828125,
@@ -896,7 +932,7 @@
    "type": "LoadImage",
    "pos": [
     80,
-    1618
+    1690
    ],
    "size": [
     282.798828125,
@@ -2633,7 +2669,19 @@
     ],
     [
      1,
-     "family"
+     "business_type"
+    ],
+    [
+     1,
+     "offer"
+    ],
+    [
+     1,
+     "setting"
+    ],
+    [
+     1,
+     "audience"
     ],
     [
      1,
