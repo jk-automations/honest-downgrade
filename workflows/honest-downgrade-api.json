@@ -41,7 +41,9 @@
    "model.thinking_level": "LOW",
    "model.max_output_tokens": 8192,
    "model.seed": 42,
-   "model.system_prompt": ""
+   "model.system_prompt": "",
+   "model.temperature": 1.0,
+   "model.top_p": 0.95
   },
   "_meta": {
    "title": "Joke writer (Gemini)"

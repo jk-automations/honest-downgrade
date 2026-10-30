@@ -47,6 +47,8 @@ def build(draft=False, preset=core.DEFAULT_PRESET, stills=None, owner="honest_bl
               "model.system_prompt": ""}
         if writer_model == "Gemini 3.8 Flash":
             wi["model.video_processing"] = "static"
+        else:  # 3.5 Flash requires these two (live object_info); the graph is refused without them
+            wi.update({"model.temperature": 1.0, "model.top_p": 0.95})
         writer = node("GeminiNodeV3", "Joke writer (Gemini)", model=writer_model, **wi)
         ladder = node("HonestLadder", "Ladder", brief=o(b, 0), writer_reply=o(writer, 0))
     node("PreviewAny", "Your ladder", source=o(ladder, 1))
