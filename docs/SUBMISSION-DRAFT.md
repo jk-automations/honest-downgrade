@@ -1,6 +1,6 @@
 # Submission draft: Comfy "Open Source Higgsfield" challenge
 
-DRAFT for the founder. Nothing has been submitted or made public. Fields in [brackets] need the founder.
+Ready for the founder to paste into the form. Repo is public.
 
 **Category:** Most Viral
 
@@ -43,18 +43,18 @@ music so it ducks under the honest line. A free draft version runs the whole thi
 
 - Approved example: `docs/examples/plumber-v5-approved.mp4` (made with this recipe before the app existed; clips drafted
   in Google Flow; it shows an AI-drafted plumber, which the app itself never generates).
-- The app's own output: [paid demo Reel, after the founder's run] and the free draft
-  `docs/examples/taco-truck-draft-reel.mp4`.
-- Demo video: [link, under 2 minutes, see `docs/DEMO-PLAN.md`].
+- The app's own output: the free draft `docs/examples/taco-truck-draft-reel.mp4` (pressing Run in App Mode, $0).
+  No paid run of the app is shown: the paid graph validates against live ComfyUI, but our Comfy credits ran out.
+- Demo video (78 s): `docs/demo/honest-downgrade-demo.mp4`
 - Cost per Reel from the node price badges: about $2.10 (Veo 3.1 lite) or $3.90 (Veo 3.1 fast); the draft is $0.
-- Tests: [count] passing, partner nodes mocked; a real-browser run of the free draft in App Mode.
+- Tests: 150 passing, partner nodes mocked; a real-browser run of the free draft in App Mode.
 
 ## Links and files
 
-- Repo: [public repo link, founder to decide; nothing is public yet]
+- Repo: https://github.com/jk-automations/honest-downgrade
 - Workflow: `workflows/honest-downgrade.json` (opens in App Mode); free draft `workflows/honest-downgrade-draft.json`
 - Licence: Apache-2.0 (code), SIL OFL (Inter font)
-- Team: JK Automations [names as the founder wants them shown]
+- Team: JK Automations (Justin and Keanu)
 
 ## Before submitting (founder checklist)
 
