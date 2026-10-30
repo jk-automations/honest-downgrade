@@ -1,4 +1,5 @@
-"""The ladder writer: every business type and joke, facts copied word for word, caption truth, no people, no repeated warp."""
+"""The ladder writer: every business type and joke, facts copied word for word, caption truth, no people, no repeated warp,
+the sympathy beat, and a moving clip for every rung."""
 import json
 import pytest
 import honest_core as core
@@ -18,22 +19,56 @@ def test_every_business_type_joke_and_tone_builds_a_valid_ladder(fam, variant, t
     assert [r["role"] for r in lad["rungs"]] == core.ROLES
     assert core.check_ladder(lad, b) == []
     devs = [w["device"] for w in lad["warps"]]
-    assert len(devs) == 4 and len(set(devs)) == 4, "no repeated warp device"
-    assert devs[0] in core.BUSINESS_TYPES[fam]["devices"], "the business type's own wild cards come first"
+    assert len(devs) == 4 and len(set(devs)) == 4, "warps never repeat in one Reel"
+    assert set(devs) <= set(core.DEVICES), "every warp is from the menu (taco wild cards + plumber shock warps)"
+    assert devs[0] in core.BUSINESS_TYPES[fam]["devices"], "the business type's own warps come first"
     setup, _, proof = core.BUSINESS_TYPES[fam]["example"]
-    assert setup in lad["rungs"][3]["caption"] and lad["rungs"][4]["caption"] == proof
-    assert lad["rungs"][3]["honest_line"] == ("Started with $800 in 2019." if tone == "heartfelt" else "")
-    for k in range(5):
+    assert setup in lad["rungs"][3]["caption"] and lad["rungs"][7]["caption"] == proof
+    assert lad["rungs"][5]["honest_line"] == ("Started with $800 in 2019." if tone == "heartfelt" else "")
+    for k in range(core.N_RUNGS):
         kp = core.keyframe_prompt(lad, k)
         assert lad["rungs"][k]["caption"] in kp and "No people" in kp
-    for k in range(4):
-        assert lad["warps"][k]["motion"] in core.warp_prompt(lad, k)
+    assert len(lad["shots"]) == core.N_CLIPS
+    for k, sh in enumerate(lad["shots"]):
+        wp = core.warp_prompt(lad, k)
+        assert sh["motion"] in wp and "No people" in wp and "Sign lettering never changes mid-move" in wp
+        if sh["kind"] == "warp":
+            assert wp.startswith("Start on the first frame. First second: slow push-in, anticipation; then the transformation: ")
 
 
-def test_jokes_differ_and_rotate_devices():
+def test_sympathy_beat_sits_between_truth_and_payoff():
+    b = brief("plumber", variant=2, honest="My dad taught me on weekends.")
+    lad = core.build_ladder(b, core.template_joke(b))
+    roles = [r["role"] for r in lad["rungs"]]
+    assert roles.index("truth") < roles.index("struggle") < roles.index("heirloom") < roles.index("payoff")
+    bt = core.BUSINESS_TYPES["plumber"]
+    assert lad["rungs"][4]["visual"] == bt["struggle"] and "2 a.m." in bt["struggle"]
+    assert lad["rungs"][5]["visual"] == bt["heirloom"] and "wrench" in bt["heirloom"]
+    assert lad["rungs"][5]["caption"] == "My dad taught me on weekends.", "the honest line lands on the heirloom"
+    assert [s["kind"] for s in lad["shots"]][3:5] == ["move", "move"], "the sympathy beat is quiet, no shock warp"
+    assert "2 a.m." in core.keyframe_prompt(lad, 4) and "No people at all" in core.keyframe_prompt(lad, 4)
+    for key, t in core.BUSINESS_TYPES.items():
+        for f in ("struggle", "heirloom", "place"):
+            assert t[f] and not core.people_in(t[f]) and not core.brands_in(t[f]), (key, f)
+
+
+def test_the_shock_warps_fit_any_trade():
+    for key in core.TYPE_KEYS:
+        bt = core.BUSINESS_TYPES[key]
+        assert bt["trade_tool"] in core.device_motion("tool smash", key)
+        assert bt["material"] in core.device_motion("geyser", key)
+    plumber = [w["device"] for w in core.template_joke(brief("plumber"))["warps"]]
+    assert plumber == ["tool smash", "geyser", "tool tornado"], "the approved plumber Reel's shock warps"
+    taco = [w["device"] for w in core.template_joke(brief("food-truck"))["warps"]]
+    assert taco == ["creature", "pop-up fold", "flock burst"], "the approved taco Reel's wild cards"
+
+
+def test_jokes_differ_and_keep_the_approved_warp_order():
     lads = [core.build_ladder(brief(variant=v), core.template_joke(brief(variant=v))) for v in (1, 2, 3)]
     assert len({l["rungs"][0]["caption"] for l in lads}) == 3
-    assert len({l["warps"][0]["device"] for l in lads}) == 3
+    assert len({tuple(w["device"] for w in l["warps"]) for l in lads}) == 1, "the joke changes the words, not the warps"
+    nxt = core.build_ladder(brief(avoid="creature,pop-up fold,flock burst"), core.template_joke(brief(avoid="creature,pop-up fold,flock burst")))
+    assert not {"creature", "pop-up fold", "flock burst"} & {w["device"] for w in nxt["warps"]}, "the next Reel for this client gets fresh warps"
 
 
 def test_facts_are_copied_word_for_word_never_rewritten():
@@ -51,7 +86,8 @@ def test_facts_are_copied_word_for_word_never_rewritten():
 def test_no_honest_line_means_playful_never_invented():
     b = brief(tone="heartfelt", honest="")
     assert b["tone"] == "playful"
-    assert core.build_ladder(b, core.template_joke(b))["rungs"][3]["honest_line"] == ""
+    lad = core.build_ladder(b, core.template_joke(b))
+    assert lad["rungs"][5]["honest_line"] == "" and lad["rungs"][5]["caption"] == ""
 
 
 def test_missing_facts_and_brands_are_refused():
@@ -70,11 +106,11 @@ def test_missing_facts_and_brands_are_refused():
 
 
 def test_already_used_warps_are_never_repeated():
-    used = "ribbon snake, steam swirl"
+    used = "creature, pop-up fold, push-through door"
     b = brief(avoid=used)
     devs = [w["device"] for w in core.build_ladder(b, core.template_joke(b))["warps"]]
-    assert not {"ribbon snake", "steam swirl"} & set(devs)
-    b = brief(avoid=",".join(core.BUSINESS_TYPES["food-truck"]["devices"] + core.GENERIC_DEVICES[:3]))
+    assert not {"creature", "pop-up fold", "push-through door"} & set(devs) and len(set(devs)) == 4
+    b = brief(avoid=",".join(d for d in core.DEVICES if d not in ("melt", "geyser")))
     with pytest.raises(ValueError, match="Not enough unused warp devices"):
         core.template_joke(b)
 
@@ -113,24 +149,34 @@ def test_gemini_reply_parsing_and_rules():
     b = brief()
     joke = core.template_joke(b)
     reply = "Sure! Here you go:\n```json\n" + json.dumps(joke) + "\n```"
-    assert core.build_ladder(b, core.parse_reply(reply))["warps"][0]["device"] == "ribbon snake"
-    dup = json.loads(json.dumps(joke)); dup["warps"][3] = dict(dup["warps"][0])
+    assert core.build_ladder(b, core.parse_reply(reply))["warps"][0]["device"] == "creature"
+    dup = json.loads(json.dumps(joke)); dup["warps"][2] = dict(dup["warps"][0])
     with pytest.raises(ValueError, match="device repeats"):
         core.build_ladder(b, dup)
     with pytest.raises(ValueError, match="no readable JSON"):
         core.parse_reply("I can't do that.")
     new = json.loads(json.dumps(joke)); new["warps"][1] = {"device": "salsa tsunami", "motion": "a wave of salsa crashes over the lens and drains to reveal"}
     assert core.build_ladder(b, new)["warps"][1]["device"] == "salsa tsunami"   # invented devices are fine if unique
+    four = json.loads(json.dumps(joke)); four["warps"].append({"device": "melt", "motion": "melts into"})
+    with pytest.raises(ValueError, match="exactly 3 joke warps"):
+        core.build_ladder(b, four)
+    sym = json.loads(json.dumps(joke)); sym["sympathy"] = {"struggle": "a cold truck cab at 3 a.m., a stack of unpaid bills", "heirloom": "grandma's old tortilla press"}
+    lad = core.build_ladder(b, sym)
+    assert lad["rungs"][4]["visual"].startswith("a cold truck cab") and lad["rungs"][5]["visual"] == "grandma's old tortilla press"
+    sym["sympathy"]["struggle"] = "a tired cook asleep on the counter"
+    with pytest.raises(ValueError, match="may not show people"):
+        core.build_ladder(b, sym)
 
 
 def test_writer_prompt_carries_the_locked_facts():
     b = brief()
     wp = core.writer_prompt(b)
     assert "a truck in a gas station parking lot" in wp and "The line at 11pm is real." in wp
-    assert "JSON only" in wp and "never people" in wp and "ribbon snake" in wp
+    assert "JSON only" in wp and "never people" in wp and "creature" in wp and "tool smash" in wp
+    assert '"sympathy"' in wp and "struggle" in wp and "heirloom" in wp and "Started with $800 in 2019." in wp
 
 
 def test_ladder_text():
     b = brief()
     t = core.ladder_text(core.build_ladder(b, core.template_joke(b)))
-    assert "BRAG" in t and "warp: ribbon snake" in t and "Started with $800 in 2019." in t
+    assert "BRAG" in t and "warp: creature" in t and "Started with $800 in 2019." in t and "quiet move" in t and "HEIRLOOM" in t

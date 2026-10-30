@@ -18,16 +18,17 @@ def test_opens_in_app_mode_with_the_form(name):
     names = [(nodes[i]["type"], w) for i, w in wf["extra"]["linearData"]["inputs"]]
     for w in ("business_name", "business_type", "offer", "setting", "audience", "true_setup", "honest_line", "real_proof", "hero_thing", "tone", "joke", "already_used_warps"):
         assert ("HonestBrief", w) in names
-    assert ("HonestAssemble", "music_path") in names and ("LoadImage", "image") in names
+    assert ("HonestFinish", "music_path") in names and ("LoadImage", "image") in names and ("HonestAssemble", "owner_consent") in names
     outs = sorted(nodes[i]["title"] for i in wf["extra"]["linearData"]["outputs"])
-    assert outs == ["Board", "Cutdown (15 s)", "Sign check", "Your Reel (30 s)", "Your ladder"]
+    assert outs == ["Board", "Cutdown (15 s)", "Sign check", "Your Reel", "Your ladder"]
     assert not any("randomize" in (n.get("widgets_values") or []) for n in wf["nodes"]), "a re-run must reuse paid steps"
 
 
 def test_partner_app():
     wf, nodes = load("honest-downgrade.json")
     types = [n["type"] for n in wf["nodes"]]
-    assert types.count("Veo3FirstLastFrameNode") == 4 and types.count("GeminiNanoBanana2V2") == 5 and types.count("GeminiNodeV3") == 1
+    assert types.count("Veo3FirstLastFrameNode") == 7 and types.count("GeminiNanoBanana2V2") == 8 and types.count("GeminiNodeV3") == 1
+    assert types.count("SoniloVideoToMusic") == 1 and types.count("HonestFinish") == 1
     for n in wf["nodes"]:
         if n["type"] == "Veo3FirstLastFrameNode":
             ins = {i["name"]: i for i in n["inputs"]}
@@ -37,5 +38,5 @@ def test_partner_app():
 def test_draft_app_is_free():
     wf, nodes = load("honest-downgrade-draft.json")
     types = {n["type"] for n in wf["nodes"]}
-    assert not types & {"Veo3FirstLastFrameNode", "GeminiNanoBanana2V2", "GeminiNodeV3"}
-    assert sum(n["type"] == "LoadImage" for n in wf["nodes"]) == 6   # 5 rung stills + the real ending photo
+    assert not types & {"Veo3FirstLastFrameNode", "GeminiNanoBanana2V2", "GeminiNodeV3", "SoniloVideoToMusic"}
+    assert sum(n["type"] == "LoadImage" for n in wf["nodes"]) == 9   # 8 rung stills + the owner's real photo

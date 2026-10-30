@@ -25,7 +25,7 @@ def every_output(b):
     """Everything the planner and the prompt builders produce for one brief, as one string."""
     lad = core.build_ladder(b, core.template_joke(b))
     parts = [json.dumps(b), json.dumps(lad), core.writer_prompt(b), core.ladder_text(lad)]
-    parts += [core.keyframe_prompt(lad, k) for k in range(5)] + [core.warp_prompt(lad, k) for k in range(4)]
+    parts += [core.keyframe_prompt(lad, k) for k in range(core.N_RUNGS)] + [core.warp_prompt(lad, k) for k in range(core.N_CLIPS)]
     return "\n".join(parts), lad
 
 
@@ -36,8 +36,10 @@ def test_preset_table_covers_varied_businesses():
     for k, t in core.BUSINESS_TYPES.items():
         assert set(core.TEMPLATE_SLOTS) <= set(t["slots"]), k
         assert len(t["devices"]) == 3 and all(d in core.DEVICES and d in core.DRAFT_TRANSITION for d in t["devices"]), k
+        assert core.PLACE_DEVICE not in t["devices"], "the push to the place of work is kept for the ending"
         assert core.business_type_key(t["label"]) == k and core.business_type_key(k) == k
-        for v in list(t["slots"].values()) + [t["hero"]]:
+        for v in list(t["slots"].values()) + [t["hero"], t["struggle"], t["heirloom"], t["place"], t["hero_motion"], t["trade_tool"],
+                                              t["trade_tools"], t["material"]]:
             assert not core.people_in(v) and not core.brands_in(v), (k, v)
 
 
@@ -65,9 +67,9 @@ def test_prompts_are_filled_from_the_business_inputs(key):
     lad = core.build_ladder(b, core.template_joke(b))
     wp = core.writer_prompt(b)
     assert offer in wp and setting in wp and audience in wp and core.BUSINESS_TYPES[key]["kind"] in wp
-    kps = [core.keyframe_prompt(lad, k) for k in range(5)]
+    kps = [core.keyframe_prompt(lad, k) for k in range(core.N_RUNGS)]
     assert all(offer in kp for kp in kps), "every still knows what the business offers"
-    assert setting in kps[3] and all(setting not in kp for kp in kps[:3]), "the real setting only in the truth still"
+    assert setting in kps[3] and all(setting not in kp for k, kp in enumerate(kps) if k != 3), "the real setting only in the truth still"
     # empty inputs fall back to the business type's defaults
     d = core.type_brief(key, offer="wedding photo albums" if key == "other" else "")
     assert d["setting"] == core.BUSINESS_TYPES[key]["setting"] and d["audience"] == core.BUSINESS_TYPES[key]["audience"]
@@ -77,7 +79,7 @@ def test_other_builds_its_payoff_from_the_offer():
     b = core.type_brief("other", offer="wedding photo albums")
     assert b["hero_thing"].startswith("wedding photo albums")
     lad = core.build_ladder(b, core.template_joke(b))
-    assert "wedding photo albums" in core.keyframe_prompt(lad, 4)
+    assert "wedding photo albums" in core.keyframe_prompt(lad, 7)
 
 
 def test_the_ladder_nouns_follow_the_business_type():
@@ -101,9 +103,10 @@ def test_taco_truck_is_still_the_default_demo():
     lad = core.build_ladder(b, core.template_joke(b))
     # the shipped demo Reel and the placeholder stills show exactly these captions and signs
     assert [r["caption"] for r in lad["rungs"]] == ["Our 200th location just opened.", "Ok, it's 2 locations.", "Ok, it's one window.",
-                                                    "Ok, it's a truck in a gas station parking lot.", "The line at 11pm is real."]
+                                                    "Ok, it's a truck in a gas station parking lot.", "",
+                                                    "Started with $800 and my mom's recipes.", "", "The line at 11pm is real."]
     assert [r["sign"] for r in lad["rungs"][:2]] == ["200TH LOCATION", "2 LOCATIONS"]
-    assert [w["device"] for w in lad["warps"]] == ["ribbon snake", "steam swirl", "flying ingredients", "pop-up fold"]
+    assert [w["device"] for w in lad["warps"]] == ["creature", "pop-up fold", "flock burst", "push-through door"]
 
 
 def test_brief_node_takes_any_business_type(comfy_path):

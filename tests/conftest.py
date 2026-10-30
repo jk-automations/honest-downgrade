@@ -19,24 +19,36 @@ def make_clip(path, secs, w=360, h=640, audio=False, freq=440):
 
 
 @pytest.fixture(scope="session")
-def warps(tmp_path_factory):
-    d = tmp_path_factory.mktemp("warps")
-    return [make_clip(d / f"w{k}.mp4", 6.0, audio=(k == 2)) for k in range(1, 5)]
+def clips(tmp_path_factory):
+    """Seven dummy clips with the app's clip lengths (warps 6 s, sympathy moves and the payoff macro 4 s)."""
+    import honest_core as core
+    d = tmp_path_factory.mktemp("clips")
+    return [make_clip(d / f"c{k}.mp4", float(s[3]), audio=(k == 2)) for k, s in enumerate(core.SHOTS, 1)]
 
 
 @pytest.fixture(scope="session")
 def stills():
-    """The five sample rung stills (code-drawn placeholders for the taco-truck preset)."""
-    if not (PLACEHOLDER / "rung_5.png").exists():
+    """The eight sample rung stills (code-drawn placeholders for the taco-truck preset)."""
+    if not (PLACEHOLDER / "rung_8.png").exists():
         subprocess.run([sys.executable, str(ROOT / "tools/make_placeholder_stills.py")], check=True)
-    return [PLACEHOLDER / f"rung_{k}.png" for k in range(1, 6)]
+    return [PLACEHOLDER / f"rung_{k}.png" for k in range(1, 9)]
 
 
 @pytest.fixture(scope="session")
-def ending_photo(tmp_path_factory):
+def owner_photo(tmp_path_factory):
+    """Stands in for the owner's real photo (landscape, so the fit + blurred fill is exercised)."""
     from PIL import Image
-    p = tmp_path_factory.mktemp("end") / "real.jpg"
-    Image.new("RGB", (1080, 1920), (180, 120, 60)).save(p)
+    p = tmp_path_factory.mktemp("owner") / "real.jpg"
+    Image.new("RGB", (1200, 900), (180, 120, 60)).save(p)
+    return p
+
+
+@pytest.fixture(scope="session")
+def textured_photo(tmp_path_factory):
+    """A photo with detail in it, so a slow push is measurable as motion."""
+    from PIL import Image
+    p = tmp_path_factory.mktemp("owner_t") / "real_t.png"
+    Image.effect_noise((1200, 900), 60).convert("RGB").save(p)
     return p
 
 

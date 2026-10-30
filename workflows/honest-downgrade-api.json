@@ -27,7 +27,7 @@
    "image": "honest_blank.png"
   },
   "_meta": {
-   "title": "Real ending photo"
+   "title": "Owner photo (real)"
   }
  },
  "3": {
@@ -231,6 +231,99 @@
   }
  },
  "16": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "4",
+    0
+   ],
+   "rung": 6
+  },
+  "_meta": {
+   "title": "Rung 6"
+  }
+ },
+ "17": {
+  "class_type": "GeminiNanoBanana2V2",
+  "inputs": {
+   "prompt": [
+    "16",
+    0
+   ],
+   "seed": 106,
+   "response_modalities": "IMAGE",
+   "model": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+   "model.aspect_ratio": "9:16",
+   "model.resolution": "1K",
+   "model.thinking_level": "MINIMAL"
+  },
+  "_meta": {
+   "title": "Keyframe 6"
+  }
+ },
+ "18": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "4",
+    0
+   ],
+   "rung": 7
+  },
+  "_meta": {
+   "title": "Rung 7"
+  }
+ },
+ "19": {
+  "class_type": "GeminiNanoBanana2V2",
+  "inputs": {
+   "prompt": [
+    "18",
+    0
+   ],
+   "seed": 107,
+   "response_modalities": "IMAGE",
+   "model": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+   "model.aspect_ratio": "9:16",
+   "model.resolution": "1K",
+   "model.thinking_level": "MINIMAL"
+  },
+  "_meta": {
+   "title": "Keyframe 7"
+  }
+ },
+ "20": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "4",
+    0
+   ],
+   "rung": 8
+  },
+  "_meta": {
+   "title": "Rung 8"
+  }
+ },
+ "21": {
+  "class_type": "GeminiNanoBanana2V2",
+  "inputs": {
+   "prompt": [
+    "20",
+    0
+   ],
+   "seed": 108,
+   "response_modalities": "IMAGE",
+   "model": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+   "model.aspect_ratio": "9:16",
+   "model.resolution": "1K",
+   "model.thinking_level": "MINIMAL"
+  },
+  "_meta": {
+   "title": "Keyframe 8"
+  }
+ },
+ "22": {
   "class_type": "HonestBoard",
   "inputs": {
    "ladder": [
@@ -256,17 +349,29 @@
    "rung_5": [
     "15",
     0
+   ],
+   "rung_6": [
+    "17",
+    0
+   ],
+   "rung_7": [
+    "19",
+    0
+   ],
+   "rung_8": [
+    "21",
+    0
    ]
   },
   "_meta": {
    "title": "Board + sign check"
   }
  },
- "17": {
+ "23": {
   "class_type": "PreviewImage",
   "inputs": {
    "images": [
-    "16",
+    "22",
     0
    ]
   },
@@ -274,11 +379,11 @@
    "title": "Board"
   }
  },
- "18": {
+ "24": {
   "class_type": "PreviewAny",
   "inputs": {
    "source": [
-    "16",
+    "22",
     1
    ]
   },
@@ -286,7 +391,7 @@
    "title": "Sign check"
   }
  },
- "19": {
+ "25": {
   "class_type": "HonestWarp",
   "inputs": {
    "ladder": [
@@ -296,17 +401,17 @@
    "step": 1
   },
   "_meta": {
-   "title": "Warp 1"
+   "title": "Clip 1 prompt"
   }
  },
- "20": {
+ "26": {
   "class_type": "Veo3FirstLastFrameNode",
   "inputs": {
    "prompt": [
-    "19",
+    "25",
     0
    ],
-   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, scrambled sign lettering, logos, handheld shake, cuts",
    "resolution": "720p",
    "aspect_ratio": "9:16",
    "duration": 6,
@@ -326,25 +431,25 @@
    "generate_audio": false
   },
   "_meta": {
-   "title": "Video warp 1"
+   "title": "Video clip 1 (warp)"
   }
  },
- "21": {
+ "27": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "20",
+    "26",
     0
    ],
-   "filename_prefix": "honest/warps/warp_1",
+   "filename_prefix": "honest/clips/clip_1",
    "format": "mp4",
    "format.codec": "auto"
   },
   "_meta": {
-   "title": "Save warp 1"
+   "title": "Save clip 1"
   }
  },
- "22": {
+ "28": {
   "class_type": "HonestWarp",
   "inputs": {
    "ladder": [
@@ -354,17 +459,17 @@
    "step": 2
   },
   "_meta": {
-   "title": "Warp 2"
+   "title": "Clip 2 prompt"
   }
  },
- "23": {
+ "29": {
   "class_type": "Veo3FirstLastFrameNode",
   "inputs": {
    "prompt": [
-    "22",
+    "28",
     0
    ],
-   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, scrambled sign lettering, logos, handheld shake, cuts",
    "resolution": "720p",
    "aspect_ratio": "9:16",
    "duration": 6,
@@ -384,25 +489,25 @@
    "generate_audio": false
   },
   "_meta": {
-   "title": "Video warp 2"
+   "title": "Video clip 2 (warp)"
   }
  },
- "24": {
+ "30": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "23",
+    "29",
     0
    ],
-   "filename_prefix": "honest/warps/warp_2",
+   "filename_prefix": "honest/clips/clip_2",
    "format": "mp4",
    "format.codec": "auto"
   },
   "_meta": {
-   "title": "Save warp 2"
+   "title": "Save clip 2"
   }
  },
- "25": {
+ "31": {
   "class_type": "HonestWarp",
   "inputs": {
    "ladder": [
@@ -412,17 +517,17 @@
    "step": 3
   },
   "_meta": {
-   "title": "Warp 3"
+   "title": "Clip 3 prompt"
   }
  },
- "26": {
+ "32": {
   "class_type": "Veo3FirstLastFrameNode",
   "inputs": {
    "prompt": [
-    "25",
+    "31",
     0
    ],
-   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, scrambled sign lettering, logos, handheld shake, cuts",
    "resolution": "720p",
    "aspect_ratio": "9:16",
    "duration": 6,
@@ -442,25 +547,25 @@
    "generate_audio": false
   },
   "_meta": {
-   "title": "Video warp 3"
+   "title": "Video clip 3 (warp)"
   }
  },
- "27": {
+ "33": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "26",
+    "32",
     0
    ],
-   "filename_prefix": "honest/warps/warp_3",
+   "filename_prefix": "honest/clips/clip_3",
    "format": "mp4",
    "format.codec": "auto"
   },
   "_meta": {
-   "title": "Save warp 3"
+   "title": "Save clip 3"
   }
  },
- "28": {
+ "34": {
   "class_type": "HonestWarp",
   "inputs": {
    "ladder": [
@@ -470,20 +575,20 @@
    "step": 4
   },
   "_meta": {
-   "title": "Warp 4"
+   "title": "Clip 4 prompt"
   }
  },
- "29": {
+ "35": {
   "class_type": "Veo3FirstLastFrameNode",
   "inputs": {
    "prompt": [
-    "28",
+    "34",
     0
    ],
-   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, logos, handheld shake, cuts",
+   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, scrambled sign lettering, logos, handheld shake, cuts",
    "resolution": "720p",
    "aspect_ratio": "9:16",
-   "duration": 6,
+   "duration": 4,
    "seed": 204,
    "first_frame": [
     "13",
@@ -500,25 +605,199 @@
    "generate_audio": false
   },
   "_meta": {
-   "title": "Video warp 4"
+   "title": "Video clip 4 (move)"
   }
  },
- "30": {
+ "36": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "29",
+    "35",
     0
    ],
-   "filename_prefix": "honest/warps/warp_4",
+   "filename_prefix": "honest/clips/clip_4",
    "format": "mp4",
    "format.codec": "auto"
   },
   "_meta": {
-   "title": "Save warp 4"
+   "title": "Save clip 4"
   }
  },
- "31": {
+ "37": {
+  "class_type": "HonestWarp",
+  "inputs": {
+   "ladder": [
+    "4",
+    0
+   ],
+   "step": 5
+  },
+  "_meta": {
+   "title": "Clip 5 prompt"
+  }
+ },
+ "38": {
+  "class_type": "Veo3FirstLastFrameNode",
+  "inputs": {
+   "prompt": [
+    "37",
+    0
+   ],
+   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, scrambled sign lettering, logos, handheld shake, cuts",
+   "resolution": "720p",
+   "aspect_ratio": "9:16",
+   "duration": 4,
+   "seed": 205,
+   "first_frame": [
+    "15",
+    0
+   ],
+   "last_frame": [
+    "17",
+    0
+   ],
+   "model": [
+    "1",
+    2
+   ],
+   "generate_audio": false
+  },
+  "_meta": {
+   "title": "Video clip 5 (move)"
+  }
+ },
+ "39": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "38",
+    0
+   ],
+   "filename_prefix": "honest/clips/clip_5",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Save clip 5"
+  }
+ },
+ "40": {
+  "class_type": "HonestWarp",
+  "inputs": {
+   "ladder": [
+    "4",
+    0
+   ],
+   "step": 6
+  },
+  "_meta": {
+   "title": "Clip 6 prompt"
+  }
+ },
+ "41": {
+  "class_type": "Veo3FirstLastFrameNode",
+  "inputs": {
+   "prompt": [
+    "40",
+    0
+   ],
+   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, scrambled sign lettering, logos, handheld shake, cuts",
+   "resolution": "720p",
+   "aspect_ratio": "9:16",
+   "duration": 6,
+   "seed": 206,
+   "first_frame": [
+    "17",
+    0
+   ],
+   "last_frame": [
+    "19",
+    0
+   ],
+   "model": [
+    "1",
+    2
+   ],
+   "generate_audio": false
+  },
+  "_meta": {
+   "title": "Video clip 6 (warp)"
+  }
+ },
+ "42": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "41",
+    0
+   ],
+   "filename_prefix": "honest/clips/clip_6",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Save clip 6"
+  }
+ },
+ "43": {
+  "class_type": "HonestWarp",
+  "inputs": {
+   "ladder": [
+    "4",
+    0
+   ],
+   "step": 7
+  },
+  "_meta": {
+   "title": "Clip 7 prompt"
+  }
+ },
+ "44": {
+  "class_type": "Veo3FirstLastFrameNode",
+  "inputs": {
+   "prompt": [
+    "43",
+    0
+   ],
+   "negative_prompt": "people, faces, hands, crowd, captions, subtitles, new text, scrambled sign lettering, logos, handheld shake, cuts",
+   "resolution": "720p",
+   "aspect_ratio": "9:16",
+   "duration": 4,
+   "seed": 207,
+   "first_frame": [
+    "21",
+    0
+   ],
+   "last_frame": [
+    "21",
+    0
+   ],
+   "model": [
+    "1",
+    2
+   ],
+   "generate_audio": false
+  },
+  "_meta": {
+   "title": "Video clip 7 (macro)"
+  }
+ },
+ "45": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "44",
+    0
+   ],
+   "filename_prefix": "honest/clips/clip_7",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Save clip 7"
+  }
+ },
+ "46": {
   "class_type": "HonestAssemble",
   "inputs": {
    "ladder": [
@@ -528,25 +807,37 @@
    "captions": true,
    "ai_label": true,
    "credit": true,
-   "music_path": "",
-   "ending_photo": [
+   "owner_consent": false,
+   "owner_photo": [
     "2",
     0
    ],
-   "warp_1": [
-    "20",
-    0
-   ],
-   "warp_2": [
-    "23",
-    0
-   ],
-   "warp_3": [
+   "clip_1": [
     "26",
     0
    ],
-   "warp_4": [
+   "clip_2": [
     "29",
+    0
+   ],
+   "clip_3": [
+    "32",
+    0
+   ],
+   "clip_4": [
+    "35",
+    0
+   ],
+   "clip_5": [
+    "38",
+    0
+   ],
+   "clip_6": [
+    "41",
+    0
+   ],
+   "clip_7": [
+    "44",
     0
    ]
   },
@@ -554,26 +845,60 @@
    "title": "Assemble"
   }
  },
- "32": {
+ "47": {
+  "class_type": "SoniloVideoToMusic",
+  "inputs": {
+   "video": [
+    "46",
+    0
+   ],
+   "prompt": [
+    "46",
+    2
+   ],
+   "seed": 7
+  },
+  "_meta": {
+   "title": "Score (Sonilo)"
+  }
+ },
+ "48": {
+  "class_type": "HonestFinish",
+  "inputs": {
+   "plan": [
+    "46",
+    1
+   ],
+   "music_path": "",
+   "score": [
+    "47",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Music + finish"
+  }
+ },
+ "49": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "31",
+    "48",
     0
    ],
-   "filename_prefix": "honest/reel_30s",
+   "filename_prefix": "honest/reel",
    "format": "mp4",
    "format.codec": "auto"
   },
   "_meta": {
-   "title": "Your Reel (30 s)"
+   "title": "Your Reel"
   }
  },
- "33": {
+ "50": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "31",
+    "48",
     1
    ],
    "filename_prefix": "honest/cutdown_15s",

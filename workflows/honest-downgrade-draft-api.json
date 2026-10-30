@@ -27,7 +27,7 @@
    "image": "honest_blank.png"
   },
   "_meta": {
-   "title": "Real ending photo"
+   "title": "Owner photo (real)"
   }
  },
  "3": {
@@ -165,6 +165,72 @@
   }
  },
  "15": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "rung": 6
+  },
+  "_meta": {
+   "title": "Rung 6"
+  }
+ },
+ "16": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "honest_rung_6.png"
+  },
+  "_meta": {
+   "title": "Still 6"
+  }
+ },
+ "17": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "rung": 7
+  },
+  "_meta": {
+   "title": "Rung 7"
+  }
+ },
+ "18": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "honest_rung_7.png"
+  },
+  "_meta": {
+   "title": "Still 7"
+  }
+ },
+ "19": {
+  "class_type": "HonestRung",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "rung": 8
+  },
+  "_meta": {
+   "title": "Rung 8"
+  }
+ },
+ "20": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "honest_rung_8.png"
+  },
+  "_meta": {
+   "title": "Still 8"
+  }
+ },
+ "21": {
   "class_type": "HonestBoard",
   "inputs": {
    "ladder": [
@@ -190,17 +256,29 @@
    "rung_5": [
     "14",
     0
+   ],
+   "rung_6": [
+    "16",
+    0
+   ],
+   "rung_7": [
+    "18",
+    0
+   ],
+   "rung_8": [
+    "20",
+    0
    ]
   },
   "_meta": {
    "title": "Board + sign check"
   }
  },
- "16": {
+ "22": {
   "class_type": "PreviewImage",
   "inputs": {
    "images": [
-    "15",
+    "21",
     0
    ]
   },
@@ -208,11 +286,11 @@
    "title": "Board"
   }
  },
- "17": {
+ "23": {
   "class_type": "PreviewAny",
   "inputs": {
    "source": [
-    "15",
+    "21",
     1
    ]
   },
@@ -220,7 +298,7 @@
    "title": "Sign check"
   }
  },
- "18": {
+ "24": {
   "class_type": "HonestWarp",
   "inputs": {
    "ladder": [
@@ -230,10 +308,10 @@
    "step": 1
   },
   "_meta": {
-   "title": "Warp 1"
+   "title": "Clip 1 prompt"
   }
  },
- "19": {
+ "25": {
   "class_type": "HonestDraftWarp",
   "inputs": {
    "first_frame": [
@@ -252,25 +330,25 @@
    "seconds": 6
   },
   "_meta": {
-   "title": "Draft warp 1"
+   "title": "Draft clip 1"
   }
  },
- "20": {
+ "26": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "19",
+    "25",
     0
    ],
-   "filename_prefix": "honest/warps/warp_1",
+   "filename_prefix": "honest/clips/clip_1",
    "format": "mp4",
    "format.codec": "auto"
   },
   "_meta": {
-   "title": "Save warp 1"
+   "title": "Save clip 1"
   }
  },
- "21": {
+ "27": {
   "class_type": "HonestWarp",
   "inputs": {
    "ladder": [
@@ -280,10 +358,10 @@
    "step": 2
   },
   "_meta": {
-   "title": "Warp 2"
+   "title": "Clip 2 prompt"
   }
  },
- "22": {
+ "28": {
   "class_type": "HonestDraftWarp",
   "inputs": {
    "first_frame": [
@@ -302,25 +380,25 @@
    "seconds": 6
   },
   "_meta": {
-   "title": "Draft warp 2"
+   "title": "Draft clip 2"
   }
  },
- "23": {
+ "29": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "22",
+    "28",
     0
    ],
-   "filename_prefix": "honest/warps/warp_2",
+   "filename_prefix": "honest/clips/clip_2",
    "format": "mp4",
    "format.codec": "auto"
   },
   "_meta": {
-   "title": "Save warp 2"
+   "title": "Save clip 2"
   }
  },
- "24": {
+ "30": {
   "class_type": "HonestWarp",
   "inputs": {
    "ladder": [
@@ -330,10 +408,10 @@
    "step": 3
   },
   "_meta": {
-   "title": "Warp 3"
+   "title": "Clip 3 prompt"
   }
  },
- "25": {
+ "31": {
   "class_type": "HonestDraftWarp",
   "inputs": {
    "first_frame": [
@@ -352,25 +430,25 @@
    "seconds": 6
   },
   "_meta": {
-   "title": "Draft warp 3"
+   "title": "Draft clip 3"
   }
  },
- "26": {
+ "32": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "25",
+    "31",
     0
    ],
-   "filename_prefix": "honest/warps/warp_3",
+   "filename_prefix": "honest/clips/clip_3",
    "format": "mp4",
    "format.codec": "auto"
   },
   "_meta": {
-   "title": "Save warp 3"
+   "title": "Save clip 3"
   }
  },
- "27": {
+ "33": {
   "class_type": "HonestWarp",
   "inputs": {
    "ladder": [
@@ -380,10 +458,10 @@
    "step": 4
   },
   "_meta": {
-   "title": "Warp 4"
+   "title": "Clip 4 prompt"
   }
  },
- "28": {
+ "34": {
   "class_type": "HonestDraftWarp",
   "inputs": {
    "first_frame": [
@@ -399,28 +477,178 @@
     0
    ],
    "step": 4,
-   "seconds": 6
+   "seconds": 4
   },
   "_meta": {
-   "title": "Draft warp 4"
+   "title": "Draft clip 4"
   }
  },
- "29": {
+ "35": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "28",
+    "34",
     0
    ],
-   "filename_prefix": "honest/warps/warp_4",
+   "filename_prefix": "honest/clips/clip_4",
    "format": "mp4",
    "format.codec": "auto"
   },
   "_meta": {
-   "title": "Save warp 4"
+   "title": "Save clip 4"
   }
  },
- "30": {
+ "36": {
+  "class_type": "HonestWarp",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 5
+  },
+  "_meta": {
+   "title": "Clip 5 prompt"
+  }
+ },
+ "37": {
+  "class_type": "HonestDraftWarp",
+  "inputs": {
+   "first_frame": [
+    "14",
+    0
+   ],
+   "last_frame": [
+    "16",
+    0
+   ],
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 5,
+   "seconds": 4
+  },
+  "_meta": {
+   "title": "Draft clip 5"
+  }
+ },
+ "38": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "37",
+    0
+   ],
+   "filename_prefix": "honest/clips/clip_5",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Save clip 5"
+  }
+ },
+ "39": {
+  "class_type": "HonestWarp",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 6
+  },
+  "_meta": {
+   "title": "Clip 6 prompt"
+  }
+ },
+ "40": {
+  "class_type": "HonestDraftWarp",
+  "inputs": {
+   "first_frame": [
+    "16",
+    0
+   ],
+   "last_frame": [
+    "18",
+    0
+   ],
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 6,
+   "seconds": 6
+  },
+  "_meta": {
+   "title": "Draft clip 6"
+  }
+ },
+ "41": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "40",
+    0
+   ],
+   "filename_prefix": "honest/clips/clip_6",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Save clip 6"
+  }
+ },
+ "42": {
+  "class_type": "HonestWarp",
+  "inputs": {
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 7
+  },
+  "_meta": {
+   "title": "Clip 7 prompt"
+  }
+ },
+ "43": {
+  "class_type": "HonestDraftWarp",
+  "inputs": {
+   "first_frame": [
+    "20",
+    0
+   ],
+   "last_frame": [
+    "20",
+    0
+   ],
+   "ladder": [
+    "3",
+    0
+   ],
+   "step": 7,
+   "seconds": 4
+  },
+  "_meta": {
+   "title": "Draft clip 7"
+  }
+ },
+ "44": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "video": [
+    "43",
+    0
+   ],
+   "filename_prefix": "honest/clips/clip_7",
+   "format": "mp4",
+   "format.codec": "auto"
+  },
+  "_meta": {
+   "title": "Save clip 7"
+  }
+ },
+ "45": {
   "class_type": "HonestAssemble",
   "inputs": {
    "ladder": [
@@ -430,25 +658,37 @@
    "captions": true,
    "ai_label": true,
    "credit": true,
-   "music_path": "",
-   "ending_photo": [
+   "owner_consent": false,
+   "owner_photo": [
     "2",
     0
    ],
-   "warp_1": [
-    "19",
-    0
-   ],
-   "warp_2": [
-    "22",
-    0
-   ],
-   "warp_3": [
+   "clip_1": [
     "25",
     0
    ],
-   "warp_4": [
+   "clip_2": [
     "28",
+    0
+   ],
+   "clip_3": [
+    "31",
+    0
+   ],
+   "clip_4": [
+    "34",
+    0
+   ],
+   "clip_5": [
+    "37",
+    0
+   ],
+   "clip_6": [
+    "40",
+    0
+   ],
+   "clip_7": [
+    "43",
     0
    ]
   },
@@ -456,26 +696,39 @@
    "title": "Assemble"
   }
  },
- "31": {
+ "46": {
+  "class_type": "HonestFinish",
+  "inputs": {
+   "plan": [
+    "45",
+    1
+   ],
+   "music_path": ""
+  },
+  "_meta": {
+   "title": "Music + finish"
+  }
+ },
+ "47": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "30",
+    "46",
     0
    ],
-   "filename_prefix": "honest/reel_30s",
+   "filename_prefix": "honest/reel",
    "format": "mp4",
    "format.codec": "auto"
   },
   "_meta": {
-   "title": "Your Reel (30 s)"
+   "title": "Your Reel"
   }
  },
- "32": {
+ "48": {
   "class_type": "SaveVideo",
   "inputs": {
    "video": [
-    "30",
+    "46",
     1
    ],
    "filename_prefix": "honest/cutdown_15s",

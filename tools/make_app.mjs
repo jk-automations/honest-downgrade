@@ -12,21 +12,23 @@ const titled = (t) => Object.entries(api).find(([, n]) => n._meta && n._meta.tit
 const draft = ids("HonestDraftWarp").length > 0;
 const brief = ids("HonestBrief")[0];
 const asm = ids("HonestAssemble")[0];
-const stills = draft ? [1, 2, 3, 4, 5].map((k) => titled(`Still ${k}`)) : [];
-const ending = titled("Real ending photo");
+const fin = ids("HonestFinish")[0];
+const stills = draft ? [1, 2, 3, 4, 5, 6, 7, 8].map((k) => titled(`Still ${k}`)) : [];
+const ending = titled("Owner photo (real)");
 const FIELDS = ["business_name", "business_type", "offer", "setting", "audience", "true_setup", "honest_line", "real_proof", "hero_thing", "tone", "joke"];
 // What a user sees in App Mode. Everything else stays locked in the graph.
 const INPUTS = [
-  ...FIELDS.map((f) => [brief, f]), ...stills.map((s) => [s, "image"]), [ending, "image"],
-  ...(draft ? [] : [[brief, "writer"], [brief, "video_model"]]), [brief, "already_used_warps"], [asm, "music_path"], [asm, "captions"],
+  ...FIELDS.map((f) => [brief, f]), ...stills.map((s) => [s, "image"]), [ending, "image"], [asm, "owner_consent"],
+  ...(draft ? [] : [[brief, "writer"], [brief, "video_model"]]), [brief, "already_used_warps"], [fin, "music_path"], [asm, "captions"],
 ];
-const OUTPUTS = [titled("Your Reel (30 s)"), titled("Cutdown (15 s)"), titled("Board"), titled("Your ladder"), titled("Sign check")];
+const OUTPUTS = [titled("Your Reel"), titled("Cutdown (15 s)"), titled("Board"), titled("Your ladder"), titled("Sign check")];
 const LABELS = { business_name: "Business name", business_type: "Business type (any kind)",
   offer: "What you offer", setting: "Where the work happens", audience: "Who it is for", true_setup: "The truth: your real setup, exactly",
   honest_line: "One honest line (empty = playful)", real_proof: "The payoff: real proof people can see",
   hero_thing: "Payoff still: your best product or work (no people)", tone: "Tone", joke: "Joke ladder",
   writer: "Who writes the joke", video_model: "Video model (lite = cheapest)", already_used_warps: "Warps you already used (never repeated)",
-  music_path: "Music you own (optional path)", captions: "Burn in captions" };
+  music_path: "Music you own (optional path; replaces the score)", captions: "Burn in captions",
+  owner_consent: "I have this person's consent (required with an owner photo)" };
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 1500 } });
@@ -49,8 +51,8 @@ const wf = await page.evaluate(async ({ api, INPUTS, OUTPUTS, stills, ending, LA
     const si = stills.indexOf(String(node.id));
     for (const w of node.widgets || []) {
       let lab = null;
-      if (si >= 0 && w.name === "image") lab = `Rung ${si + 1} still (${["brag", "downgrade 1", "downgrade 2", "truth", "payoff"][si]})`;
-      else if (String(node.id) === String(ending) && w.name === "image") lab = "Your REAL ending photo (optional; real people only here)";
+      if (si >= 0 && w.name === "image") lab = `Rung ${si + 1} still (${["brag", "downgrade 1", "downgrade 2", "truth", "struggle", "heirloom", "place of work", "payoff"][si]})`;
+      else if (String(node.id) === String(ending) && w.name === "image") lab = "Owner photo: the face of the company (REAL photo, optional, never sent to a model)";
       else if (INPUTS.some(([n, name]) => String(n) === String(node.id) && name === w.name)) lab = LABELS[w.name];
       if (lab) { w.label = lab; for (const inp of node.inputs || []) if (inp.widget && inp.widget.name === w.name) inp.label = lab; }
     }

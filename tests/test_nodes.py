@@ -1,12 +1,13 @@
 """The ComfyUI nodes and the whole partner pipeline with the partner nodes MOCKED: Gemini's reply is canned text,
 Nano Banana 2 'returns' the sample stills, Veo first/last frame 'returns' a local clip made from the first and last
-frames it was given. Nothing is sent to any API and nothing is paid."""
+frames it was given, Sonilo 'returns' a sine tone. Nothing is sent to any API and nothing is paid."""
 import json, subprocess, sys, tempfile
 from pathlib import Path
 import pytest
 import honest_core as core
 
 ROOT = Path(core.__file__).parent
+PAID = {"GeminiNodeV3", "GeminiNanoBanana2V2", "Veo3FirstLastFrameNode", "SoniloVideoToMusic"}
 
 
 @pytest.fixture(scope="module")
@@ -41,7 +42,7 @@ class MockNanoBanana2:
 
 
 class MockVeoFirstLast:
-    """Stands in for Veo3FirstLastFrameNode: a 6 s clip that starts on first_frame and ends on last_frame."""
+    """Stands in for Veo3FirstLastFrameNode: a clip of the asked length that starts on first_frame and ends on last_frame."""
     def __init__(self, nodes):
         self.nodes, self.calls = nodes, []
 
@@ -53,26 +54,47 @@ class MockVeoFirstLast:
         return self.nodes.VideoFromFile(str(out))
 
 
-def run_pipeline(nodes, stills, writer_reply=None, ending=None, **brief_kw):
-    """The app's graph, in order, with the three partner nodes mocked."""
+class MockSonilo:
+    """Stands in for SoniloVideoToMusic: records the video it was given, returns an AUDIO dict (a sine tone)."""
+    def __init__(self):
+        self.videos, self.prompts = [], []
+
+    def __call__(self, video, prompt):
+        import torch
+        p = Path(tempfile.mkdtemp()) / "seen.mp4"; video.save_to(str(p))
+        self.videos.append(p); self.prompts.append(prompt)
+        sr, secs = 44100, core.probe(p)["dur"]
+        t = torch.arange(int(sr * secs)) / sr
+        wav = 0.3 * torch.sin(2 * torch.pi * 330 * t)
+        return {"waveform": torch.stack([wav, wav])[None], "sample_rate": sr}
+
+
+def run_pipeline(nodes, stills, writer_reply=None, owner=None, consent=False, with_score=True, music_path="", **brief_kw):
+    """The app's graph, in order, with the four partner nodes mocked."""
     brief, wprompt, model = _brief(nodes, **brief_kw)
     lad_node = nodes.HonestLadder()
     need = lad_node.check_lazy_status(brief, None)
     reply = writer_reply(wprompt) if need else None
     ladder, text = lad_node.run(brief, reply)
-    nb, veo = MockNanoBanana2(nodes, stills), MockVeoFirstLast(nodes)
+    nb, veo, son = MockNanoBanana2(nodes, stills), MockVeoFirstLast(nodes), MockSonilo()
     keys = []
-    for k in range(1, 6):
+    for k in range(1, core.N_RUNGS + 1):
         kp, cap = nodes.HonestRung().run(ladder, k)
         keys.append(nb(kp, k - 1))
     board, check = nodes.HonestBoard().run(ladder, **{f"rung_{k}": t for k, t in enumerate(keys, 1)})
     vids = []
-    for k in range(1, 5):
+    for k, (a, z, kind, secs) in enumerate(core.SHOTS, 1):
         wp, dev = nodes.HonestWarp().run(ladder, k)
-        vids.append(veo(wp, keys[k - 1], keys[k], core.WARP_SECONDS, model))
-    r30, r15, receipt = nodes.HonestAssemble().run(ladder, *vids, True, True, True, "", ending_photo=ending)
-    return dict(ladder=json.loads(ladder), text=text, nb=nb, veo=veo, board=board, check=check, r30=r30, r15=r15,
-                receipt=json.loads(receipt), need=need)
+        vids.append(veo(wp, keys[a], keys[z], secs, model))
+    score_cut, plan, mprompt = nodes.HonestAssemble().run(ladder, True, True, True, consent, owner_photo=owner,
+                                                          **{f"clip_{k}": v for k, v in enumerate(vids, 1)})
+    fin = nodes.HonestFinish()
+    prompt = {"9": {"inputs": {"plan": ["8", 1], "music_path": music_path, **({"score": ["7", 0]} if with_score else {})}}}
+    lazy = fin.check_lazy_status(plan, music_path, None, prompt, "9")
+    score = son(score_cut, mprompt) if lazy else None
+    reel, cut15, receipt = fin.run(plan, music_path, score, prompt, "9")
+    return dict(ladder=json.loads(ladder), text=text, nb=nb, veo=veo, son=son, board=board, check=check, reel=reel, cut15=cut15,
+                receipt=json.loads(receipt), need=need, plan=json.loads(plan), lazy=lazy)
 
 
 def _save(video, name):
@@ -88,20 +110,55 @@ def test_brief_node_outputs(nodes):
     assert nodes.HonestBrief.RETURN_TYPES[2] == core.VEO_MODELS
 
 
-def test_mocked_partner_pipeline_end_to_end(nodes, stills, ending_photo):
-    """Template ladder -> 5 mocked Nano Banana stills -> 4 mocked Veo warps -> Assemble -> 30 s + 15 s MP4s."""
-    r = run_pipeline(nodes, stills, ending=_img(nodes, ending_photo))
+def test_mocked_partner_pipeline_end_to_end(nodes, stills):
+    """Template ladder -> 8 mocked Nano Banana stills -> 7 mocked Veo clips -> Assemble -> mocked Sonilo -> Finish."""
+    r = run_pipeline(nodes, stills)
     assert r["need"] == [], "the template writer never calls Gemini"
-    assert len(r["nb"].prompts) == 5 and all("No people at all" in p for p in r["nb"].prompts)
+    assert len(r["nb"].prompts) == 8 and all("No people at all" in p for p in r["nb"].prompts)
     assert "200TH LOCATION" in r["nb"].prompts[0] and "a truck in a gas station parking lot" in r["nb"].prompts[3]
-    assert [c["duration"] for c in r["veo"].calls] == [6] * 4 and all(c["model"] == "veo-3.1-lite" for c in r["veo"].calls)
-    devs = [w["device"] for w in r["ladder"]["warps"]]
-    assert all(d in c["prompt"] or core.DEVICES[d][:30] in c["prompt"] for d, c in zip(devs, r["veo"].calls))
-    p30, p15 = _save(r["r30"], "r30.mp4"), _save(r["r15"], "r15.mp4")
-    assert core.probe(p30)["dur"] == pytest.approx(30.0, abs=0.1) and core.probe(p15)["dur"] == pytest.approx(15.0, abs=0.1)
-    assert (core.probe(p30)["w"], core.probe(p30)["h"]) == (720, 1280) and core.probe(p30)["audio"]
-    assert r["board"].shape == (1, 550, 1350, 3)
+    assert [c["duration"] for c in r["veo"].calls] == [s[3] for s in core.SHOTS] and all(c["model"] == "veo-3.1-lite" for c in r["veo"].calls)
+    assert all(s["motion"] in c["prompt"] for s, c in zip(r["ladder"]["shots"], r["veo"].calls))
+    assert r["lazy"] == ["score"] and len(r["son"].videos) == 1 and "instrumental" in r["son"].prompts[0]
+    assert r["receipt"]["music"].startswith("Sonilo score")
+    pf, p15 = _save(r["reel"], "reel.mp4"), _save(r["cut15"], "c15.mp4")
+    assert core.probe(pf)["dur"] == pytest.approx(r["plan"]["cuts"]["full"]["total"], abs=0.1)
+    assert core.probe(p15)["dur"] == pytest.approx(15.0, abs=0.1)
+    assert (core.probe(pf)["w"], core.probe(pf)["h"]) == (720, 1280) and core.probe(pf)["audio"]
+    assert r["board"].shape == (1, 550, 8 * 270, 3)
     assert "brag" in r["check"] and "payoff: no sign to check" in r["check"]
+
+
+def test_consent_blocks_the_run_at_the_node(nodes, stills, owner_photo):
+    with pytest.raises(ValueError, match="I have this person's consent"):
+        run_pipeline(nodes, stills, owner=_img(nodes, owner_photo), consent=False)
+    req = nodes.HonestAssemble.INPUT_TYPES()["required"]["owner_consent"]
+    assert req[0] == "BOOLEAN" and req[1]["default"] is False and "I have this person's consent" in req[1]["tooltip"]
+
+
+def test_owner_photo_with_consent_is_never_shown_to_the_music_model(nodes, stills, textured_photo):
+    r = run_pipeline(nodes, stills, owner=_img(nodes, textured_photo), consent=True)
+    plan = r["plan"]
+    assert plan["owner"] and Path(plan["score_cut"]).name == "score_cut.mp4"
+    work = Path(plan["work"])
+    assert "owner.png" not in (work / "ffmpeg_picture_full_masked.txt").read_text() and "private.png" in (work / "ffmpeg_picture_full_masked.txt").read_text()
+    assert core.probe(r["son"].videos[0])["dur"] == pytest.approx(plan["cuts"]["full"]["total"], abs=0.1)
+    assert [s[0] for s in r["receipt"]["full"]["segments"]] == ["clip"] * 6 + ["owner", "clip", "card"]
+
+
+def test_own_track_skips_the_paid_score(nodes, stills, tmp_path):
+    track = tmp_path / "mine.wav"
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "sine=frequency=200:duration=10", str(track)], check=True)
+    r = run_pipeline(nodes, stills, music_path=str(track))
+    assert r["lazy"] == [] and r["son"].videos == [] and r["receipt"]["music"] == "your track: mine.wav"
+
+
+def test_synth_bed_only_in_the_free_draft(nodes, stills):
+    r = run_pipeline(nodes, stills, with_score=False)
+    assert r["lazy"] == [] and r["receipt"]["music"].startswith("built-in synth bed (free draft only)")
+    fin = nodes.HonestFinish()
+    linked = {"9": {"inputs": {"score": ["7", 0]}}}
+    with pytest.raises(ValueError, match="No music"):   # main app: the score is connected, so no silent fallback to the synth
+        fin.run(json.dumps(r["plan"]), "", None, linked, "9")
 
 
 def test_sign_check_reads_the_sample_signs(nodes, stills):
@@ -112,7 +169,7 @@ def test_sign_check_reads_the_sample_signs(nodes, stills):
     from PIL import Image
     lines = nodes.sign_check(lad, [Image.open(s) for s in stills])
     assert "PASS" in lines[0] and "PASS" in lines[1], lines
-    wrong = [Image.open(stills[2])] * 5   # a still without the sign must not pass
+    wrong = [Image.open(stills[2])] * 8   # a still without the sign must not pass
     assert "NOT FOUND" in nodes.sign_check(lad, wrong)[0]
 
 
@@ -135,15 +192,17 @@ def test_draft_warp_node(nodes, stills, tmp_path):
     lad = nodes.HonestLadder().run(_brief(nodes)[0])[0]
     v = nodes.HonestDraftWarp().run(_img(nodes, stills[0]), _img(nodes, stills[1]), lad, 1, 4)[0]
     assert core.probe(_save(v, "d.mp4"))["dur"] == pytest.approx(4.0, abs=0.1)
+    v = nodes.HonestDraftWarp().run(_img(nodes, stills[7]), _img(nodes, stills[7]), lad, 7, 4)[0]
+    assert core.probe(_save(v, "m.mp4"))["dur"] == pytest.approx(4.0, abs=0.1)
 
 
-def test_blank_ending_slot_is_skipped(nodes, warps):
+def test_blank_owner_slot_is_skipped(nodes, clips):
     import torch
     from comfy_api.input_impl import VideoFromFile
     lad = nodes.HonestLadder().run(_brief(nodes)[0])[0]
-    vids = [VideoFromFile(str(w)) for w in warps]
-    _, _, receipt = nodes.HonestAssemble().run(lad, *vids, True, True, True, "", ending_photo=torch.ones(1, 64, 64, 3))
-    assert json.loads(receipt)["reel_30s"]["ending"] is None
+    vids = {f"clip_{k}": VideoFromFile(str(c)) for k, c in enumerate(clips, 1)}
+    _, plan, _ = nodes.HonestAssemble().run(lad, True, True, True, False, owner_photo=torch.ones(1, 64, 64, 3), **vids)
+    assert json.loads(plan)["owner"] is None
 
 
 def _graph(tmp_path, *args):
@@ -154,26 +213,39 @@ def _graph(tmp_path, *args):
 
 def test_partner_graph(tmp_path):
     g = _graph(tmp_path)
-    by = lambda cls: [k for k, v in g.items() if v["class_type"] == cls]
+    by = lambda cls: sorted((k for k, v in g.items() if v["class_type"] == cls), key=int)
     kfs, veos = by("GeminiNanoBanana2V2"), by("Veo3FirstLastFrameNode")
-    assert len(kfs) == 5 and len(veos) == 4 and len(by("GeminiNodeV3")) == 1 and len(by("SaveVideo")) == 6
+    assert len(kfs) == 8 and len(veos) == 7 and len(by("GeminiNodeV3")) == 1 and len(by("SoniloVideoToMusic")) == 1
+    assert len(by("SaveVideo")) == 7 + 2
     brief = by("HonestBrief")[0]
-    for k, v in enumerate(sorted(veos, key=int)):
+    for k, v in enumerate(veos):
         i = g[v]["inputs"]
-        assert i["aspect_ratio"] == "9:16" and i["duration"] == 6 and i["generate_audio"] is False and i["resolution"] == "720p"
+        a, z, kind, secs = core.SHOTS[k]
+        assert i["aspect_ratio"] == "9:16" and i["duration"] == secs and i["generate_audio"] is False and i["resolution"] == "720p"
         assert i["model"] == [brief, 2]
-        assert i["first_frame"][0] == sorted(kfs, key=int)[k] and i["last_frame"][0] == sorted(kfs, key=int)[k + 1], "consecutive rungs"
+        assert i["first_frame"][0] == kfs[a] and i["last_frame"][0] == kfs[z], "each clip joins its two rungs"
     for k in kfs:
         assert g[k]["inputs"]["model.aspect_ratio"] == "9:16" and g[g[k]["inputs"]["prompt"][0]]["class_type"] == "HonestRung"
     lad = by("HonestLadder")[0]
     assert g[g[lad]["inputs"]["writer_reply"][0]]["class_type"] == "GeminiNodeV3"
-    asm = g[by("HonestAssemble")[0]]["inputs"]
-    assert [g[asm[f"warp_{k}"][0]]["class_type"] for k in range(1, 5)] == ["Veo3FirstLastFrameNode"] * 4
-    assert g[asm["ending_photo"][0]]["class_type"] == "LoadImage"
+    asm_id = by("HonestAssemble")[0]
+    asm = g[asm_id]["inputs"]
+    assert [g[asm[f"clip_{k}"][0]]["class_type"] for k in range(1, 8)] == ["Veo3FirstLastFrameNode"] * 7
+    assert asm["owner_consent"] is False
+    owner = asm["owner_photo"][0]
+    assert g[owner]["class_type"] == "LoadImage"
+    users = [(k, n["class_type"]) for k, n in g.items() for v in n["inputs"].values() if isinstance(v, list) and v[:1] == [owner]]
+    assert users == [(asm_id, "HonestAssemble")], "the real photo goes to the edit only, never to a model"
+    son = g[by("SoniloVideoToMusic")[0]]["inputs"]
+    assert son["video"] == [asm_id, 0] and son["prompt"] == [asm_id, 2], "the score is made from the score cut"
+    fin = g[by("HonestFinish")[0]]["inputs"]
+    assert fin["score"] == [by("SoniloVideoToMusic")[0], 0] and fin["plan"] == [asm_id, 1]
 
 
 def test_draft_graph_has_no_paid_nodes(tmp_path):
     g = _graph(tmp_path, "--draft")
     classes = {v["class_type"] for v in g.values()}
-    assert not classes & {"GeminiNodeV3", "GeminiNanoBanana2V2", "Veo3FirstLastFrameNode"}
-    assert sum(v["class_type"] == "HonestDraftWarp" for v in g.values()) == 4
+    assert not classes & PAID
+    assert sum(v["class_type"] == "HonestDraftWarp" for v in g.values()) == 7
+    fin = next(v for v in g.values() if v["class_type"] == "HonestFinish")["inputs"]
+    assert "score" not in fin, "the free draft has no score: your track, else the synth bed"

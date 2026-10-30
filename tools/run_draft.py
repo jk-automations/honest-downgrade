@@ -44,8 +44,8 @@ for nid, o in h[pid]["outputs"].items():
     for kind in ("images", "videos", "gifs"):
         for f in o.get(kind, []):
             src = base / f.get("type", "output") / f.get("subfolder", "") / f["filename"]
-            if "30 s" in title:
-                dst = out / f"{a.prefix}-30s.mp4"
+            if title == "Your Reel":
+                dst = out / f"{a.prefix}-reel.mp4"
             elif "15 s" in title:
                 dst = out / f"{a.prefix}-15s.mp4"
             elif title == "Board":

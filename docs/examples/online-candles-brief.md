@@ -21,15 +21,20 @@ The template writer's ladder for these inputs (printed by `honest_core.ladder_te
 ```
 Little Ember Candles: Honest Downgrade (heartfelt)
 1. BRAG         Our 200th warehouse just opened.
-      ~ warp: box unfold
+      ~ warp: tool tornado
 2. DOWNGRADE 1  Ok, it's 2 warehouses.
-      ~ warp: paper-plane swarm
-3. DOWNGRADE 2  Ok, it's one shelf.
-      ~ warp: screen pull
-4. TRUTH        Ok, it's a spare bedroom full of boxes.
-                The first 30 orders were all my friends.
       ~ warp: pop-up fold
-5. PAYOFF       Every order ships within 24 hours.
+3. DOWNGRADE 2  Ok, it's one shelf.
+      ~ warp: mask match-cut
+4. TRUTH        Ok, it's a spare bedroom full of boxes.
+      ~ quiet move (sympathy beat)
+5. STRUGGLE     (no caption)
+      ~ quiet move (sympathy beat)
+6. HEIRLOOM     The first 30 orders were all my friends.
+      ~ warp: push-through door
+7. PLACE        (no caption)
+8. PAYOFF       Every order ships within 24 hours.
+      ~ payoff macro (drop, splash, light)
 ```
 
 The brag still shows "a gleaming grand-opening plaza in front of a giant automated warehouse" with a "200TH WAREHOUSE"

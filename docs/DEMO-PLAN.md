@@ -1,51 +1,59 @@
-# Demo plan: one paid run of the real app (needs founder approval)
+# Demo plan: a demo video of 2 minutes or less
 
-Nothing below has been run. Everything so far is $0: the draft app (code-drawn stills, local draft warps) and the tests
-(partner nodes mocked).
+Everything in this repo so far cost $0: the free draft app, the tests (partner nodes mocked), the real-browser E2E run.
+The one paid run below is prepared but **not run**. The founder starts it himself (approved cap: $4.00).
 
-## Why a paid run would help
+## The paid run (founder only)
 
-The draft proves the app end to end, but a judge sees placeholder drawings and slide-style transitions. One real run shows
-what the app is for: photo-real rungs where each caption is literally visible, and real wild-card motion between them.
+```bash
+cd /Users/jefe/projects/honest-downgrade && /Users/jefe/ComfyUI/venv/bin/python tools/run_paid_demo.py
+```
 
-## The run (taco-truck preset, unchanged)
+- Brief: Drip Doctor Plumbing (`docs/examples/plumber-brief.md`, joke 2), the facts behind the approved plumber Reel.
+- Models: 8 Nano Banana 2 keyframes (1K), 7 Veo 3.1 **fast** first/last-frame clips (720p, no audio, 36 s), the Sonilo
+  score of the score cut. Template writer, so Gemini is never called.
+- Estimate from the live price badges: **$3.87** = Veo $2.88 + keyframes $0.67 + Sonilo $0.32. The script refuses
+  above $4.00, refuses if a badge price changed, and writes a ledger row to `runs/paid/ledger.jsonl` before it queues.
+- Key: read by the script from `~/.config/jk/comfy_api_key`, sent only as `extra_data.api_key_comfy_org`, never printed.
+- Owner photo: none by default (the ending is the payoff macro). To add one: `--owner-photo <file> --owner-consent`
+  (adds 2.7 s to the Reel and about $0.02 of score).
+- Results land in `runs/paid/<time>/`: the Reel, the cutdown, the 8 keyframes on the board, all 7 clips, the ladder,
+  the sign check and the ComfyUI history (key removed). Add the real credit charge to the ledger afterwards.
+- `--dry-run` prints the same ladder and estimate for $0.
 
-The app is a general small-business workflow (any business type, shop or not; see the README's business-type table).
-The taco truck is the one example the demo uses, by founder decision 2026-10-29. To show it is not food-specific
-without spending, the recording can also open the FREE draft app (`workflows/honest-downgrade-draft.json`), switch
-**Business type** to *Plumber (no storefront)* with the facts from `docs/examples/plumber-brief.md`, press Run and show
-the ladder text (checked 2026-10-29 on the CPU ComfyUI: a $0 draft run as the plumber finished in 9 s). The draft stills
-stay the taco placeholders, so show the ladder, not that Reel. Never press Run in the main app for this: it pays.
+If a clip fails review (a person appears, a sign scrambles, a warp reads flat): change only that clip's seed in the
+graph and run again. Fixed seeds mean only that clip is paid again (about $0.32-0.48 for a Veo fast clip), plus the
+score, because the cut changed (about $0.32). Any re-roll is new spend over the approved run: ask first.
 
+## The video (target 1:50)
 
-1. Start a ComfyUI that can reach the Comfy API, with this pack in `custom_nodes`; sign in with the JK Comfy account.
-2. Open `workflows/honest-downgrade.json` (App Mode). Keep the preset, `template` writer, `veo-3.1-lite`.
-3. Screen-record, press **Run**. Order on screen: ladder text, board with 5 stills and the sign check, 4 warps, the Reel.
-4. If a still fails the board (people, a real logo, the caption not visible, a misspelled sign): change only its seed,
-   Run again. Fixed seeds: only that still and its two warps are paid again.
+| Time | Picture | Voice-over / caption |
+|---|---|---|
+| 0:00-0:10 | The approved plumber Reel, from "We have 40 work trucks" through the first truck smash | "Every small business wants a Reel like this." |
+| 0:10-0:20 | Cut to ComfyUI, the app opens in App Mode: a plain form | "This is one ComfyUI app. You type the truth about your business." |
+| 0:20-0:35 | Type the plumber brief: business type Plumber, the truth, the honest line, the payoff | "The joke is written for you. Your facts are locked: no model can change them." |
+| 0:35-0:45 | The ladder text and the board of 8 keyframes, the sign check passing | "Every caption has to be visible in its picture. No people are ever generated." |
+| 0:45-1:05 | The 7 clips, fast: tool smash, geyser, pipe tornado, the 2 a.m. van, the old wrench, the push to the door, the macro | "Shock transitions with a one-second build-up. Then it slows down for the part that makes you care." |
+| 1:05-1:20 | Add an owner photo, press Run without the consent switch: the clear error. Switch it on | "The only real person is the owner, and only with consent. That photo never goes to any model." |
+| 1:20-1:30 | The score cut with the "real photo (kept private)" card, then the waveform dipping under "My dad taught me on weekends." | "The music is scored to the cut and drops when the honest line lands." |
+| 1:30-1:50 | The finished Reel, full screen, with sound; the 15 s cutdown thumbnail | "One Run. A full Reel and a 15-second cut. About four dollars." |
 
-## Quote (from the node price badges on 2026-10-29; re-check the badges before spending)
-
-| Item | Qty | Unit | Total |
-|---|---|---|---|
-| Nano Banana 2, 1K | 5 | ~$0.084 | ~$0.42 |
-| Veo 3.1 lite first/last frame, 720p, no audio, 6 s | 4 | $0.18 | $0.72 |
-| **One clean run** | | | **~$1.14** |
-| Re-roll budget (2 stills + 4 warps) | | | ~$0.90 |
-| **Requested cap** | | | **$3.00** |
-
-Optional upgrade after review: Veo 3.1 fast for the 4 warps (+$1.20) only if lite warps look weak.
+Recording notes:
+1. Record the App Mode parts from the free draft app if the paid run is not done yet, and label the draft pictures as
+   draft on screen. Never press Run in the main app while recording unless that is the founder's paid run.
+2. Show the cost line honestly: lite about $2.10, fast about $3.90 per Reel; the draft is $0.
+3. Keep the AI label visible in every shot of the generated Reel.
+4. The plumber Reel at 0:00 is the approved Flow draft: caption it "made with this recipe, clips drafted in Google Flow".
 
 ## Open questions for the founder
 
-1. Approve the $3 cap (one run plus re-rolls) or not.
-2. The real ending: the sample business is fictional, so there is no real photo. Options: no ending (Reel is 27.5 s),
-   a JK-owned photo of food with no people, or skip.
-3. Music: built-in synth bed (no licence needed) or a JK-owned track.
-4. Name check: no business named "El Zorrito Azul" found in a web search (2026-10-29), but a taco place called
-   "El Zorrito" exists in Acapulco. Keep the name, or pick another before going public.
+1. Run the paid demo (estimate $3.87, cap $4.00), or record with the approved plumber Reel plus the free draft only.
+2. Owner photo for the demo: none (default), or a JK-owned photo of someone who consents.
+3. Voice-over: founder's own voice, or captions only.
+4. Name check before going public: "Drip Doctor Plumbing" and "Tacos El Zorrito Azul" are fictional; a web check for
+   real businesses with those names has not been done for Drip Doctor (2026-10-30).
 
 ## Proof to keep
 
-The Reel and cutdown from `output/honest/`, the board and sign check, ComfyUI `/history` JSON for the run (every partner
-call and prompt), and the credit charge.
+The paid run's `runs/paid/<time>/` folder and ledger rows, the credit charge, the E2E screenshot
+(`docs/img/app-mode.png`), the draft MP4s in `docs/examples/`, the pytest output.

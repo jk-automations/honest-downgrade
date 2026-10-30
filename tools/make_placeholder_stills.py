@@ -1,4 +1,4 @@
-"""Draw five flat-illustration placeholder stills for the taco-truck preset, so the free draft graph, the tests and
+"""Draw eight flat-illustration placeholder stills for the taco-truck preset, so the free draft graph, the tests and
 the demo run with no AI and no spend. They are code-drawn stand-ins, not generated images and not the approved sample.
 
 python3 tools/make_placeholder_stills.py [--out presets/taco-truck/placeholder] [--input-dir .comfy-base/input]"""
@@ -137,14 +137,65 @@ def tacos():
     return im
 
 
+def struggle():
+    """The truck's cab at 2 a.m.: rain on the windshield, a phone buzzing upside down on the dash, a cold coffee."""
+    im, d = sky((12, 14, 26), (30, 30, 48))
+    d.polygon([(0, 260), (W, 220), (W, 760), (0, 800)], fill=(26, 34, 52))                  # the windshield
+    r = random.Random(7)
+    for k in range(140):                                                                     # rain drops
+        x, y = r.randint(0, W), r.randint(240, 780)
+        d.ellipse([x, y, x + 6, y + 10], fill=(90, 110, 150))
+    for k in range(5):                                                                       # far street lights, blurred later
+        d.ellipse([60 + k * 140, 420, 100 + k * 140, 460], fill=(230, 170, 80))
+    d.rectangle([0, 800, W, H], fill=(20, 20, 24))                                           # the dash
+    d.rounded_rectangle([250, 850, 470, 900], radius=12, fill=(10, 10, 12), outline=(80, 140, 220), width=4)   # phone, upside down
+    glow = Image.new("RGB", (W, H), (0, 0, 0)); ImageDraw.Draw(glow).ellipse([210, 800, 510, 960], fill=(30, 60, 110))
+    d.rectangle([540, 880, 610, 1010], fill=(150, 110, 80), outline=INK, width=4)            # cold coffee cup
+    d.ellipse([-200, 1000, 420, 1500], outline=(50, 50, 56), width=40)                       # steering wheel edge
+    return _add(im.filter(ImageFilter.GaussianBlur(1.2)), glow)
+
+
+def heirloom():
+    """An old, dented cast-iron pan with a worn wooden handle on a hook inside the truck, warm light."""
+    im, d = sky((70, 50, 34), (40, 28, 20))
+    for x in range(0, W, 90):                                                                # plank wall
+        d.line([(x, 0), (x, H)], fill=(56, 40, 28), width=4)
+    d.ellipse([340, 300, 380, 340], fill=(150, 150, 150), outline=INK, width=4)              # the hook
+    d.rectangle([340, 330, 380, 610], fill=(120, 80, 50), outline=INK, width=4)              # worn wooden handle
+    d.ellipse([140, 580, 580, 1020], fill=(40, 40, 44), outline=(20, 20, 20), width=10)      # the pan
+    d.ellipse([190, 630, 530, 970], fill=(58, 56, 60))
+    d.arc([240, 680, 480, 920], 200, 320, fill=(110, 110, 116), width=6)                     # a worn shine
+    d.ellipse([440, 700, 470, 730], fill=(30, 30, 32))                                       # a dent
+    glow = Image.new("RGB", (W, H), (0, 0, 0)); ImageDraw.Draw(glow).ellipse([100, 200, 620, 1100], fill=(80, 50, 20))
+    return _add(im, glow)
+
+
+def place():
+    """The truck's service window glowing at night, empty paper trays on the ledge, a tip jar stuffed full."""
+    im, d = sky((16, 18, 36), (40, 34, 56))
+    d.rounded_rectangle([60, 300, 660, 1100], radius=30, fill=BLUE, outline=INK, width=6)  # the side of the truck
+    d.rectangle([140, 420, 580, 720], fill=(255, 214, 130), outline=INK, width=6)          # the glowing window
+    d.rectangle([110, 720, 610, 760], fill=(200, 200, 200), outline=INK, width=4)          # the ledge
+    for k in range(4):                                                                       # stacked empty trays
+        d.rounded_rectangle([150, 700 - k * 10, 330, 722 - k * 10], radius=6, fill=(236, 224, 200), outline=INK, width=2)
+    d.rectangle([450, 620, 540, 720], fill=(200, 230, 240), outline=INK, width=4)          # the tip jar
+    for k in range(6):
+        d.rectangle([458 + (k % 3) * 26, 640 + (k // 3) * 30, 478 + (k % 3) * 26, 664 + (k // 3) * 30], fill=(110, 170, 90))
+    for k in range(9):
+        d.ellipse([110 + k * 60, 380, 126 + k * 60, 396], fill=GOLD)                       # string lights
+    d.rectangle([0, 1100, W, H], fill=(60, 60, 66))
+    glow = Image.new("RGB", (W, H), (0, 0, 0)); ImageDraw.Draw(glow).ellipse([60, 300, 660, 900], fill=(90, 60, 20))
+    return _add(im, glow)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(ROOT / "presets/taco-truck/placeholder"))
-    ap.add_argument("--input-dir", help="also copy them into this ComfyUI input dir as honest_rung_1.png ... honest_rung_5.png")
+    ap.add_argument("--input-dir", help="also copy them into this ComfyUI input dir as honest_rung_1.png ... honest_rung_8.png")
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
     paths = []
-    for k, f in enumerate([brag, two, window, truck, tacos], 1):
+    for k, f in enumerate([brag, two, window, truck, struggle, heirloom, place, tacos], 1):
         p = out / f"rung_{k}.png"; f().save(p); paths.append(p)
     if a.input_dir:
         for k, p in enumerate(paths, 1):

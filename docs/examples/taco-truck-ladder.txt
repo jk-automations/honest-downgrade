@@ -1,11 +1,16 @@
 Tacos El Zorrito Azul: Honest Downgrade (heartfelt)
 1. BRAG         Our 200th location just opened.
-      ~ warp: ribbon snake
+      ~ warp: creature
 2. DOWNGRADE 1  Ok, it's 2 locations.
-      ~ warp: steam swirl
-3. DOWNGRADE 2  Ok, it's one window.
-      ~ warp: flying ingredients
-4. TRUTH        Ok, it's a truck in a gas station parking lot.
-                Started with $800 and my mom's recipes.
       ~ warp: pop-up fold
-5. PAYOFF       The line at 11pm is real.
+3. DOWNGRADE 2  Ok, it's one window.
+      ~ warp: flock burst
+4. TRUTH        Ok, it's a truck in a gas station parking lot.
+      ~ quiet move (sympathy beat)
+5. STRUGGLE     (no caption)
+      ~ quiet move (sympathy beat)
+6. HEIRLOOM     Started with $800 and my mom's recipes.
+      ~ warp: push-through door
+7. PLACE        (no caption)
+8. PAYOFF       The line at 11pm is real.
+      ~ payoff macro (drop, splash, light)

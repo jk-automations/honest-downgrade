@@ -7,7 +7,7 @@ import fs from "fs";
 
 const [url, wfPath, shot] = process.argv.slice(2);
 const wf = JSON.parse(fs.readFileSync(wfPath, "utf8"));
-const PAID = ["Veo3FirstLastFrameNode", "GeminiNanoBanana2V2", "GeminiNodeV3", "GeminiNode", "GeminiNanoBanana2"];
+const PAID = ["Veo3FirstLastFrameNode", "GeminiNanoBanana2V2", "GeminiNodeV3", "GeminiNode", "GeminiNanoBanana2", "SoniloVideoToMusic"];
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 1500 } });
 const errors = [];

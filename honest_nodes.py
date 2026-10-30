@@ -1,6 +1,6 @@
 """Honest Downgrade ComfyUI nodes. Paid generation is done by ComfyUI's own partner nodes (Gemini, Nano Banana 2,
-Veo 3.1 first/last frame); these nodes write and check the ladder, build the prompts, make the free draft warps,
-check the sign text and cut the 30 s Reel and the 15 s cutdown."""
+Veo 3.1 first/last frame, Sonilo Video-to-Music); these nodes write and check the ladder, build the prompts, make the
+free draft clips, check the sign text, cut the full Reel and the 15 s cutdown, and mix the music."""
 import json
 import shutil
 import subprocess
@@ -25,7 +25,7 @@ CAT = "Honest Downgrade"
 TYPE_CHOICES = core.TYPE_CHOICES
 WRITERS = ["template (offline, free)", "Gemini (new jokes for your business)"]
 JOKES = ["joke 1", "joke 2", "joke 3"]
-PRESET = core.load_preset(core.list_presets()[0]) if core.list_presets() else {}
+PRESET = core.load_preset(core.DEFAULT_PRESET) if core.DEFAULT_PRESET in core.list_presets() else {}
 
 
 def _pil(img):
@@ -130,7 +130,7 @@ class HonestRung:
 
     @classmethod
     def INPUT_TYPES(cls):
-        return {"required": {"ladder": ("STRING", {"forceInput": True}), "rung": ("INT", {"default": 1, "min": 1, "max": 5})}}
+        return {"required": {"ladder": ("STRING", {"forceInput": True}), "rung": ("INT", {"default": 1, "min": 1, "max": core.N_RUNGS})}}
 
     def run(self, ladder, rung):
         lad = json.loads(ladder)
@@ -138,7 +138,8 @@ class HonestRung:
 
 
 class HonestWarp:
-    """One step between rung k and rung k+1: the first/last-frame motion prompt with its wild-card device."""
+    """One of the seven moving clips: a wild-card or shock warp (with a 1 s build-up), a quiet sympathy move, or the
+    payoff macro. Gives the first/last-frame motion prompt and its device."""
     CATEGORY = CAT
     RETURN_TYPES = ("STRING", "STRING")
     RETURN_NAMES = ("warp_prompt", "device")
@@ -146,16 +147,16 @@ class HonestWarp:
 
     @classmethod
     def INPUT_TYPES(cls):
-        return {"required": {"ladder": ("STRING", {"forceInput": True}), "step": ("INT", {"default": 1, "min": 1, "max": 4})}}
+        return {"required": {"ladder": ("STRING", {"forceInput": True}), "step": ("INT", {"default": 1, "min": 1, "max": core.N_CLIPS})}}
 
     def run(self, ladder, step):
         lad = json.loads(ladder)
-        return (core.warp_prompt(lad, step - 1), lad["warps"][step - 1]["device"])
+        return (core.warp_prompt(lad, step - 1), lad["shots"][step - 1]["device"])
 
 
 class HonestDraftWarp:
-    """Free local draft of a warp: an animatic between the two stills, with an ffmpeg transition that reads like the
-    device. Use it to approve the whole Reel before paying for real motion. No AI video, no API."""
+    """Free local draft of a clip: a slow push on each still and an ffmpeg transition that reads like the device, so
+    every rung still moves. Use it to approve the whole Reel before paying for real motion. No AI video, no API."""
     CATEGORY = CAT
     RETURN_TYPES = ("VIDEO",)
     FUNCTION = "run"
@@ -163,7 +164,7 @@ class HonestDraftWarp:
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {"first_frame": ("IMAGE",), "last_frame": ("IMAGE",), "ladder": ("STRING", {"forceInput": True}),
-                             "step": ("INT", {"default": 1, "min": 1, "max": 4}),
+                             "step": ("INT", {"default": 1, "min": 1, "max": core.N_CLIPS}),
                              "seconds": ("INT", {"default": core.WARP_SECONDS, "min": 4, "max": 8, "step": 2})}}
 
     def run(self, first_frame, last_frame, ladder, step, seconds):
@@ -172,7 +173,7 @@ class HonestDraftWarp:
         a, b = tmp / "a.png", tmp / "b.png"
         _pil(first_frame).save(a); _pil(last_frame).save(b)
         out = _out_dir() / f"honest_draft_{tmp.name}_{step}.mp4"
-        core.draft_warp(a, b, lad["warps"][step - 1]["device"], out, secs=seconds)
+        core.draft_warp(a, b, lad["shots"][step - 1]["device"], out, secs=seconds)
         return (VideoFromFile(str(out)),)
 
 
@@ -224,64 +225,107 @@ class HonestBoard:
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {"ladder": ("STRING", {"forceInput": True})},
-                "optional": {f"rung_{k}": ("IMAGE",) for k in range(1, 6)}}
+                "optional": {f"rung_{k}": ("IMAGE",) for k in range(1, core.N_RUNGS + 1)}}
 
     def run(self, ladder, **rungs):
         lad = json.loads(ladder)
-        ims = [_pil(rungs[f"rung_{k}"]) for k in range(1, 6) if rungs.get(f"rung_{k}") is not None]
+        ims = [_pil(rungs[f"rung_{k}"]) for k in range(1, core.N_RUNGS + 1) if rungs.get(f"rung_{k}") is not None]
         if not ims:
             raise ValueError("No rung stills to show.")
-        sheet = core.board(ims, [r["caption"] for r in lad["rungs"]][:len(ims)], None)
+        sheet = core.board(ims, [r["caption"] or r["role"].replace("_", " ") for r in lad["rungs"]][:len(ims)], None)
         return (_tensor(sheet), "\n".join(sign_check(lad, ims)))
 
 
+CONSENT_LABEL = "I have this person's consent"
+
+
 class HonestAssemble:
-    """The edit: the four warps, then your real ending photo (real people live only here), the end card. Classic
-    captions, 'AI-generated' label on the AI shots, 'Real photo' on yours, music drop on the honest line, -14 LUFS.
-    Two files from the same shots: the 30 s Reel and the 15 s cutdown."""
+    """The edit, picture first: the seven clips joined with dissolves, the owner's REAL photo (only with consent, never
+    sent to any model) between the place of work and the payoff, the end card, classic captions and labels. Gives the
+    score cut (the same Reel with the photo swapped for a private card) for the music model, and the plan."""
     CATEGORY = CAT
-    RETURN_TYPES = ("VIDEO", "VIDEO", "STRING")
-    RETURN_NAMES = ("reel_30s", "cutdown_15s", "receipt")
+    RETURN_TYPES = ("VIDEO", "STRING", "STRING")
+    RETURN_NAMES = ("score_cut", "plan", "music_prompt")
     FUNCTION = "run"
 
     @classmethod
     def INPUT_TYPES(cls):
-        return {"required": {"ladder": ("STRING", {"forceInput": True}),
-                             "warp_1": ("VIDEO",), "warp_2": ("VIDEO",), "warp_3": ("VIDEO",), "warp_4": ("VIDEO",),
-                             "captions": ("BOOLEAN", {"default": True}),
-                             "ai_label": ("BOOLEAN", {"default": True, "tooltip": "Keep this on when you post."}),
-                             "credit": ("BOOLEAN", {"default": True}),
-                             "music_path": ("STRING", {"default": "", "tooltip": "Optional: a track you OWN or licensed. Empty = the "
-                                                       "built-in synth bed (original, no licence needed). Never a copyrighted song."})},
-                "optional": {"ending_photo": ("IMAGE", {"tooltip": "Your REAL photo for the payoff (you, your team, your work, happy customers). "
-                                                        "Empty slot = no ending, the AI payoff still closes the Reel."}),
-                             "ending_clip": ("VIDEO", {"tooltip": "Or a REAL clip instead of a photo."})}}
+        req = {"ladder": ("STRING", {"forceInput": True})}
+        req.update({f"clip_{k}": ("VIDEO",) for k in range(1, core.N_CLIPS + 1)})
+        req.update({"captions": ("BOOLEAN", {"default": True}),
+                    "ai_label": ("BOOLEAN", {"default": True, "tooltip": "Keep this on when you post."}),
+                    "credit": ("BOOLEAN", {"default": True}),
+                    "owner_consent": ("BOOLEAN", {"default": False, "label_on": "YES", "label_off": "NO",
+                                                  "tooltip": CONSENT_LABEL + ": required when you add the owner photo (the person in "
+                                                             "it said yes to this ad). Without it the run stops with an error."})})
+        return {"required": req,
+                "optional": {"owner_photo": ("IMAGE", {"tooltip": "The face of the company: a REAL photo of the owner at work. Shown "
+                                                       "with a 'Real photo' label, never sent to any image, video or music model. "
+                                                       "Empty slot = the ending is the payoff alone."}),
+                             "owner_clip": ("VIDEO", {"tooltip": "Or a REAL clip of the owner instead of a photo (same consent rule)."})}}
 
-    def run(self, ladder, warp_1, warp_2, warp_3, warp_4, captions=True, ai_label=True, credit=True, music_path="",
-            ending_photo=None, ending_clip=None):
+    def run(self, ladder, captions=True, ai_label=True, credit=True, owner_consent=False, owner_photo=None, owner_clip=None, **clips):
         lad = json.loads(ladder)
-        tmp = Path(tempfile.mkdtemp(prefix="honest_"))
-        clips = []
-        for k, v in enumerate([warp_1, warp_2, warp_3, warp_4], 1):
-            p = tmp / f"warp_{k}.mp4"; v.save_to(str(p)); clips.append(p)
-        ending = None
-        if ending_clip is not None:
-            ending = tmp / "ending.mp4"; ending_clip.save_to(str(ending))
-        elif not _is_blank(ending_photo):
-            ending = tmp / "ending.png"; _pil(ending_photo).save(ending)
+        tmp = Path(tempfile.mkdtemp(prefix="honest_", dir=_out_dir()))
+        paths = []
+        for k in range(1, core.N_CLIPS + 1):
+            p = tmp / f"clip_{k}.mp4"; clips[f"clip_{k}"].save_to(str(p)); paths.append(p)
+        owner = None
+        if owner_clip is not None:
+            owner = tmp / "owner.mp4"; owner_clip.save_to(str(owner))
+        elif not _is_blank(owner_photo):
+            owner = tmp / "owner.png"; _pil(owner_photo).save(owner)
+        if owner is not None and not owner_consent:
+            raise ValueError(core.CONSENT_ERROR)
+        plan = core.assemble_picture(paths, lad, tmp, owner, owner_consent, captions, ai_label, credit)
+        return (VideoFromFile(plan["score_cut"]), json.dumps(plan), plan["music_prompt"])
+
+
+class HonestFinish:
+    """The music: your own track if you give one; else the Sonilo score (asked lazily, so a track of your own never pays
+    for a score); else, in the free draft only, the built-in synth bed. The bed is levelled first, ducked under every
+    honest or spoken line, whooshes on every warp, -14 LUFS. Gives the full Reel and the 15 s cutdown."""
+    CATEGORY = CAT
+    RETURN_TYPES = ("VIDEO", "VIDEO", "STRING")
+    RETURN_NAMES = ("reel", "cutdown_15s", "receipt")
+    FUNCTION = "run"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"plan": ("STRING", {"forceInput": True}),
+                             "music_path": ("STRING", {"default": "", "tooltip": "Optional: a track you OWN or licensed. It replaces the "
+                                                       "score. Never a copyrighted song."})},
+                "optional": {"score": ("AUDIO", {"lazy": True, "tooltip": "The Sonilo Video-to-Music score of the score cut."})},
+                "hidden": {"prompt": "PROMPT", "unique_id": "UNIQUE_ID"}}
+
+    @staticmethod
+    def _score_linked(prompt, unique_id):
+        return bool(prompt) and "score" in (prompt.get(str(unique_id), {}).get("inputs", {}))
+
+    def check_lazy_status(self, plan, music_path, score=None, prompt=None, unique_id=None):
+        return ["score"] if self._score_linked(prompt, unique_id) and score is None and not music_path.strip() else []
+
+    def run(self, plan, music_path, score=None, prompt=None, unique_id=None):
+        pl = json.loads(plan)
+        work = Path(pl["work"])
         music = Path(music_path.strip()).expanduser() if music_path.strip() else None
         if music and not music.is_file():
             raise ValueError(f"music_path does not exist: {music}")
+        score_path = None
+        if score is not None and music is None:
+            score_path = core.save_wav(work / "score.wav", score["waveform"].cpu().numpy(), score["sample_rate"])
         out = _out_dir()
-        r30 = core.assemble(clips, lad, out / f"honest_{tmp.name}_30s.mp4", tmp, ending, 30, captions, ai_label, credit, music)
-        r15 = core.assemble(clips, lad, out / f"honest_{tmp.name}_15s.mp4", tmp, ending, 15, captions, ai_label, credit, music)
-        return (VideoFromFile(str(out / f"honest_{tmp.name}_30s.mp4")), VideoFromFile(str(out / f"honest_{tmp.name}_15s.mp4")),
-                json.dumps({"reel_30s": r30, "cutdown_15s": r15}, indent=1))
+        full, short = out / f"{work.name}_reel.mp4", out / f"{work.name}_15s.mp4"
+        # the synth bed is for the free draft only: the main app (score connected) never falls back to it
+        receipt = core.finish(pl, full, short, score_path, music, allow_synth=not self._score_linked(prompt, unique_id))
+        return (VideoFromFile(str(full)), VideoFromFile(str(short)), json.dumps(receipt, indent=1))
 
 
 NODE_CLASS_MAPPINGS = {"HonestBrief": HonestBrief, "HonestLadder": HonestLadder, "HonestRung": HonestRung, "HonestWarp": HonestWarp,
-                       "HonestDraftWarp": HonestDraftWarp, "HonestBoard": HonestBoard, "HonestAssemble": HonestAssemble}
+                       "HonestDraftWarp": HonestDraftWarp, "HonestBoard": HonestBoard, "HonestAssemble": HonestAssemble,
+                       "HonestFinish": HonestFinish}
 NODE_DISPLAY_NAME_MAPPINGS = {"HonestBrief": "Honest Downgrade: Your Facts", "HonestLadder": "Honest Downgrade: Ladder Writer",
                               "HonestRung": "Honest Downgrade: Rung", "HonestWarp": "Honest Downgrade: Warp",
                               "HonestDraftWarp": "Honest Downgrade: Free Draft Warp", "HonestBoard": "Honest Downgrade: Board + Sign Check",
-                              "HonestAssemble": "Honest Downgrade: Assemble"}
+                              "HonestAssemble": "Honest Downgrade: Assemble (picture)",
+                              "HonestFinish": "Honest Downgrade: Music + Finish"}
